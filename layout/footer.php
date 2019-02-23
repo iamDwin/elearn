@@ -1,4 +1,12 @@
-      </div>
+<script>
+//$(document).ready(function() {
+    // show the alert
+    setTimeout(function() {
+        $(".alert").alert('close');
+    }, 5000);
+//});
+</script>
+</div>
 <!--
       <div class="footer">
         <div class="container">
@@ -49,15 +57,11 @@
 <!--                    <li class="list-inline-item"><a href="./faq.html">FAQ</a></li>-->
                   </ul>
                 </div>
-<!--
-                <div class="col-auto">
-                  <a href="https://github.com/tabler/tabler" class="btn btn-outline-primary btn-sm">Source code</a>
-                </div>
--->
+
               </div>
             </div>
             <div class="col-12 col-lg-auto mt-3 mt-lg-0 text-center">
-              Copyright © 2019 <a href=".">eLearning</a>. All rights reserved.
+              Copyright © 2019 <a href="">eLearning</a>. All rights reserved.
             </div>
           </div>
         </div>

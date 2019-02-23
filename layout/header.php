@@ -11,6 +11,7 @@ $dateToday = date("Y-m-d H:m:i");
 $faculty = new Faculty();
 $department = new Department();
 $student = new Student();
+$course = new Course();
 $lecturer = new Lecturer();
 $access = $_SESSION['access'];
 //$access = 'hod';
@@ -56,6 +57,7 @@ $access = $_SESSION['access'];
 <!--    <script src="./assets/plugins/maps-google/plugin.js"></script>-->
     <!-- Input Mask Plugin -->
     <script src="./assets/plugins/input-mask/plugin.js"></script>
+    <script src="./assets/js/jquery.min.js"></script>
   </head>
   <body class="">
     <div class="page">
@@ -85,12 +87,16 @@ $access = $_SESSION['access'];
                       <i class="dropdown-icon fe fe-mail"></i> Inbox
                     </a>
                     <div class="dropdown-divider"></div>
+<!--
                     <a class="dropdown-item" href="#">
                       <i class="dropdown-icon fe fe-help-circle"></i> Need help?
                     </a>
+-->
+                      <?php if($access == 'manager'){ ?>
                     <a class="dropdown-item" href="#">
                       <i class="dropdown-icon fe fe-database"></i> Back Up
                     </a>
+                      <?php }?>
                     <a class="dropdown-item" href="./logout">
                       <i class="dropdown-icon fe fe-log-out"></i> Sign out
                     </a>
@@ -157,19 +163,22 @@ $access = $_SESSION['access'];
               <div class="col-lg order-lg-first">
                 <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
                   <li class="nav-item">
-                    <a href="./dashboard" class="nav-link active"><i class="fe fe-home"></i> Home</a>
+                    <a href="./dashboard" class="nav-link <?php if($active == 'dashboard'){ echo 'active';}?>"><i class="fe fe-home"></i> Home</a>
                   </li>
                   <li class="nav-item">
-                    <a href="./dashboard" class="nav-link"><i class="fe fe-users"></i> Lecturers</a>
+                    <a href="./hlecturers" class="nav-link <?php if($active == 'hlecturers'){ echo 'active';}?>"><i class="fe fe-users"></i> Lecturers</a>
                   </li>
                   <li class="nav-item">
-                    <a href="./dashboard" class="nav-link"><i class="fe fe-layers"></i> Courses</a>
+                    <a href="./hstudents" class="nav-link <?php if($active == 'hstudents'){ echo 'active';}?>"><i class="fe fe-users"></i> Students</a>
                   </li>
                   <li class="nav-item">
-                    <a href="./dashboard" class="nav-link"><i class="fe fe-layers"></i><i class="fe fe-chevron-right"></i><i class="fe fe-users"></i> Assigments</a>
+                    <a href="./hcourses" class="nav-link <?php if($active == 'hcourses'){ echo 'active';}?>"><i class="fe fe-layers"></i> Courses</a>
                   </li>
                   <li class="nav-item">
-                    <a href="./dashboard" class="nav-link"><i class="fe fe-file-text"></i> Reports</a>
+                    <a href="./hassigns" class="nav-link <?php if($active == 'hassigns'){ echo 'active';}?>"><i class="fe fe-layers"></i><i class="fe fe-chevron-right"></i><i class="fe fe-users"></i> Course Management</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="./hreports" class="nav-link <?php if($active == 'hreports'){ echo 'active';}?>"><i class="fe fe-file-text"></i> Reports</a>
                   </li>
                 </ul>
               </div>
@@ -198,16 +207,16 @@ $access = $_SESSION['access'];
                     <a href="./dashboard" class="nav-link active"><i class="fe fe-home"></i> Home</a>
                   </li>
                   <li class="nav-item">
-                    <a href="./dashboard" class="nav-link"><i class="fe fe-layers"></i> Courses</a>
+                    <a href="./lcourses" class="nav-link"><i class="fe fe-layers"></i> Courses</a>
                   </li>
                   <li class="nav-item">
-                    <a href="./dashboard" class="nav-link"><i class="fe fe-users"></i> Students</a>
+                    <a href="./lstudents" class="nav-link"><i class="fe fe-users"></i> Students</a>
                   </li>
                   <li class="nav-item">
-                    <a href="./dashboard" class="nav-link"><i class="fe fe-file"></i> Tests</a>
+                    <a href="./ltests" class="nav-link"><i class="fe fe-file"></i> Tests</a>
                   </li>
                   <li class="nav-item">
-                    <a href="./dashboard" class="nav-link"><i class="fe fe-file-text"></i> Reports</a>
+                    <a href="./lreports" class="nav-link"><i class="fe fe-file-text"></i> Reports</a>
                   </li>
                 </ul>
               </div>
@@ -233,23 +242,23 @@ $access = $_SESSION['access'];
               <div class="col-lg order-lg-first">
                 <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
                   <li class="nav-item">
-                    <a href="./dashboard" class="nav-link active"><i class="fe fe-home"></i> Home</a>
+                    <a href="./dashboard" class="nav-link <?php if($active == 'dashboard'){ echo 'active';}?>"><i class="fe fe-home"></i> Home</a>
                   </li>
 
                   <li class="nav-item">
-                    <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-layers"></i> Courses</a>
+                    <a href="javascript:void(0)" class="nav-link <?php if($active == 'scourses'){ echo 'active';}?>" data-toggle="dropdown"><i class="fe fe-layers"></i> Courses</a>
                     <div class="dropdown-menu dropdown-menu-arrow">
-                      <a href="" class="dropdown-item ">Course 1</a>
-                      <a href="" class="dropdown-item ">Course 2</a>
-                      <a href="" class="dropdown-item ">Course 3</a>
-                      <a href="" class="dropdown-item ">Course 4</a>
+                      <a href="./scourses-det?cid=1" class="dropdown-item ">Course 1</a>
+                      <a href="./scourses-det?cid=2" class="dropdown-item ">Course 2</a>
+                      <a href="./scourses-det?cid=3" class="dropdown-item ">Course 3</a>
+                      <a href="./scourses-det?cid=4" class="dropdown-item ">Course 4</a>
                     </div>
                   </li>
                   <li class="nav-item">
-                    <a href="./dashboard" class="nav-link"><i class="fe fe-file"></i> Tests</a>
+                    <a href="./dashboard" class="nav-link<?php if($active == 'stests'){ echo 'active';}?>"><i class="fe fe-file"></i> Tests</a>
                   </li>
                   <li class="nav-item">
-                    <a href="./dashboard" class="nav-link"><i class="fe fe-file-text"></i> Reports</a>
+                    <a href="./dashboard" class="nav-link<?php if($active == 'sreports'){ echo 'active';}?>"><i class="fe fe-file-text"></i> Reports</a>
                   </li>
                 </ul>
               </div>

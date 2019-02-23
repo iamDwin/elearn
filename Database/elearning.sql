@@ -30,7 +30,6 @@ CREATE TABLE `courses`(
     `cID` varchar(50) not null PRIMARY KEY,
     `depID` varchar(50) not  null,
     `courseName` varchar(255) not null,
-    `CourseDetails` longtext null,
     `doe` datetime
 )engine = InnoDB;
 
@@ -56,6 +55,7 @@ CREATE TABLE `student`(
     `otherName` varchar(50) null,
     `email` varchar(50) not null,
     `phone` varchar(15) not null,
+    `school` varchar(20) not null,
     `doe` datetime
 )engine = InnoDB;
 

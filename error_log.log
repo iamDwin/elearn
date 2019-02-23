@@ -1,1 +1,14 @@
-[16-Feb-2019 17:57:14 Africa/Accra] PHP Notice:  Undefined variable: facID in X:\xammp\htdocs\Elearn\department.php on line 24
+[21-Feb-2019 12:22:39 Africa/Accra] PHP Notice:  Undefined index: email in X:\xammp\htdocs\elearn\layout\header.php on line 3
+[21-Feb-2019 12:22:39 Africa/Accra] PHP Notice:  Undefined index: password in X:\xammp\htdocs\elearn\layout\header.php on line 3
+[21-Feb-2019 12:22:39 Africa/Accra] PHP Notice:  Undefined index: access in X:\xammp\htdocs\elearn\layout\header.php on line 3
+[21-Feb-2019 12:22:39 Africa/Accra] PHP Notice:  Undefined index: access in X:\xammp\htdocs\elearn\layout\header.php on line 16
+[21-Feb-2019 12:22:39 Africa/Accra] PHP Notice:  Undefined variable: userDet in X:\xammp\htdocs\elearn\layout\header.php on line 77
+[21-Feb-2019 12:22:39 Africa/Accra] PHP Notice:  Undefined variable: userDet in X:\xammp\htdocs\elearn\layout\header.php on line 78
+[22-Feb-2019 19:24:30 Africa/Accra] PHP Notice:  Undefined variable: finddep in X:\xammp\htdocs\elearn\hstudents.php on line 104
+[22-Feb-2019 19:24:31 Africa/Accra] PHP Notice:  Undefined variable: finddep in X:\xammp\htdocs\elearn\hstudents.php on line 104
+[23-Feb-2019 08:36:21 Africa/Accra] PHP Notice:  Undefined index: email in X:\xammp\htdocs\elearn\layout\header.php on line 3
+[23-Feb-2019 08:36:21 Africa/Accra] PHP Notice:  Undefined index: password in X:\xammp\htdocs\elearn\layout\header.php on line 3
+[23-Feb-2019 08:36:21 Africa/Accra] PHP Notice:  Undefined index: access in X:\xammp\htdocs\elearn\layout\header.php on line 3
+[23-Feb-2019 08:36:21 Africa/Accra] PHP Notice:  Undefined index: access in X:\xammp\htdocs\elearn\layout\header.php on line 16
+[23-Feb-2019 08:36:21 Africa/Accra] PHP Notice:  Undefined variable: userDet in X:\xammp\htdocs\elearn\layout\header.php on line 77
+[23-Feb-2019 08:36:21 Africa/Accra] PHP Notice:  Undefined variable: userDet in X:\xammp\htdocs\elearn\layout\header.php on line 78

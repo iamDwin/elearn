@@ -64,7 +64,7 @@
     }
 
     public function find_by_facID($facID){
-      $result=query("SELECT * FROM department WHERE wardID='".$wardID."' ");
+      $result=query("SELECT * FROM department WHERE facID='$facID' ");
       return $result;
     }
 
@@ -94,8 +94,13 @@
         return $result;
     }
 
+    public function find_all_lec(){
+      $result=query("SELECT * FROM lecturer");
+      return $result;
+    }
+
     public function find_by_facID($facID){
-      $result=query("SELECT * FROM lecturer WHERE wardID='".$wardID."' ");
+      $result=query("SELECT * FROM lecturer WHERE facID='$facID' ");
       return $result;
     }
 
@@ -121,12 +126,47 @@
     }
 
     public function find_by_facID($facID){
-      $result=query("SELECT * FROM student WHERE wardID='".$wardID."' ");
+      $result=query("SELECT * FROM student WHERE facID='$facID' ");
+      return $result;
+    }
+
+    public function find_all_student(){
+      $result=query("SELECT * FROM student");
       return $result;
     }
 
     public function find_num_student(){
       $result=query("SELECT * FROM student");
+      $num = count($result);
+      return $num;
+    }
+
+  }
+
+  class Course{
+
+    public function addfac($cID,$depID,$courseName){
+      $result= insert("INSERT INTO courses(cID,depID,courseName) VALUES('$cID','$depID','$courseName') ");
+      return $result;
+    }
+
+    public function updateCourse($cID,$courseName){
+        $result = update("UPDATE courses SET courseName='$courseName' WHERE cID='$cID'");
+        return $result;
+    }
+
+    public function find_by_depID($depID){
+      $result=query("SELECT * FROM courses WHERE depID='$depID' ");
+      return $result;
+    }
+
+    public function find_all_courses(){
+      $result=query("SELECT * FROM courses");
+      return $result;
+    }
+
+    public function find_num_courses(){
+      $result=query("SELECT * FROM courses");
       $num = count($result);
       return $num;
     }

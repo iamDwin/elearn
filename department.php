@@ -3,9 +3,15 @@ $active = 'department';
 include 'layout/header.php';
 
 if(isset($_GET['dp'])){
-    $fc = $_GET['dp'];
-}else{
+    $dp = $_GET['dp'];
     $fc = '';
+    $dp = '';
+    $lc = '';
+}else{
+    $dp = '';
+    $fc = '';
+    $dp = '';
+    $lc = '';
 }
 
 $numdep = $department->find_num_dep();
@@ -34,25 +40,15 @@ if(isset($_POST['addDep'])){
 
 <div class="my-3 my-md-5">
     <div class="container">
+<!--
         <div class="page-header">
           <h1 class="page-title">
            <i class="fe fe-grid"></i>  Department
           </h1>
         </div>
+-->
         <div class="row">
             <div class="col-md-5">
-                <?php if($fc == 'false'){ ?>
-                    <div class="alert alert-icon alert-danger" role="alert">
-                        <button type="button" class="close" data-dismiss="alert"></button>
-                      <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> DEPARTMENT CREATION FAILED, TRY AGAIN.
-                    </div>
-                <?php } ?>
-                <?php if($fc == 'efalse'){ ?>
-                    <div class="alert alert-icon alert-danger" role="alert">
-                        <button type="button" class="close" data-dismiss="alert"></button>
-                      <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> DEPARTMENT NAME ALREADY EXIST.
-                    </div>
-                <?php } ?>
             <div class="card">
                 <div class="card-header">
                   <h3 class="card-title"><i class="fe fe-plus-square"></i> Create Department</h3>
@@ -86,19 +82,14 @@ if(isset($_POST['addDep'])){
                       <input type="text" name="departmentName" class="form-control" placeholder="Department Name" required />
                     </div>
                     <div class="form-footer">
-                      <button type="submit" name="addDep" class="btn btn-primary btn-block" <?php if(!$allfac){ echo 'disabled';}?> >SAVE DEPARTMENT</button>
+                      <button type="submit" name="addDep" class="btn btn-primary btn-block" <?php if(!$allfac){ echo 'disabled';}?> >SAVE DEPARTMENT <i class="fe fe-download"></i></button>
                     </div>
                   </form>
                 </div>
               </div>
             </div>
               <div class="col-md-7">
-                <?php if($fc == 'true'){ ?>
-                  <div class="alert alert-icon alert-success" role="alert">
-                      <button type="button" class="close" data-dismiss="alert"></button>
-                      <i class="fe fe-check mr-2" aria-hidden="true"></i> DEPARTMENT CREATED.
-                    </div>
-                <?php } ?>
+            <?php include 'alert.php'; ?>
                 <div class="card">
                   <div class="table-responsive">
                     <table id="example" class="table table-hover table-outline table-vcenter text-nowrap card-table datatable">
@@ -131,8 +122,8 @@ if(isset($_POST['addDep'])){
                             <div class="item-action dropdown">
                               <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
                               <div class="dropdown-menu dropdown-menu-right">
-                                <a href="./faculty?dp=<?php echo $deprow['depID'];?>" class="dropdown-item text-primary"><i class="dropdown-icon fe fe-edit"></i> Update </a>
-                                <a href="./delfac?dp=<?php echo $deprow['depID'];?>" class="dropdown-item text-danger"><i class="dropdown-icon fe fe-trash"></i> Delete </a>
+                                <a href="./#?dp=<?php echo $deprow['depID'];?>" class="dropdown-item text-primary"><i class="dropdown-icon fe fe-edit"></i> Update </a>
+                                <a href="./#?dp=<?php echo $deprow['depID'];?>" class="dropdown-item text-danger"><i class="dropdown-icon fe fe-trash"></i> Delete </a>
                               </div>
                             </div>
                           </td>
@@ -146,4 +137,12 @@ if(isset($_POST['addDep'])){
         </div>
     </div>
 </div>
+<script>
+//$(document).ready(function() {
+    // show the alert
+    setTimeout(function() {
+        $(".alert").alert('close');
+    }, 5000);
+//});
+</script>
 <?php include 'layout/footer.php'; ?>
