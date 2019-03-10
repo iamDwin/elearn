@@ -36,11 +36,13 @@ if(isset($_POST['updfac'])){
 
 <div class="my-3 my-md-5">
     <div class="container">
+<!--
         <div class="page-header">
           <h1 class="page-title">
             <i class="fe fe-list"></i> Faculty
           </h1>
         </div>
+-->
         <div class="row">
             <div class="col-sm-5">
             <div class="card">

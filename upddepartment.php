@@ -4,35 +4,22 @@ include 'layout/header.php';
 
 if(isset($_GET['dp'])){
     $dp = $_GET['dp'];
-    $fc = '';
-    $dp = '';
-    $lc = '';
-}else{
-    $dp = '';
-    $fc = '';
-    $dp = '';
-    $lc = '';
 }
 
-$numdep = $department->find_num_dep();
-$depNum = $numdep + 1;
-$depID =  "DEP-".sprintf('%06s',$depNum);
+$finddep = $department->find_by_facID($fid);
+if($finddep){
+    foreach($finddep as $deprow){}
+}
 
-if(isset($_POST['addDep'])){
-    $departmentID = trim(htmlentities($_POST['depID']));
+if(isset($_POST['updfac'])){
     $facultyID = trim(htmlentities($_POST['facID']));
-    $departmentName = trim(htmlentities($_POST['departmentName']));
+    $facultyName = trim(htmlentities($_POST['facultyName']));
 
-    $fexist = $department->find_by_depName($departmentName);
-    if($fexist){
-        echo "<script>window.location.href='./department?dp=efalse';</script>";
+    $udpdatefac = $faculty->updateFac($facultyID,$facultyName);
+    if($udpdatefac){
+        echo "<script>window.location.href='./faculty?fc=fup';</script>";
     }else{
-        $saveDep = $department->addDep($departmentID,$facultyID,$departmentName,$dateToday);
-        if($saveDep){
-            echo "<script>window.location.href='./department?dp=true';</script>";
-        }else{
-            $fc = 'false';
-        }
+        echo "<script>window.location.href='./faculty?fc=fupf';</script>";
     }
 }
 
@@ -43,21 +30,21 @@ if(isset($_POST['addDep'])){
 <!--
         <div class="page-header">
           <h1 class="page-title">
-           <i class="fe fe-grid"></i>  Department
+            <i class="fe fe-list"></i> Faculty
           </h1>
         </div>
 -->
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-sm-5">
             <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title"><i class="fe fe-plus-square"></i> Create Department</h3>
+                  <h3 class="card-title"><i class="fe fe-edit"></i> Update Department</h3>
                 </div>
                 <div class="card-body">
                   <form class="form" method="post" enctype="multipart/form-data" onsubmit="return confirm('SAVE DEPARTMENT ?');" >
                     <div class="form-group">
                       <label class="form-label"><i class="fe fe-hash"></i>  Department ID</label>
-                      <input type="text" name="depID" value="<?php echo $depID;?>" class="form-control" readonly/>
+                      <input type="text" name="depID" value="<?php echo $dp;?>" class="form-control" readonly/>
                     </div>
                     <div class="form-group">
                       <label class="form-label"><i class="fe fe-list"></i> Faculty Name</label>
@@ -88,24 +75,34 @@ if(isset($_POST['addDep'])){
                 </div>
               </div>
             </div>
-              <div class="col-md-7">
-            <?php include 'alert.php'; ?>
+              <div class="col-sm-7">
+                <?php if($success){ ?>
+                  <div class="alert alert-icon alert-success" role="alert">
+                      <button type="button" class="close" data-dismiss="alert"></button>
+                      <i class="fe fe-check mr-2" aria-hidden="true"></i> <?php echo $success; ?>
+                    </div>
+                <?php } if($error){ ?>
+                    <div class="alert alert-icon alert-danger" role="alert">
+                        <button type="button" class="close" data-dismiss="alert"></button>
+                      <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> <?php echo $error;?>
+                    </div>
+                <?php } ?>
                 <div class="card">
                   <div class="table-responsive">
-                    <table id="example" class="table table-hover table-outline table-vcenter text-nowrap card-table datatable">
+                    <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
                       <thead>
                         <tr>
-                          <th><i class="fe fe-hash"></i>  ID</th>
+                          <th><i class="fe fe-hash"></i> ID</th>
                           <th class="text-center"><i class="fe fe-grid"></i> DEPARTMENT NAME</th>
-                          <th class="text-center"><i class="fe fe-users"></i> NO. OF LEC</th>
-                          <th class="text-center"><i class="fa fa-cog"></i>  ACTION</th>
+                          <th class="text-center"><i class="fe fe-users"></i> NO. OF LEC.</th>
+                          <th class="text-center"><i class="fa fa-cog"></i> ACTION</th>
                         </tr>
                       </thead>
                       <tbody>
                           <?php
-                          $alldep = $department->find_all_dep();
-                          if($alldep){
-                              foreach($alldep as $deprow){
+                          $alldepfac = $department->find_by_facID($facrow['facID']);
+                          if($alldepfac){
+                              foreach($alldepfac as $deprow){
                           ?>
                         <tr>
                           <td>
@@ -128,7 +125,11 @@ if(isset($_POST['addDep'])){
                             </div>
                           </td>
                         </tr>
-                          <?php }}?>
+                          <?php }}else{ ?>
+                          <tr>
+                            <td colspan="4"> No Department For This Faculty.</td>
+                          </tr>
+                          <?php }?>
                       </tbody>
                     </table>
                   </div>

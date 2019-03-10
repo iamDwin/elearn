@@ -5,14 +5,16 @@ include 'layout/header.php';
 <?php if($access == 'manager'){ ?>
 <div class="my-3 my-md-5">
     <div class="container">
+<!--
         <div class="page-header">
           <h1 class="page-title">
             IT Manager Dashboard
           </h1>
         </div>
+-->
         <div class="row">
           <div class="col-sm-3">
-              <a href="./faculty" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
+              <a href="./mfaculty" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
                 <div class="card">
                   <div class="card-body text-center">
                     <div class="h5"><i class="fe fe-list"></i>  FACULTY</div>
@@ -22,7 +24,7 @@ include 'layout/header.php';
               </a>
           </div>
           <div class="col-sm-3">
-              <a href="./department" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
+              <a href="./mdepartment" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
                 <div class="card">
                   <div class="card-body text-center">
                     <div class="h5"><i class="fe fe-grid"></i>  DEPARTMENTS</div>
@@ -32,7 +34,7 @@ include 'layout/header.php';
               </a>
           </div>
           <div class="col-sm-3">
-              <a href="./lecturers" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
+              <a href="./mlecturers" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
                 <div class="card">
                   <div class="card-body text-center">
                     <div class="h5"><i class="fe fe-users"></i>  LECTURERS</div>
@@ -42,7 +44,7 @@ include 'layout/header.php';
               </a>
           </div>
           <div class="col-sm-3">
-              <a href="./students" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
+              <a href="./mstudents" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
                 <div class="card">
                   <div class="card-body text-center">
                     <div class="h5"><i class="fe fe-users"></i> STUDENTS</div>
@@ -52,16 +54,176 @@ include 'layout/header.php';
               </a>
           </div>
         </div>
+        <div class="row row-cards">
+            <div class="col-lg-6 col-xl-4">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Faculties : Departments</h3>
+                  </div>
+                  <div class="card-body">
+                    <div id="chart-bar-stacked" style="height: 16rem"></div>
+                  </div>
+                </div>
+                <script>
+                  require(['c3', 'jquery'], function(c3, $) {
+                  	$(document).ready(function(){
+                  		var chart = c3.generate({
+                  			bindto: '#chart-bar-stacked', // id of chart wrapper
+                  			data: {
+                  				columns: [
+                  				    // each columns data
+                  					['data1', 3, 1, 1],
+//                  					['data2', 7, 7, 5]
+                  				],
+                  				type: 'bar', // default type of chart
+                  				groups: [
+                  					[ 'data1']
+                  				],
+                  				colors: {
+                  					'data1': tabler.colors["blue"],
+//                  					'data2': tabler.colors["pink"]
+                  				},
+                  				names: {
+                  				    // name of each serie
+                  					'data1': 'Faculties',
+//                  					'data2': 'Departments'
+                  				}
+                  			},
+                  			axis: {
+                  				x: {
+                  					type: 'category',
+                  					// name of each category
+                  					categories: ['FESAC', 'FBA', 'FTM']
+                  				},
+                  			},
+                  			bar: {
+                  				width: 16
+                  			},
+                  			legend: {
+                                  show: true, //hide legend
+                  			},
+                  			padding: {
+                  				bottom: 0,
+                  				top: 0
+                  			},
+                  		});
+                  	});
+                  });
+                </script>
+              </div>
+              <div class="col-lg-6 col-xl-4">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Department : Lecturers</h3>
+                  </div>
+                  <div class="card-body">
+                    <div id="chart-pie" style="height: 16rem"></div>
+                  </div>
+                </div>
+                <script>
+                  require(['c3', 'jquery'], function(c3, $) {
+                  	$(document).ready(function(){
+                  		var chart = c3.generate({
+                  			bindto: '#chart-pie', // id of chart wrapper
+                  			data: {
+                  				columns: [
+                  				    // each columns data
+                  					['data1', 63],
+                  					['data2', 44],
+                  					['data3', 12],
+                  					['data4', 14]
+                  				],
+                  				type: 'pie', // default type of chart
+                  				colors: {
+                  					'data1': tabler.colors["blue-darker"],
+                  					'data2': tabler.colors["blue"],
+                  					'data3': tabler.colors["blue-light"],
+                  					'data4': tabler.colors["blue-lighter"]
+                  				},
+                  				names: {
+                  				    // name of each serie
+                  					'data1': 'A',
+                  					'data2': 'B',
+                  					'data3': 'C',
+                  					'data4': 'D'
+                  				}
+                  			},
+                  			axis: {
+                  			},
+                  			legend: {
+                                  show: false, //hide legend
+                  			},
+                  			padding: {
+                  				bottom: 0,
+                  				top: 0
+                  			},
+                  		});
+                  	});
+                  });
+                </script>
+              </div>
+              <div class="col-lg-6 col-xl-4">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Department : Students</h3>
+                  </div>
+                  <div class="card-body">
+                    <div id="chart-donut" style="height: 16rem"></div>
+                  </div>
+                </div>
+                <script>
+                  require(['c3', 'jquery'], function(c3, $) {
+                  	$(document).ready(function(){
+                  		var chart = c3.generate({
+                  			bindto: '#chart-donut', // id of chart wrapper
+                  			data: {
+                  				columns: [
+                  				    // each columns data
+                  					['data1', 63],
+                  					['data2', 37]
+                  				],
+                  				type: 'donut', // default type of chart
+                  				colors: {
+                  					'data1': tabler.colors["green"],
+                  					'data2': tabler.colors["green-light"]
+                  				},
+                  				names: {
+                  				    // name of each serie
+                  					'data1': 'Maximum',
+                  					'data2': 'Minimum'
+                  				}
+                  			},
+                  			axis: {
+                  			},
+                  			legend: {
+                                  show: false, //hide legend
+                  			},
+                  			padding: {
+                  				bottom: 0,
+                  				top: 0
+                  			},
+                  		});
+                  	});
+                  });
+                </script>
+              </div>
+        </div>
     </div>
 </div>
 <?php }?>
 
 <?php if($access == 'hod'){ ?>
+<?php
+    $fac = $faculty->find_by_facID($userDet['facID']);
+    foreach($fac as $facrow){}
+    $dep = $department->find_by_depID($userDet['depID']);
+    foreach($dep as $deprow){}
+?>
 <div class="my-3 my-md-5">
     <div class="container">
         <div class="page-header">
           <h1 class="page-title">
-            HOD Dashboard
+            HOD > <?php echo $facrow['facultyName']." > ".$deprow['departmentName'];?>
           </h1>
         </div>
 
@@ -71,7 +233,7 @@ include 'layout/header.php';
                 <div class="card">
                   <div class="card-body text-center">
                     <div class="h5"><i class="fe fe-users"></i>  LECTURERS</div>
-                    <div class="display-4 font-weight-bold mb-4"><?php echo $numLec = $lecturer->find_num_lec();?></div>
+                    <div class="display-4 font-weight-bold mb-4"><?php echo $numLec = $lecturer->find_num_lecdep($userDet['depID']);?></div>
                   </div>
                 </div>
               </a>
@@ -81,7 +243,7 @@ include 'layout/header.php';
                 <div class="card">
                   <div class="card-body text-center">
                     <div class="h5"><i class="fe fe-users"></i> STUDENTS</div>
-                    <div class="display-4 font-weight-bold mb-4"><?php echo $numStud = $student->find_num_student();?></div>
+                    <div class="display-4 font-weight-bold mb-4"><?php echo $numStud = $student->find_num_studentdep($userDet['depID']);?></div>
                   </div>
                 </div>
               </a>
@@ -91,7 +253,7 @@ include 'layout/header.php';
                 <div class="card">
                   <div class="card-body text-center">
                     <div class="h5"><i class="fe fe-layers"></i> COURSES</div>
-                    <div class="display-4 font-weight-bold mb-4"><?php echo $numStud = $student->find_num_student();?></div>
+                    <div class="display-4 font-weight-bold mb-4"><?php echo $numStud = $course->find_num_coursesdep($userDet['depID']);?></div>
                   </div>
                 </div>
               </a>

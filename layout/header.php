@@ -3,8 +3,18 @@ include 'assets/core/connection.php';
 if(!$_SESSION['email'] && !$_SESSION['password'] && !$_SESSION['access']){
     echo "<script>window.location.href='index'</script>";
 }else{
-    $getuser = select("SELECT * FROM users WHERE email='".$_SESSION['email']."'");
-    foreach($getuser as $userDet){}
+
+    if($_SESSION['access'] == 'manager'){
+            $getuser = select("SELECT * FROM users WHERE email='".$_SESSION['email']."'");
+            foreach($getuser as $userDet){}
+    }elseif($_SESSION['access'] == 'lecturer' || $_SESSION['access'] == 'hod' || $_SESSION['access'] == 'dean'){
+    $getuser = select("SELECT * FROM users,lecturer WHERE users.email='".$_SESSION['email']."' AND lecturer.email='".$_SESSION['email']."' ");
+        foreach($getuser as $userDet){}
+    }else{
+    $getuser = select("SELECT * FROM users,student WHERE users.email='".$_SESSION['email']."' AND student.email='".$_SESSION['email']."' ");
+        foreach($getuser as $userDet){}
+    }
+
 }
 
 $dateToday = date("Y-m-d H:m:i");
@@ -13,10 +23,10 @@ $department = new Department();
 $student = new Student();
 $course = new Course();
 $lecturer = new Lecturer();
+$user = new User();
 $access = $_SESSION['access'];
-//$access = 'hod';
-//$access = 'lecturer';
-//$access = 'student';
+$success = '';
+$error = '';
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">
@@ -38,8 +48,6 @@ $access = $_SESSION['access'];
     <title> eLearning</title>
     <link rel="stylesheet" href="./assets/css/font-awesome2.css">
         <!--   Core JS Files   -->
-<!--    <script src="./assets/js/jquery.dataTables.min.js"></script>-->
-<!--    <script src="./assets/js/dataTables.bootstrap.min.js"></script>-->
     <script src="./assets/js/require.min.js"></script>
     <script>
       requirejs.config({
@@ -49,15 +57,23 @@ $access = $_SESSION['access'];
     <!-- Dashboard Core -->
     <link href="./assets/css/dashboard.css" rel="stylesheet" />
     <script src="./assets/js/dashboard.js"></script>
+
     <!-- c3.js Charts Plugin -->
     <link href="./assets/plugins/charts-c3/plugin.css" rel="stylesheet" />
     <script src="./assets/plugins/charts-c3/plugin.js"></script>
     <!-- Google Maps Plugin -->
-<!--    <link href="./assets/plugins/maps-google/plugin.css" rel="stylesheet" />-->
-<!--    <script src="./assets/plugins/maps-google/plugin.js"></script>-->
+    <link href="./assets/plugins/maps-google/plugin.css" rel="stylesheet" />
+    <script src="./assets/plugins/maps-google/plugin.js"></script>
     <!-- Input Mask Plugin -->
     <script src="./assets/plugins/input-mask/plugin.js"></script>
-    <script src="./assets/js/jquery.min.js"></script>
+
+  <!-- DataTables -->
+<!--  <link rel="stylesheet" href="./bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">-->
+<style>
+    .text-white{
+        color: white;
+    }
+</style>
   </head>
   <body class="">
     <div class="page">
@@ -79,7 +95,7 @@ $access = $_SESSION['access'];
                     </span>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="./profile">
                       <i class="dropdown-icon fe fe-user"></i> Profile
                     </a>
                     <a class="dropdown-item" href="#">
@@ -129,16 +145,16 @@ $access = $_SESSION['access'];
                     <a href="./dashboard" class="nav-link <?php if($active == 'dashboard'){ echo 'active';}?>"><i class="fe fe-home"></i> Home</a>
                   </li>
                   <li class="nav-item">
-                    <a href="./faculty" class="nav-link <?php if($active == 'faculty'){ echo 'active';}?>"><i class="fe fe-list"></i> Faculty</a>
+                    <a href="./mfaculty" class="nav-link <?php if($active == 'faculty'){ echo 'active';}?>"><i class="fe fe-list"></i> Faculty</a>
                   </li>
                   <li class="nav-item">
-                    <a href="./department" class="nav-link <?php if($active == 'department'){ echo 'active';}?>"><i class="fe fe-grid"></i> Department</a>
+                    <a href="./mdepartment" class="nav-link <?php if($active == 'department'){ echo 'active';}?>"><i class="fe fe-grid"></i> Department</a>
                   </li>
                   <li class="nav-item">
-                    <a href="./lecturers" class="nav-link <?php if($active == 'lecturers'){ echo 'active';}?>"><i class="fe fe-users"></i> Lecturers</a>
+                    <a href="./mlecturers" class="nav-link <?php if($active == 'lecturers'){ echo 'active';}?>"><i class="fe fe-users"></i> Lecturers</a>
                   </li>
                   <li class="nav-item">
-                    <a href="./students" class="nav-link <?php if($active == 'students'){ echo 'active';}?>"><i class="fe fe-users"></i> Students</a>
+                    <a href="./mstudents" class="nav-link <?php if($active == 'students'){ echo 'active';}?>"><i class="fe fe-users"></i> Students</a>
                   </li>
                 </ul>
               </div>

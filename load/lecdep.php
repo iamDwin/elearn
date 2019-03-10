@@ -11,7 +11,7 @@ $finddep = select("SELECT * FROM department WHERE facID='$fid'");
 if($finddep){
 ?>
 <label class="form-label"><i class="fe fe-grid"></i> Department Name</label>
-<select name="facID" class="form-control" required>
+<select name="depID" class="form-control" required>
     <option></option>
     <?php
     foreach($finddep as $deprow){
@@ -21,5 +21,8 @@ if($finddep){
 </select>
 <?php }else{ ?>
 <label class="form-label"><i class="fe fe-grid"></i> Department Name</label>
-<input type="text" name="depID" class="form-control" value="NO DEPARTMENT EXIST" readonly disabled />
+<select name="depID" class="form-control" required>
+    <option></option>
+</select>
+<span class="text-danger">No Department Exist For This Faculty.</span>
 <?php }?>

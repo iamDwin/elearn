@@ -50,9 +50,11 @@ if(isset($_POST['addFac'])){
         <div class="row">
             <div class="col-sm-5">
             <div class="card">
+<!--
                 <div class="card-header">
                   <h3 class="card-title"><i class="fe fe-plus-square"></i> Create Faculty</h3>
                 </div>
+-->
                 <div class="card-body">
                   <form class="form" method="post" enctype="multipart/form-data" onsubmit="return confirm('SAVE FACULTY ?');" >
                     <div class="form-group">
@@ -64,7 +66,7 @@ if(isset($_POST['addFac'])){
                       <input type="text" name="facultyName" class="form-control" placeholder="Faculty Name"/>
                     </div>
                     <div class="form-footer">
-                      <button type="submit" name="addFac" class="btn btn-primary btn-block">SAVE FACULTY <i class="fe fe-download"></i></button>
+                      <button type="submit" name="addFac" class="btn btn-primary btn-block">CREATE FACULTY <i class="fe fe-download"></i></button>
                     </div>
                   </form>
                 </div>
@@ -93,7 +95,7 @@ if(isset($_POST['addFac'])){
                           <td>
                             <div><?php echo $facRow['facID'];?></div>
                             <div class="small text-muted">
-                              Created : <?php echo $facRow['doe'];?>
+<!--                              Created : <?php // echo $facRow['doe'];?>-->
                             </div>
                           </td>
                           <td class="text-center">

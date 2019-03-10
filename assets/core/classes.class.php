@@ -67,6 +67,10 @@
       $result=query("SELECT * FROM department WHERE facID='$facID' ");
       return $result;
     }
+    public function find_by_depID($depID){
+      $result=query("SELECT * FROM department WHERE depID='$depID' ");
+      return $result;
+    }
 
     public function find_num_dep(){
       $result=query("SELECT * FROM department");
@@ -84,18 +88,32 @@
 
   class Lecturer{
 
-    public function addfac($facID,$facultyName,$dateToday){
-      $result= insert("INSERT INTO lecturer(facID,facultyName,doe) VALUES('$facID','$facultyName','$dateToday') ");
+    public function addlec($lecID,$facID,$depID,$firstName,$lastName,$otherName,$email,$phone,$position,$dateToday){
+      $result= insert("INSERT INTO lecturer(lecID,facID,depID,firstName,lastName,otherName,email,phone,position,doe) VALUES('$lecID','$facID','$depID','$firstName','$lastName','$otherName','$email','$phone','$position','$dateToday') ");
       return $result;
     }
 
-    public function updateFac($facID,$facultyName){
+    public function updatelec($facID,$facultyName){
         $result = update("UPDATE lecturer SET facultyName='$facultyName' WHERE facID='$facID'");
         return $result;
     }
 
     public function find_all_lec(){
       $result=query("SELECT * FROM lecturer");
+      return $result;
+    }
+    public function find_all_lecdep($depID){
+      $result=query("SELECT * FROM lecturer WHERE depID='$depID'");
+      return $result;
+    }
+
+    public function checkphone($phone){
+      $result=query("SELECT * FROM lecturer WHERE phone='$phone'");
+      return $result;
+    }
+
+    public function checkmail($email){
+      $result=query("SELECT * FROM users WHERE email='$email'");
       return $result;
     }
 
@@ -110,13 +128,19 @@
       return $num;
     }
 
+    public function find_num_lecdep($depID){
+      $result=query("SELECT * FROM lecturer WHERE depID='$depID'");
+      $num = count($result);
+      return $num;
+    }
+
   }
 
 
   class Student{
 
-    public function addfac($facID,$facultyName,$dateToday){
-      $result= insert("INSERT INTO student(facID,facultyName,doe) VALUES('$facID','$facultyName','$dateToday') ");
+    public function addstudent($studentID,$depID,$firstName,$lastName,$otherName,$email,$phone,$school,$level,$dateToday){
+      $result= insert("INSERT INTO student(studentID,depID,firstName,lastName,otherName,email,phone,school,level,doe) VALUES('$studentID','$depID','$firstName','$lastName','$otherName','$email','$phone','$school','$level','$dateToday') ");
       return $result;
     }
 
@@ -130,6 +154,17 @@
       return $result;
     }
 
+
+    public function checkphone($phone){
+      $result=query("SELECT * FROM student WHERE phone='$phone'");
+      return $result;
+    }
+
+    public function checkmail($email){
+      $result=query("SELECT * FROM users WHERE email='$email'");
+      return $result;
+    }
+
     public function find_all_student(){
       $result=query("SELECT * FROM student");
       return $result;
@@ -137,6 +172,12 @@
 
     public function find_num_student(){
       $result=query("SELECT * FROM student");
+      $num = count($result);
+      return $num;
+    }
+
+    public function find_num_studentdep($depID){
+      $result=query("SELECT * FROM student WHERE depID='$depID'");
       $num = count($result);
       return $num;
     }
@@ -171,12 +212,18 @@
       return $num;
     }
 
+    public function find_num_coursesdep($depID){
+      $result=query("SELECT * FROM courses WHERE depID='$depID'");
+      $num = count($result);
+      return $num;
+    }
+
   }
 
   class User{
 
-    public function addUser($facID,$facultyName,$dateToday){
-      $result= insert("INSERT INTO users(facID,facultyName,doe) VALUES('$facID','$facultyName','$dateToday') ");
+    public function addUser($userID,$email,$password,$access,$flogin,$dateToday){
+      $result= insert("INSERT INTO users(userID,email,password,access,flogin,doe) VALUES('$userID','$email','$password','$access','$flogin','$dateToday') ");
       return $result;
     }
 

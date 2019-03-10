@@ -1,11 +1,5 @@
-<script>
-//$(document).ready(function() {
-    // show the alert
-    setTimeout(function() {
-        $(".alert").alert('close');
-    }, 5000);
-//});
-</script>
+
+
 </div>
 <!--
       <div class="footer">
@@ -66,6 +60,36 @@
           </div>
         </div>
       </footer>
-    </div>
+</div>
+<!-- jQuery 3 -->
+<!--<script src="./bower_components/jquery/dist/jquery.min.js"></script>-->
+<!-- Bootstrap 3.3.7 -->
+<!--<script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>-->
+<!-- DataTables -->
+<!--<script src="./bower_components/datatables.net/js/jquery.dataTables.min.js"></script>-->
+<!--<script src="./bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>-->
+<script>
+//$(document).ready(function() {
+    // show the alert
+    setTimeout(function() {
+        $(".alert").alert('close');
+    }, 8000);
+//});
+</script>
+<!--
+<script>
+  $(function () {
+    $('#example1').DataTable()
+    $('#example2').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : false,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : false
+    })
+  })
+</script>
+-->
   </body>
 </html>

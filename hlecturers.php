@@ -27,6 +27,7 @@ $lecID =  "LEC-".sprintf('%06s',$LecNum);
 <!--          <h1 class="page-title"> <i class="fe fe-users"></i>  Lecturers </h1>-->
 <!--        </div>-->
         <div class="row">
+<!--
             <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
@@ -93,24 +94,27 @@ $lecID =  "LEC-".sprintf('%06s',$LecNum);
                 </div>
               </div>
             </div>
+-->
 
 
-              <div class="col-md-6">
+              <div class="col-md-12">
                   <?php include 'alert.php'; ?>
                 <div class="card">
                   <div class="table-responsive">
+<!--                    <table id="example2" class="table table-bordered table-hover table-outline card-table table-vcenter">-->
                     <table id="example" class="table table-hover table-outline table-vcenter text-nowrap card-table datatable">
                       <thead>
                         <tr>
                           <th><i class="fe fe-hash"></i>  ID</th>
                           <th class="text-center"><i class="fe fe-grid"></i> FULL NAME</th>
-<!--                          <th class="text-center"><i class="fe fe-users"></i> NO. OF LEC</th>-->
+                          <th class="text-center"><i class="fe fe-mail"></i> EMAIL</th>
+                          <th class="text-center"><i class="fe fe-phone"></i> PHONE</th>
                           <th class="text-center"><i class="fa fa-cog"></i>  ACTION</th>
                         </tr>
                       </thead>
                       <tbody>
                           <?php
-                          $alllec = $lecturer->find_all_lec();
+                          $alllec = $lecturer->find_all_lecdep($userDet['depID']);
                           if($alllec){
                               foreach($alllec as $lecrow){
                           ?>
@@ -118,21 +122,18 @@ $lecID =  "LEC-".sprintf('%06s',$LecNum);
                           <td>
                             <div><?php echo $lecrow['lecID'];?></div>
                             <div class="small text-muted">
-                              Registered : <?php echo $lecrow['doe'];?>
+<!--                              Registered : <?php //echo $lecrow['doe'];?>-->
                             </div>
                           </td>
                           <td class="text-center">
                               <?php echo $lecrow['lastName']." ".$lecrow['firstName']." ".$lecrow['otherName'];?>
                           </td>
-<!--                          <td class="text-center"> <?php // echo $numDeplec = $department->find_num_deplec($deprow['depID']);?> </td>-->
+                          <td class="text-center"> <?php echo $lecrow['email']; ?> </td>
+                          <td class="text-center"> <?php echo $lecrow['phone']; ?> </td>
                           <td class="text-center">
-                            <div class="item-action dropdown">
-                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                              <div class="dropdown-menu dropdown-menu-right">
-                                <a href="./#?dp=<?php echo $lecrow['depID'];?>" class="dropdown-item text-primary"><i class="dropdown-icon fe fe-edit"></i> Update </a>
-                                <a href="./#?dp=<?php echo $lecrow['depID'];?>" class="dropdown-item text-danger"><i class="dropdown-icon fe fe-trash"></i> Delete </a>
-                              </div>
-                            </div>
+                              <a href="./#?lc=<?php echo $lecrow['depID'];?>" class="btn btn-primary btn-sm text-white">
+                                  <i class="fe fe-file-text"></i> Details
+                              </a>
                           </td>
                         </tr>
                           <?php }}else{?>
@@ -156,20 +157,5 @@ function facdep(val){
     $('#loader').html("");
    });
 }
-</script>
-
-<script>
-//    $(document).ready(function(){
-        var i=1;
-        $('#add4').click(function(){
-            i++;
-            $('#dynamic_field4').append('<tr id="row'+i+'"><td><select class="span" name="accountName[]" required><option value="OPD"> OPD </option><option value="CONSULTATION"> CONSULTATION </option><option value="LABORATORY"> LABORATORY </option><option value="WARD"> WARD </option><option value="PHARMACY"> PHARMACY </option></select></td><td><select class="span" name="accountType[]" required><option value="CREDIT"> CREDIT ACCOUNT </option></select></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');
-        });
-
-        $(document).on('click', '.btn_remove', function(){
-            var button_id = $(this).attr("id");
-            $('#row'+button_id+'').remove();
-        });
-//    });
 </script>
 <?php include 'layout/footer.php'; ?>

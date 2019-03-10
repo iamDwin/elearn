@@ -4,30 +4,29 @@ $user = new User();
 $success = '';
 $error = '';
 
-if(isset($_POST['signIn'])){
+if(isset($_GET['c'])){
+    $code = decode5t($_GET['c']);;
+}
+
+if(isset($_POST['changepass'])){
     $email = trim(htmlentities($_POST['email']));
     $password = trim(htmlentities($_POST['password']));
+    $cpassword = trim(htmlentities($_POST['cpassword']));
 
-    $signIn = $user->signin($email,$password);
-    if($signIn){
-        foreach($signIn as $signrow){
-            $flogin = $signrow['flogin'];
-            if($flogin == 1){
-                $password = encode5t($password);
-                echo "<script>alert('PASSWORD NEEDS TO BE CHANGED ON FIRST LOGIN.');window.location.href='changepassword?c=$password';</script>";
-            }elseif($flogin == 3){
-
+    $checkmail = $user->signin($email,$code);
+    if($checkmail){
+        if($password === $cpassword){
+            $updateuser = update("UPDATE users SET password='$password',flogin='2' WHERE email='$email'");
+            if($updateuser){
+                $success = "<script>alert('PASSWORD CHANGED, LOGIN NOW.!');window.location.href='./index';</script>";
             }else{
-                $_SESSION['email'] = $signrow['email'];
-                $_SESSION['password'] = $signrow['password'];
-                $_SESSION['access'] = $signrow['access'];
-                $success = "<script>document.write('Sign In Successful.');</script>";
-                echo "<script>window.location.href='dashboard';</script>";
+                $error = "<script>document.write('PASSWORDS CHANGE FAILED, TRY AGAIN');</script>";
             }
-
+        }else{
+            $error = "<script>document.write('PASSWORDS TO NOT MATCH, TRY AGAIN');</script>";
         }
     }else{
-        $error = "<script>document.write('Wrong Email And Password.');</script>";
+        $error = "<script>document.write('WRONG EMAIL, TRY AGAIN');</script>";
     }
 }
 ?>
@@ -49,7 +48,7 @@ if(isset($_POST['signIn'])){
     <link rel="icon" href="./favicon.ico" type="image/x-icon"/>
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
     <!-- Generated: 2018-04-16 09:29:05 +0200 -->
-    <title>eLearning Login </title>
+    <title>eLearning Change Password </title>
     <link rel="stylesheet" href="./assets/css/font-awesome2.css">
     <script src="./assets/js/require.min.js"></script>
     <script>
@@ -88,26 +87,31 @@ if(isset($_POST['signIn'])){
                     </div>
                 <?php } ?>
                   <div class="form-group">
-                    <label class="form-label"><i class="fe fe-mail"></i> Email Address</label>
-                    <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
+                    <label class="form-label">
+                      <i class="fe fe-mail"></i> Email
+                    </label>
+                    <input type="email" name="email" class="form-control" placeholder="Email" required>
                   </div>
                   <div class="form-group">
                     <label class="form-label">
-                      <i class="fe fe-lock"></i> Password
-                      <a href="./forgot-password" class="float-right small">I forgot password</a>
+                      <i class="fe fe-lock"></i> New Password
                     </label>
                     <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
                   </div>
-                  <div class="form-footer">
-                    <button type="submit" name="signIn" class="btn btn-primary btn-block">SIGN IN <i class="fe fe-chevrons-right"></i></button>
+                  <div class="form-group">
+                    <label class="form-label">
+                      <i class="fe fe-lock"></i> Confirm Password
+                    </label>
+                    <input type="password" name="cpassword" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
                   </div>
+                  <div class="form-footer">
+                    <button type="submit" name="changepass" class="btn btn-primary btn-block">SAVE NEW PASSWORD <i class="fe fe-download"></i></button>
+                  </div>
+                    <div class="text-center text-muted">
+                        <a href="./index">send me back</a> to the sign in screen.
+                      </div>
                 </div>
               </form>
-<!--
-              <div class="text-center text-muted">
-                Don't have account yet? <a href="./register.html">Sign up</a>
-              </div>
--->
             </div>
           </div>
         </div>
@@ -115,11 +119,3 @@ if(isset($_POST['signIn'])){
     </div>
   </body>
 </html>
-<script>
-//$(document).ready(function() {
-    // show the alert
-    setTimeout(function() {
-        $(".alert").alert('close');
-    }, 8000);
-//});
-</script>

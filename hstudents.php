@@ -29,6 +29,7 @@ $studID =  "PUC/19".sprintf('%04s',$stuNum);
         </div>
 -->
         <div class="row">
+<!--
             <div class="col-md-5">
             <div class="card">
                 <div class="card-header">
@@ -109,9 +110,8 @@ $studID =  "PUC/19".sprintf('%04s',$stuNum);
                 </div>
               </div>
             </div>
-
-
-              <div class="col-md-7">
+-->
+              <div class="col-md-12">
                   <?php include 'alert.php'; ?>
                 <div class="card">
                   <div class="table-responsive">
@@ -120,7 +120,8 @@ $studID =  "PUC/19".sprintf('%04s',$stuNum);
                         <tr>
                           <th><i class="fe fe-hash"></i>  ID</th>
                           <th class="text-center"><i class="fe fe-grid"></i> FULL NAME</th>
-<!--                          <th class="text-center"><i class="fe fe-users"></i> NO. OF LEC</th>-->
+                          <th class="text-center"><i class="fe fe-file"></i> SCHOOL</th>
+                          <th class="text-center"><i class="fe fe-bar-chart"></i> LEVEL</th>
                           <th class="text-center"><i class="fa fa-cog"></i>  ACTION</th>
                         </tr>
                       </thead>
@@ -131,24 +132,16 @@ $studID =  "PUC/19".sprintf('%04s',$stuNum);
                               foreach($allstu as $sturow){
                           ?>
                         <tr>
-                          <td>
-                            <div><?php echo $sturow['studentID'];?></div>
-                            <div class="small text-muted">
-                              Registered : <?php echo $lecrow['doe'];?>
-                            </div>
-                          </td>
+                          <td> <div><?php echo $sturow['studentID'];?></div> </td>
                           <td class="text-center">
                               <?php echo $sturow['lastName']." ".$sturow['firstName']." ".$sturow['otherName'];?>
                           </td>
-<!--                          <td class="text-center"> <?php // echo $numDeplec = $department->find_num_deplec($deprow['depID']);?> </td>-->
+                          <td class="text-center"> <?php echo $sturow['school']; ?> </td>
+                          <td class="text-center"> <?php echo $sturow['level']; ?> </td>
                           <td class="text-center">
-                            <div class="item-action dropdown">
-                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                              <div class="dropdown-menu dropdown-menu-right">
-                                <a href="./#?dp=<?php echo $sturow['studentID'];?>" class="dropdown-item text-primary"><i class="dropdown-icon fe fe-edit"></i> Update </a>
-                                <a href="./#?dp=<?php echo $sturow['studentID'];?>" class="dropdown-item text-danger"><i class="dropdown-icon fe fe-trash"></i> Delete </a>
-                              </div>
-                            </div>
+                                <a href="./#?st=<?php echo $sturow['studentID'];?>" class="btn btn-primary text-white btn-sm">
+                                    <i class="fe fe-file-text"></i> Details
+                                </a>
                           </td>
                         </tr>
                           <?php }}else{?>
