@@ -121,13 +121,9 @@ if(isset($_POST['addDep'])){
                           </td>
                           <td class="text-center"> <?php echo $numDeplec = $department->find_num_deplec($deprow['depID']);?> </td>
                           <td class="text-center">
-                            <div class="item-action dropdown">
-                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                              <div class="dropdown-menu dropdown-menu-right">
-                                <a href="./upddepartment?dp=<?php echo $deprow['depID'];?>" class="dropdown-item text-primary"><i class="dropdown-icon fe fe-edit"></i> Update </a>
-                                <a href="./#?dp=<?php echo $deprow['depID'];?>" class="dropdown-item text-danger"><i class="dropdown-icon fe fe-trash"></i> Delete </a>
-                              </div>
-                            </div>
+                              <a href="./upddepartment?dp=<?php echo $deprow['depID'];?>" class="btn btn-info btn-sm text-white"><i class="fe fe-file-text"></i> Details</a>
+                              ||
+                              <a onclick="return confirm('CONFIRM DELETE');" href="./#?dp=<?php echo $deprow['depID'];?>" class="btn btn-danger btn-sm text-white disabled"><i class="fe fe-trash"></i> Trash</a>
                           </td>
                         </tr>
                           <?php }}?>

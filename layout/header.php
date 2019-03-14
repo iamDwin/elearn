@@ -24,6 +24,7 @@ $student = new Student();
 $course = new Course();
 $lecturer = new Lecturer();
 $user = new User();
+$cmanage = new Cmanage();
 $access = $_SESSION['access'];
 $success = '';
 $error = '';
@@ -66,7 +67,7 @@ $error = '';
     <script src="./assets/plugins/maps-google/plugin.js"></script>
     <!-- Input Mask Plugin -->
     <script src="./assets/plugins/input-mask/plugin.js"></script>
-
+    <script src="./assets/js/jquery.min.js"></script>
   <!-- DataTables -->
 <!--  <link rel="stylesheet" href="./bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">-->
 <style>

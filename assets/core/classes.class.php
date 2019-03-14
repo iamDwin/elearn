@@ -48,8 +48,8 @@
       return $result;
     }
 
-    public function updateFac($facID,$facultyName){
-        $result = update("UPDATE department SET facultyName='$facultyName' WHERE facID='$facID'");
+    public function updatedep($depID,$facID,$departmentName){
+        $result = update("UPDATE department SET departmentName='$departmentName', facID='$facID' WHERE depID='$depID'");
         return $result;
     }
 
@@ -102,8 +102,14 @@
       $result=query("SELECT * FROM lecturer");
       return $result;
     }
+
     public function find_all_lecdep($depID){
       $result=query("SELECT * FROM lecturer WHERE depID='$depID'");
+      return $result;
+    }
+
+    public function find_by_lecID($lc){
+      $result=query("SELECT * FROM lecturer WHERE lecID='$lc'");
       return $result;
     }
 
@@ -149,8 +155,8 @@
         return $result;
     }
 
-    public function find_by_facID($facID){
-      $result=query("SELECT * FROM student WHERE facID='$facID' ");
+    public function find_by_id($st){
+      $result=query("SELECT * FROM student WHERE studentID='$st' ");
       return $result;
     }
 
@@ -184,10 +190,11 @@
 
   }
 
+
   class Course{
 
-    public function addfac($cID,$depID,$courseName){
-      $result= insert("INSERT INTO courses(cID,depID,courseName) VALUES('$cID','$depID','$courseName') ");
+    public function addcourse($cID,$depID,$courseName,$level,$semester,$doe){
+      $result= insert("INSERT INTO courses(cID,depID,courseName,level,semester,doe) VALUES('$cID','$depID','$courseName','$level','$semester','$doe') ");
       return $result;
     }
 
@@ -219,6 +226,47 @@
     }
 
   }
+
+
+
+  class Cmanage{
+
+    public function addcmanage($depID,$cID,$lecID,$doe){
+      $result= insert("INSERT INTO cmanagement(depID,cID,lecID,doe) VALUES('$depID','$cID','$lecID','$doe') ");
+      return $result;
+    }
+
+    public function updateCourse($cID,$courseName){
+        $result = update("UPDATE cmanagement SET courseName='$courseName' WHERE cID='$cID'");
+        return $result;
+    }
+
+    public function find_by_depID($depID){
+      $result=query("SELECT * FROM cmanagement WHERE depID='$depID' ");
+      return $result;
+    }
+
+    public function find_all_courses(){
+      $result=query("SELECT * FROM cmanagement");
+      return $result;
+    }
+
+    public function find_num_courses(){
+      $result=query("SELECT * FROM cmanagement");
+      $num = count($result);
+      return $num;
+    }
+
+    public function find_num_coursesdep($depID){
+      $result=query("SELECT * FROM cmanagement WHERE depID='$depID'");
+      $num = count($result);
+      return $num;
+    }
+
+  }
+
+
+
 
   class User{
 

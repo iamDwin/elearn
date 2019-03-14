@@ -1,8 +1,0 @@
-
-[03-Mar-2019 23:33:05 Africa/Accra] PHP Notice:  Undefined index: email in X:\xammp\htdocs\elearn\layout\header.php on line 3
-[03-Mar-2019 23:33:05 Africa/Accra] PHP Notice:  Undefined index: password in X:\xammp\htdocs\elearn\layout\header.php on line 3
-[03-Mar-2019 23:33:05 Africa/Accra] PHP Notice:  Undefined index: access in X:\xammp\htdocs\elearn\layout\header.php on line 3
-[03-Mar-2019 23:33:05 Africa/Accra] PHP Notice:  Undefined index: access in X:\xammp\htdocs\elearn\layout\header.php on line 17
-[03-Mar-2019 23:33:05 Africa/Accra] PHP Notice:  Undefined variable: userDet in X:\xammp\htdocs\elearn\layout\header.php on line 77
-[03-Mar-2019 23:33:05 Africa/Accra] PHP Notice:  Undefined variable: userDet in X:\xammp\htdocs\elearn\layout\header.php on line 78
-[03-Mar-2019 23:33:05 Africa/Accra] PHP Notice:  Undefined variable: lecrow in X:\xammp\htdocs\elearn\mstudents.php on line 190

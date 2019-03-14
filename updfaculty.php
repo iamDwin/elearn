@@ -76,7 +76,6 @@ if(isset($_POST['updfac'])){
                           <th><i class="fe fe-hash"></i> ID</th>
                           <th class="text-center"><i class="fe fe-grid"></i> DEPARTMENT NAME</th>
                           <th class="text-center"><i class="fe fe-users"></i> NO. OF LEC.</th>
-                          <th class="text-center"><i class="fa fa-cog"></i> ACTION</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -88,23 +87,11 @@ if(isset($_POST['updfac'])){
                         <tr>
                           <td>
                             <div><?php echo $deprow['depID'];?></div>
-                            <div class="small text-muted">
-                              Created : <?php echo $deprow['doe'];?>
-                            </div>
                           </td>
                           <td class="text-center">
                               <?php echo $deprow['departmentName'];?>
                           </td>
                           <td class="text-center"> <?php echo $numDeplec = $department->find_num_deplec($deprow['depID']);?> </td>
-                          <td class="text-center">
-                            <div class="item-action dropdown">
-                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                              <div class="dropdown-menu dropdown-menu-right">
-                                <a href="./#?dp=<?php echo $deprow['depID'];?>" class="dropdown-item text-primary"><i class="dropdown-icon fe fe-edit"></i> Update </a>
-                                <a href="./#?dp=<?php echo $deprow['depID'];?>" class="dropdown-item text-danger"><i class="dropdown-icon fe fe-trash"></i> Delete </a>
-                              </div>
-                            </div>
-                          </td>
                         </tr>
                           <?php }}else{ ?>
                           <tr>

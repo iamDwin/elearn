@@ -2,42 +2,46 @@
 $active = 'students';
 include 'layout/header.php';
 
-$numStu = $student->find_num_student();
-$stuNum = $numStu + 1;
-$studID =  "PUC/19".sprintf('%04s',$stuNum);
-
-if(isset($_POST['addStu'])){
-    $studentID = trim(htmlspecialchars($_POST['studentID']));
-    $firstName = trim(htmlspecialchars($_POST['firstName']));
-    $lastName = trim(htmlspecialchars($_POST['lastName']));
-    $otherName = trim(htmlspecialchars($_POST['otherName']));
-    $email = trim(htmlspecialchars($_POST['email']));
-    $phone = trim(htmlspecialchars($_POST['phone']));
-    $school = trim(htmlspecialchars($_POST['school']));
-    $level = trim(htmlspecialchars($_POST['level']));
-    $depID = trim(htmlspecialchars($_POST['depID']));
-    $position = trim(htmlspecialchars('student'));
-    $password = rand(8,122).rand(500,680).date('i');
-    $flogin = 1;
-
-    $chekPhone = $student->checkphone($phone);
-    if($chekPhone){
-        $error = "<script>document.write('PHONE NUMBER ALREADY USED.');</script>";
-    }else{
-        $chekmail = $student->checkmail($email);
-        if($chekmail){
-            $error = "<script>document.write('EMAIL ADDRESS ALREADY USED.');</script>";
-        }else{
-            $addLec = $student->addstudent($studentID,$depID,$firstName,$lastName,$otherName,$email,$phone,$school,$level,$dateToday);
-            $adduser = $user->addUser($studentID,$email,$password,$position,$flogin,$dateToday);
-            if($addLec && $adduser){
-                $success = "<script>document.write('STUDENT REGISTRATION SUCCESSFULL.');window.location.href='mstudents';</script>";
-            }else{
-                $error = "<script>document.write('STUDENT REGISTRATION FAILED, TRY AGAIN.');</script>";
-            }
-        }
-    }
+if(isset($_GET['st'])){
+    $st = $_GET['st'];
 }
+$findstudent = $student->find_by_id($st);
+if($findstudent){
+    foreach($findstudent as $strow){}
+}
+
+//if(isset($_POST['addStu'])){
+//    $studentID = trim(htmlspecialchars($_POST['studentID']));
+//    $firstName = trim(htmlspecialchars($_POST['firstName']));
+//    $lastName = trim(htmlspecialchars($_POST['lastName']));
+//    $otherName = trim(htmlspecialchars($_POST['otherName']));
+//    $email = trim(htmlspecialchars($_POST['email']));
+//    $phone = trim(htmlspecialchars($_POST['phone']));
+//    $school = trim(htmlspecialchars($_POST['school']));
+//    $level = trim(htmlspecialchars($_POST['level']));
+//    $depID = trim(htmlspecialchars($_POST['depID']));
+//    $position = trim(htmlspecialchars('student'));
+//    $password = rand(8,122).rand(500,680).date('i');
+//    $flogin = 1;
+//
+//    $chekPhone = $student->checkphone($phone);
+//    if($chekPhone){
+//        $error = "<script>document.write('PHONE NUMBER ALREADY USED.');</script>";
+//    }else{
+//        $chekmail = $student->checkmail($email);
+//        if($chekmail){
+//            $error = "<script>document.write('EMAIL ADDRESS ALREADY USED.');</script>";
+//        }else{
+//            $addLec = $student->addstudent($studentID,$depID,$firstName,$lastName,$otherName,$email,$phone,$school,$level,$dateToday);
+//            $adduser = $user->addUser($studentID,$email,$password,$position,$flogin,$dateToday);
+//            if($addLec && $adduser){
+//                $success = "<script>document.write('STUDENT REGISTRATION SUCCESSFULL.');window.location.href='mstudents';</script>";
+//            }else{
+//                $error = "<script>document.write('STUDENT REGISTRATION FAILED, TRY AGAIN.');</script>";
+//            }
+//        }
+//    }
+//}
 
 ?>
 
@@ -64,7 +68,7 @@ if(isset($_POST['addStu'])){
                           <div class="form-group">
                             <div class="input-icon">
                                 <span class="input-icon-addon"><i class="fe fe-hash"></i><span class="form-required">*</span></span>
-                                <input type="text" name="studentID" class="form-control" value="<?php echo $studID;?>" placeholder="Lecturer ID" readonly>
+            <input type="text" name="studentID" class="form-control" value="<?php echo $strow['studentID'];?>" readonly>
                             </div>
                           </div>
                           </div>
@@ -72,7 +76,7 @@ if(isset($_POST['addStu'])){
                           <div class="form-group">
                         <div class="input-icon">
                             <span class="input-icon-addon"><i class="fe fe-user"></i><span class="form-required">*</span></span>
-                            <input type="text" name="firstName" class="form-control" placeholder="First Name" required >
+                            <input type="text" name="firstName" class="form-control" value="<?php echo $strow['firstName'];?>" required >
                         </div>
                       </div>
                           </div>
@@ -82,7 +86,7 @@ if(isset($_POST['addStu'])){
                           <div class="form-group">
                         <div class="input-icon">
                             <span class="input-icon-addon"><i class="fe fe-user"></i><span class="form-required">*</span></span>
-                            <input type="text" name="lastName" class="form-control" placeholder="Last Name" required >
+                            <input type="text" name="lastName" class="form-control" value="<?php echo $strow['lastName'];?>" required >
                         </div>
                       </div>
                           </div>
@@ -90,7 +94,7 @@ if(isset($_POST['addStu'])){
                           <div class="form-group">
                         <div class="input-icon">
                             <span class="input-icon-addon"><i class="fe fe-user"></i></span>
-                            <input type="text" name="otherName" class="form-control" placeholder="Other Name">
+                            <input type="text" name="otherName" class="form-control" value="<?php echo $strow['otherName'];?>">
                         </div>
                       </div>
                           </div>
@@ -99,7 +103,7 @@ if(isset($_POST['addStu'])){
                       <div class="form-group">
                         <div class="input-icon">
                             <span class="input-icon-addon"><i class="fe fe-mail"></i><span class="form-required">*</span></span>
-                            <input type="email" name="email" class="form-control" placeholder="Valid Email" required>
+                        <input type="email" name="email" class="form-control" value="<?php echo $strow['email'];?>" required>
                         </div>
                       </div>
                       <div class="row">
@@ -107,7 +111,7 @@ if(isset($_POST['addStu'])){
                           <div class="form-group">
                             <div class="input-icon">
                                 <span class="input-icon-addon"><i class="fe fe-phone"></i><span class="form-required">*</span></span>
-                                <input type="tel" name="phone" class="form-control" placeholder="Active Phone" required>
+                                <input type="tel" name="phone" class="form-control" value="<?php echo $strow['phone'];?>" required>
                             </div>
                           </div>
                         </div>
@@ -117,7 +121,7 @@ if(isset($_POST['addStu'])){
                                 <div class="input-icon">
                                     <span class="input-icon-addon"><i class="fe fe-bar-chart"></i><span class="form-required">*</span></span>
                                     <select class="form-control" name="level">
-                                        <option> -- Select Level --</option>
+                                        <option value="<?php echo $strow['level'];?>"> <?php echo $strow['level'];?></option>
                                         <option value="100"> 100 </option>
                                         <option value="200"> 200 </option>
                                         <option value="300"> 300 </option>
@@ -134,7 +138,7 @@ if(isset($_POST['addStu'])){
                               <label class="form-label"><i class="fe fe-folder"></i> School<span class="form-required">*</span></label>
                                 <div class="input-icon">
                                     <select class="form-control" name="school" required>
-                                        <option></option>
+                                        <option value="<?php echo $strow['school'];?>"><?php echo $strow['school'];?></option>
                                         <option value="Regular"> Regular</option>
                                         <option value="Evening"> Evening</option>
                                         <option value="Weekend"> Weekend</option>
@@ -189,45 +193,6 @@ if(isset($_POST['addStu'])){
                         </div>
                     <?php } ?>
                 <div class="card">
-                  <div class="table-responsive">
-                    <table id="example" class="table table-hover table-outline table-vcenter text-nowrap card-table datatable">
-                      <thead>
-                        <tr>
-                          <th><i class="fe fe-hash"></i>  ID</th>
-                          <th class="text-center"><i class="fe fe-grid"></i> FULL NAME</th>
-                          <th class="text-center"><i class="fa fa-cog"></i>  ACTION</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                          <?php
-                          $allstu = $student->find_all_student();
-                          if($allstu){
-                              foreach($allstu as $sturow){
-                          ?>
-                        <tr>
-                          <td>
-                            <div><?php echo $sturow['studentID'];?></div>
-                          </td>
-                          <td class="text-center">
-                              <?php echo $sturow['lastName']." ".$sturow['firstName']." ".$sturow['otherName'];?>
-                          </td>
-                          <td class="text-center">
-
-                              <a href="./upstudent?st=<?php echo $sturow['studentID'];?>" class="btn btn-info btn-sm text-white"><i class="fe fe-file-text"></i> Details</a>
-<!--
-                              ||
-                              <a onclick="return confirm('CONFIRM DELETE');" href="./#?st=<?php echo $sturow['studentID'];?>" class="btn btn-danger btn-sm text-white disabled"><i class="fe fe-trash"></i> Trash</a>
--->
-                          </td>
-                        </tr>
-                          <?php }}else{?>
-                          <tr>
-                            <td colspan="3"> No <i class="fe fe-users"></i> Student Registered.</td>
-                          </tr>
-                          <?php }?>
-                      </tbody>
-                    </table>
-                  </div>
                 </div>
               </div>
         </div>

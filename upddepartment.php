@@ -6,20 +6,28 @@ if(isset($_GET['dp'])){
     $dp = $_GET['dp'];
 }
 
-$finddep = $department->find_by_facID($fid);
+$finddep = $department->find_by_depID($dp);
 if($finddep){
-    foreach($finddep as $deprow){}
+    foreach($finddep as $deprow){
+        $fecthfac = select("SELECT * FROM faculty WHERE facID='".$deprow['facID']."'");
+        if($fecthfac){
+            foreach($fecthfac as $frow){}
+        }else{
+            echo "no faculty";
+        }
+    }
 }
 
-if(isset($_POST['updfac'])){
-    $facultyID = trim(htmlentities($_POST['facID']));
-    $facultyName = trim(htmlentities($_POST['facultyName']));
+if(isset($_POST['updateDep'])){
+    $depID = trim(htmlentities($_POST['depID']));
+    $facID = trim(htmlentities($_POST['facID']));
+    $departmentName = trim(htmlentities($_POST['departmentName']));
 
-    $udpdatefac = $faculty->updateFac($facultyID,$facultyName);
-    if($udpdatefac){
-        echo "<script>window.location.href='./faculty?fc=fup';</script>";
+    $udpdatedep = $department->updatedep($depID,$facID,$departmentName);
+    if($udpdatedep){
+        $success = "<script>document.write('UPDATE SUCCESSFULL.');window.location.href='./mdepartment';</script>";
     }else{
-        echo "<script>window.location.href='./faculty?fc=fupf';</script>";
+        $error = "<script>document.write('UPDATE FAILED.!');</script>";
     }
 }
 
@@ -41,7 +49,7 @@ if(isset($_POST['updfac'])){
                   <h3 class="card-title"><i class="fe fe-edit"></i> Update Department</h3>
                 </div>
                 <div class="card-body">
-                  <form class="form" method="post" enctype="multipart/form-data" onsubmit="return confirm('SAVE DEPARTMENT ?');" >
+                  <form class="form" method="post" enctype="multipart/form-data" onsubmit="return confirm('CONFIRM UPDATE.!');" >
                     <div class="form-group">
                       <label class="form-label"><i class="fe fe-hash"></i>  Department ID</label>
                       <input type="text" name="depID" value="<?php echo $dp;?>" class="form-control" readonly/>
@@ -53,7 +61,7 @@ if(isset($_POST['updfac'])){
                         if($allfac){
                         ?>
                         <select name="facID" class="form-control" required>
-                            <option></option>
+                            <option value="<?php echo $frow['facID'];?>"><?php echo $frow['facultyName'];?></option>
                             <?php
                             foreach($allfac as $facrow){
                             ?>
@@ -66,10 +74,10 @@ if(isset($_POST['updfac'])){
                     </div>
                     <div class="form-group">
                       <label class="form-label"><i class="fe fe-grid"></i> Department Name</label>
-                      <input type="text" name="departmentName" class="form-control" placeholder="Department Name" required />
+                      <input type="text" name="departmentName" value="<?php echo $deprow['departmentName'];?>" class="form-control" placeholder="Department Name" required />
                     </div>
                     <div class="form-footer">
-                      <button type="submit" name="addDep" class="btn btn-primary btn-block" <?php if(!$allfac){ echo 'disabled';}?> >SAVE DEPARTMENT <i class="fe fe-download"></i></button>
+                      <button type="submit" name="updateDep" class="btn btn-primary btn-block" <?php if(!$allfac){ echo 'disabled';}?> >UPDATE DEPARTMENT <i class="fe fe-download"></i></button>
                     </div>
                   </form>
                 </div>
@@ -89,47 +97,33 @@ if(isset($_POST['updfac'])){
                 <?php } ?>
                 <div class="card">
                   <div class="table-responsive">
-                    <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+                    <table id="example" class="table table-hover table-outline table-vcenter text-nowrap card-table datatable">
                       <thead>
                         <tr>
-                          <th><i class="fe fe-hash"></i> ID</th>
+                          <th><i class="fe fe-hash"></i>  ID</th>
                           <th class="text-center"><i class="fe fe-grid"></i> DEPARTMENT NAME</th>
-                          <th class="text-center"><i class="fe fe-users"></i> NO. OF LEC.</th>
-                          <th class="text-center"><i class="fa fa-cog"></i> ACTION</th>
+                          <th class="text-center"><i class="fe fe-users"></i> NO. OF LEC</th>
                         </tr>
                       </thead>
                       <tbody>
                           <?php
-                          $alldepfac = $department->find_by_facID($facrow['facID']);
-                          if($alldepfac){
-                              foreach($alldepfac as $deprow){
+                          $alldep = $department->find_all_dep();
+                          if($alldep){
+                              foreach($alldep as $deprow){
                           ?>
                         <tr>
                           <td>
                             <div><?php echo $deprow['depID'];?></div>
                             <div class="small text-muted">
-                              Created : <?php echo $deprow['doe'];?>
+<!--                              Created : <?php // echo $deprow['doe'];?>-->
                             </div>
                           </td>
                           <td class="text-center">
                               <?php echo $deprow['departmentName'];?>
                           </td>
                           <td class="text-center"> <?php echo $numDeplec = $department->find_num_deplec($deprow['depID']);?> </td>
-                          <td class="text-center">
-                            <div class="item-action dropdown">
-                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                              <div class="dropdown-menu dropdown-menu-right">
-                                <a href="./#?dp=<?php echo $deprow['depID'];?>" class="dropdown-item text-primary"><i class="dropdown-icon fe fe-edit"></i> Update </a>
-                                <a href="./#?dp=<?php echo $deprow['depID'];?>" class="dropdown-item text-danger"><i class="dropdown-icon fe fe-trash"></i> Delete </a>
-                              </div>
-                            </div>
-                          </td>
                         </tr>
-                          <?php }}else{ ?>
-                          <tr>
-                            <td colspan="4"> No Department For This Faculty.</td>
-                          </tr>
-                          <?php }?>
+                          <?php }}?>
                       </tbody>
                     </table>
                   </div>

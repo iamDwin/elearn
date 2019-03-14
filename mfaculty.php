@@ -103,13 +103,9 @@ if(isset($_POST['addFac'])){
                           </td>
                           <td class="text-center"> <?php echo $numfacDep = $faculty->find_num_facdep($facRow['facID']);?> </td>
                           <td class="text-center">
-                            <div class="item-action dropdown">
-                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                              <div class="dropdown-menu dropdown-menu-right">
-                                <a href="./updfaculty?fid=<?php echo $facRow['facID'];?>" class="dropdown-item text-primary"><i class="dropdown-icon fe fe-edit"></i> Update </a>
-                                <a onclick="return confirm('CONFIRM DELETE');" href="./delfaculty?fid=<?php echo $facRow['facID'];?>" class="dropdown-item text-danger"><i class="dropdown-icon fe fe-trash"></i> Delete </a>
-                              </div>
-                            </div>
+                              <a href="./updfaculty?fid=<?php echo $facRow['facID'];?>" class="btn btn-info btn-sm text-white"><i class="fe fe-file-text"></i> Details</a>
+                              ||
+                              <a onclick="return confirm('CONFIRM DELETE');" href="./delfaculty?fid=<?php echo $facRow['facID'];?>" class="btn btn-danger btn-sm text-white disabled"><i class="fe fe-trash"></i> Trash</a>
                           </td>
                         </tr>
                           <?php }}?>

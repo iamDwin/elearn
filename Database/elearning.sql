@@ -30,6 +30,8 @@ CREATE TABLE `courses`(
     `cID` varchar(50) not null PRIMARY KEY,
     `depID` varchar(50) not  null,
     `courseName` varchar(255) not null,
+    `level` int(10) not null,
+    `semester` int(10) not null,
     `doe` datetime
 )engine = InnoDB;
 
@@ -66,5 +68,12 @@ CREATE TABLE `users`(
     `password` varchar(50) not null,
     `access` varchar(50) not null,
     `flogin` varchar(50) not null,
+    `doe` datetime
+)engine = InnoDB;
+
+CREATE TABLE `cmanagement`(
+    `assignID` int(255) not null primary key auto_increment,
+    `cID` varchar(50) not null,
+    `lecID` varchar(50) not null,
     `doe` datetime
 )engine = InnoDB;
