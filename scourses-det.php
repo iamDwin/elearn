@@ -1,6 +1,16 @@
 <?php
 $active = 'scourses';
 include 'layout/header.php';
+
+if(isset($_GET['cid'])){
+    $cid = $_GET['cid'];
+}
+
+//get course details..
+$cdet = select("SELECT * FROM courses WHERE cID='$cid'");
+if($cdet){
+    foreach($cdet as $crow){}
+}
 ?>
 <style>
 /* width */
@@ -23,28 +33,15 @@ include 'layout/header.php';
   background: #555;
 }
 </style>
+
 <div class="my-3 my-md-5">
     <div class="container">
         <div class="page-header">
           <h1 class="page-title">
-            Database Administration
+            <?php echo $crow['courseName'];?>
           </h1>
         </div>
         <div class="row">
-<!--
-            <a href="./scourses-det?cid=1">
-            <div class="col-sm-6 col-xl-4">
-                <div class="card">
-                  <a href="./scourses-det?cid=1">
-                      <img class="card-img-top" src="./demo/photos/david-klaasen-54203-500.jpg" alt="Courses Name">
-                    </a>
-                  <div class="card-body d-flex flex-column">
-                    <h4><a href="./scourses-det?cid=1"></a></h4>
-                  </div>
-                </div>
-              </div>
-            </a>
--->
 
               <div class="col-sm-6 col-xl-4">
                 <div class="card p-3">
@@ -54,7 +51,6 @@ include 'layout/header.php';
                     </span>
                     <div>
                       <h4 class="m-0"> Lecturer Name</h4>
-<!--                      <small class="text-muted">32 shipped</small>-->
                     </div>
                   </div>
                 </div>

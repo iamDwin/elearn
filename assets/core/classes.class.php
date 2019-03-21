@@ -93,8 +93,8 @@
       return $result;
     }
 
-    public function updatelec($facID,$facultyName){
-        $result = update("UPDATE lecturer SET facultyName='$facultyName' WHERE facID='$facID'");
+    public function updatelec($lecID,$facID,$depID,$firstName,$lastName,$otherName,$email,$phone,$position){
+        $result = update("UPDATE lecturer SET facID='$facID', depID='$depID', firstName='$firstName', lastName='$lastName', otherName='$otherName', email='$email', phone='$phone', position='$position' WHERE lecID='$lecID'");
         return $result;
     }
 
@@ -150,8 +150,8 @@
       return $result;
     }
 
-    public function updateFac($facID,$facultyName){
-        $result = update("UPDATE student SET facultyName='$facultyName' WHERE facID='$facID'");
+    public function updateStudent($studentID,$depID,$firstName,$lastName,$otherName,$email,$phone,$school,$level){
+        $result = update("UPDATE student SET depID='$depID', firstName='$firstName', lastName='$lastName', otherName='$otherName', email='$email', phone='$phone', school='$school', level='$level' WHERE studentID='$studentID'");
         return $result;
     }
 
@@ -182,6 +182,11 @@
       return $num;
     }
 
+    public function find_studentdep($depID){
+      $result=query("SELECT * FROM student WHERE depID='$depID'");
+      return $result;
+    }
+
     public function find_num_studentdep($depID){
       $result=query("SELECT * FROM student WHERE depID='$depID'");
       $num = count($result);
@@ -198,8 +203,8 @@
       return $result;
     }
 
-    public function updateCourse($cID,$courseName){
-        $result = update("UPDATE courses SET courseName='$courseName' WHERE cID='$cID'");
+    public function updateCourse($cID,$courseName,$semester,$level){
+        $result = update("UPDATE courses SET courseName='$courseName', level='$level', semester='$semester' WHERE cID='$cID'");
         return $result;
     }
 
@@ -210,6 +215,11 @@
 
     public function find_all_courses(){
       $result=query("SELECT * FROM courses");
+      return $result;
+    }
+
+    public function find_by_cID($cid){
+      $result=query("SELECT * FROM courses WHERE cID='$cid'");
       return $result;
     }
 
@@ -236,13 +246,18 @@
       return $result;
     }
 
-    public function updateCourse($cID,$courseName){
-        $result = update("UPDATE cmanagement SET courseName='$courseName' WHERE cID='$cID'");
+    public function updatecmanage($assignID,$lecID){
+        $result = update("UPDATE cmanagement SET lecID='$lecID' WHERE assignID='$assignID'");
         return $result;
     }
 
     public function find_by_depID($depID){
       $result=query("SELECT * FROM cmanagement WHERE depID='$depID' ");
+      return $result;
+    }
+
+    public function find_by_id($cm){
+      $result=query("SELECT * FROM cmanagement WHERE assignID='$cm' ");
       return $result;
     }
 

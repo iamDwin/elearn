@@ -221,19 +221,19 @@ $error = '';
               <div class="col-lg order-lg-first">
                 <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
                   <li class="nav-item">
-                    <a href="./dashboard" class="nav-link active"><i class="fe fe-home"></i> Home</a>
+                    <a href="./dashboard" class="nav-link  <?php if($active == 'dashboard'){ echo 'active';}?>"><i class="fe fe-home"></i> Home</a>
                   </li>
                   <li class="nav-item">
-                    <a href="./lcourses" class="nav-link"><i class="fe fe-layers"></i> Courses</a>
+                    <a href="./lcourses" class="nav-link <?php if($active == 'lcourses'){ echo 'active';}?>"><i class="fe fe-layers"></i> Courses</a>
                   </li>
                   <li class="nav-item">
-                    <a href="./lstudents" class="nav-link"><i class="fe fe-users"></i> Students</a>
+                    <a href="./lstudents" class="nav-link <?php if($active == 'lstudents'){ echo 'active';}?>"><i class="fe fe-users"></i> Students</a>
                   </li>
                   <li class="nav-item">
-                    <a href="./ltests" class="nav-link"><i class="fe fe-file"></i> Tests</a>
+                    <a href="./ltests" class="nav-link <?php if($active == 'ltests'){ echo 'active';}?>"><i class="fe fe-file"></i> Tests</a>
                   </li>
                   <li class="nav-item">
-                    <a href="./lreports" class="nav-link"><i class="fe fe-file-text"></i> Reports</a>
+                    <a href="./lreports" class="nav-link <?php if($active == 'lreports'){ echo 'active';}?>"><i class="fe fe-file-text"></i> Reports</a>
                   </li>
                 </ul>
               </div>
@@ -265,10 +265,15 @@ $error = '';
                   <li class="nav-item">
                     <a href="javascript:void(0)" class="nav-link <?php if($active == 'scourses'){ echo 'active';}?>" data-toggle="dropdown"><i class="fe fe-layers"></i> Courses</a>
                     <div class="dropdown-menu dropdown-menu-arrow">
-                      <a href="./scourses-det?cid=1" class="dropdown-item ">Course 1</a>
-                      <a href="./scourses-det?cid=2" class="dropdown-item ">Course 2</a>
-                      <a href="./scourses-det?cid=3" class="dropdown-item ">Course 3</a>
-                      <a href="./scourses-det?cid=4" class="dropdown-item ">Course 4</a>
+                        <?php
+
+                        //get courses for level and department.
+                        $getcourse = select("SELECT * FROM courses WHERE depID='".$userDet['depID']."' AND level='".$userDet['level']."'");
+                        if($getcourse){
+                            foreach($getcourse as $allcourserow){
+                        ?>
+              <a href="./scourses-det?cid=<?php echo $allcourserow['cID'];?>" class="dropdown-item "><?php echo $allcourserow['courseName'];?></a>
+                        <?php }}?>
                     </div>
                   </li>
                   <li class="nav-item">

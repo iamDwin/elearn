@@ -4,14 +4,6 @@ include 'layout/header.php';
 
 if(isset($_GET['dp'])){
     $dp = $_GET['dp'];
-    $fc = '';
-    $dp = '';
-    $lc = '';
-}else{
-    $dp = '';
-    $fc = '';
-    $dp = '';
-    $lc = '';
 }
 
 $numdep = $department->find_num_dep();
@@ -25,13 +17,13 @@ if(isset($_POST['addDep'])){
 
     $fexist = $department->find_by_depName($departmentName);
     if($fexist){
-        echo "<script>window.location.href='./department?dp=efalse';</script>";
+        $error = "<script>document.write('DEPARTMENT ALREADY EXISTS..!');</script>";
     }else{
         $saveDep = $department->addDep($departmentID,$facultyID,$departmentName,$dateToday);
         if($saveDep){
-            echo "<script>window.location.href='./department?dp=true';</script>";
+            $success = "<script>document.write('DEPARTMENT CREATED SUCCESSFUL..!');window.location.href='./mdepartment';</script>";
         }else{
-            $fc = 'false';
+            $error = "<script>document.write('FAILED TO CREATE DEPARTMENT, TRY AGAIN..!');</script>";
         }
     }
 }
@@ -91,7 +83,17 @@ if(isset($_POST['addDep'])){
               </div>
             </div>
               <div class="col-md-7">
-            <?php include 'alert.php'; ?>
+            <?php if($success){ ?>
+                  <div class="alert alert-icon alert-success" role="alert">
+                      <button type="button" class="close" data-dismiss="alert"></button>
+                      <i class="fe fe-check mr-2" aria-hidden="true"></i> <?php echo $success; ?>
+                    </div>
+                <?php } if($error){ ?>
+                    <div class="alert alert-icon alert-danger" role="alert">
+                        <button type="button" class="close" data-dismiss="alert"></button>
+                      <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> <?php echo $error;?>
+                    </div>
+                <?php } ?>
                 <div class="card">
                   <div class="table-responsive">
                     <table id="example" class="table table-hover table-outline table-vcenter text-nowrap card-table datatable">
@@ -112,9 +114,6 @@ if(isset($_POST['addDep'])){
                         <tr>
                           <td>
                             <div><?php echo $deprow['depID'];?></div>
-                            <div class="small text-muted">
-<!--                              Created : <?php // echo $deprow['doe'];?>-->
-                            </div>
                           </td>
                           <td class="text-center">
                               <?php echo $deprow['departmentName'];?>
@@ -122,8 +121,10 @@ if(isset($_POST['addDep'])){
                           <td class="text-center"> <?php echo $numDeplec = $department->find_num_deplec($deprow['depID']);?> </td>
                           <td class="text-center">
                               <a href="./upddepartment?dp=<?php echo $deprow['depID'];?>" class="btn btn-info btn-sm text-white"><i class="fe fe-file-text"></i> Details</a>
+<!--
                               ||
                               <a onclick="return confirm('CONFIRM DELETE');" href="./#?dp=<?php echo $deprow['depID'];?>" class="btn btn-danger btn-sm text-white disabled"><i class="fe fe-trash"></i> Trash</a>
+-->
                           </td>
                         </tr>
                           <?php }}?>

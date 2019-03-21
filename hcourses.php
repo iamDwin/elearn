@@ -102,7 +102,11 @@ if(isset($_POST['REGCOURSE'])){
                                             <option value="2">2nd Semester</option>
                                         </select>
                                     </td>
-                                    <td><button type="button" name="add" id="add4" class="btn btn-primary btn-block">ADD MORE</button></td>
+                                    <td>
+                                        <button type="button" name="add" id="add4" class="btn btn-primary btn-block">
+                                            ADD MORE <i class="fe fe-plus-square"></i>
+                                        </button>
+                                    </td>
                                 </tr>
                             </tbody>
                       </table>
@@ -139,7 +143,7 @@ if(isset($_POST['REGCOURSE'])){
                       </thead>
                       <tbody>
                           <?php
-                          $allcourse = $course->find_all_courses();
+                          $allcourse = $course->find_by_depID($userDet['depID']);
                           if($allcourse){
                               foreach($allcourse as $crow){
                           ?>
@@ -151,13 +155,7 @@ if(isset($_POST['REGCOURSE'])){
                           <td class="text-center"> <?php echo $crow['level'];?> </td>
                           <td class="text-center"> <?php echo $crow['semester'];?> </td>
                           <td class="text-center">
-                            <div class="item-action dropdown">
-                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                              <div class="dropdown-menu dropdown-menu-right">
-                                <a href="./#?dp=<?php echo $crow['cID'];?>" class="dropdown-item text-primary"><i class="dropdown-icon fe fe-edit"></i> Update </a>
-                                <a href="./#?dp=<?php echo $crow['cID'];?>" class="dropdown-item text-danger"><i class="dropdown-icon fe fe-trash"></i> Delete </a>
-                              </div>
-                            </div>
+                              <a href="./hupcourse?c=<?php echo $crow['cID'];?>" class="btn btn-primary btn-sm"><i class="fe fe-file-text"></i> Details</a>
                           </td>
                         </tr>
                           <?php }}else{?>

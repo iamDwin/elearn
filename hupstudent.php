@@ -1,5 +1,5 @@
 <?php
-$active = 'students';
+$active = 'hstudents';
 include 'layout/header.php';
 
 if(isset($_GET['st'])){
@@ -26,7 +26,7 @@ if(isset($_POST['updatestudent'])){
 
     $upStu = $student->updateStudent($studentID,$depID,$firstName,$lastName,$otherName,$email,$phone,$school,$level);
     if($upStu){
-        $success = "<script>document.write('STUDENT UPDATED SUCCESSFULL.');window.location.href='mstudents';</script>";
+        $success = "<script>document.write('STUDENT UPDATED SUCCESSFULL.');window.location.href='hstudents';</script>";
     }else{
         $error = "<script>document.write('STUDENT UPDATED FAILED, TRY AGAIN.');</script>";
     }
@@ -36,19 +36,9 @@ if(isset($_POST['updatestudent'])){
 
 <div class="my-3 my-md-5">
     <div class="container">
-<!--
-        <div class="page-header">
-          <h1 class="page-title"> <i class="fe fe-users"></i>  Students </h1>
-        </div>
--->
         <div class="row">
             <div class="col-md-6">
             <div class="card">
-<!--
-                <div class="card-header">
-                  <h3 class="card-title"><i class="fe fe-user-plus"></i> Register Students</h3>
-                </div>
--->
                 <div class="card-body">
                   <form class="form" method="post" enctype="multipart/form-data" onsubmit="return confirm('CONFIRM STUDENT UPDATE.');" >
 
@@ -92,7 +82,7 @@ if(isset($_POST['updatestudent'])){
                       <div class="form-group">
                         <div class="input-icon">
                             <span class="input-icon-addon"><i class="fe fe-mail"></i><span class="form-required">*</span></span>
-                        <input type="email" name="email" class="form-control" value="<?php echo $strow['email'];?>" required>
+                        <input type="email" name="email" class="form-control" value="<?php echo $strow['email'];?>" required readonly>
                         </div>
                       </div>
                       <div class="row">
@@ -100,7 +90,7 @@ if(isset($_POST['updatestudent'])){
                           <div class="form-group">
                             <div class="input-icon">
                                 <span class="input-icon-addon"><i class="fe fe-phone"></i><span class="form-required">*</span></span>
-                                <input type="tel" name="phone" class="form-control" value="<?php echo $strow['phone'];?>" required>
+                                <input type="tel" name="phone" class="form-control" value="<?php echo $strow['phone'];?>" required readonly>
                             </div>
                           </div>
                         </div>
@@ -135,25 +125,16 @@ if(isset($_POST['updatestudent'])){
                                 </div>
                               </div>
                           </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label class="form-label"><i class="fe fe-grid"></i> Department Name</label>
-                                <?php
-                                $finddep = $department->find_all_dep();
-                                if($finddep){
-                                ?>
-                                <select name="depID" class="form-control" required>
-                                    <option value="<?php echo $dprow['depID'];?>"><?php echo $dprow['departmentName'];?></option>
-                                    <?php
-                                    foreach($finddep as $deprow){
-                                    ?>
-                                    <option value="<?php echo $deprow['depID'];?>" > <?php echo $deprow['departmentName'];?> </option>
-                                    <?php }?>
-                                </select>
-                                <?php }else{ ?>
-                              <input type="text" name="depID" class="form-control" value="NO DEPARTMENT CREATED" readonly disabled />
-                                <?php }?>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label class="form-label"><i class="fe fe-grid"></i> Department Name <span class="form-required">*</span></label>
+                            <div class="input-icon">
+<!--                                <span class="input-icon-addon"><i class="fe fe-grid"></i><span class="form-required">*</span></span>-->
+                        <input type="text" name="depName" class="form-control" value="<?php echo $dprow['departmentName'] ;?>" readonly>
+                        <input type="text" name="depID" class="form-control" value="<?php echo $dprow['depID'];?>" readonly hidden>
                             </div>
+                          </div>
                           </div>
                       </div>
 
@@ -165,7 +146,7 @@ if(isset($_POST['updatestudent'])){
                                 </a>
                             </div>
                             <div class="col-md-8">
-                                <button type="submit" name="updatestudent" class="btn btn-info btn-block" <?php if(!$finddep){ echo 'disabled';}?> >
+                                <button type="submit" name="updatestudent" class="btn btn-info btn-block">
                                   UPDATE STUDENT <i class="fe fe-refresh-cw"></i>
                                 </button>
                             </div>

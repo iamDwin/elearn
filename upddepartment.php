@@ -77,7 +77,16 @@ if(isset($_POST['updateDep'])){
                       <input type="text" name="departmentName" value="<?php echo $deprow['departmentName'];?>" class="form-control" placeholder="Department Name" required />
                     </div>
                     <div class="form-footer">
-                      <button type="submit" name="updateDep" class="btn btn-primary btn-block" <?php if(!$allfac){ echo 'disabled';}?> >UPDATE DEPARTMENT <i class="fe fe-download"></i></button>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <a class="btn btn-primary btn-block" href="javascript:history.back()">
+                                    <i class="fe fe-arrow-left mr-2"></i>Go back
+                                </a>
+                            </div>
+                            <div class="col-md-8">
+                      <button type="submit" name="updateDep" class="btn btn-info btn-block" <?php if(!$allfac){ echo 'disabled';}?> >UPDATE DEPARTMENT <i class="fe fe-refresh-cw"></i></button>
+                            </div>
+                        </div>
                     </div>
                   </form>
                 </div>

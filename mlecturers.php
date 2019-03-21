@@ -198,8 +198,10 @@ if(isset($_POST['reglect'])){
                           </td>
                           <td class="text-center">
                               <a href="./uplecturer?lc=<?php echo $lecrow['lecID'];?>" class="btn btn-info btn-sm text-white"><i class="fe fe-file-text"></i> Details</a>
+<!--
                               ||
                               <a onclick="return confirm('CONFIRM DELETE');" href="./#?lc=<?php echo $lecrow['lecID'];?>" class="btn btn-danger btn-sm text-white disabled"><i class="fe fe-trash"></i> Trash</a>
+-->
                           </td>
                         </tr>
                           <?php }}else{?>

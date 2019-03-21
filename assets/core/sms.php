@@ -1,11 +1,6 @@
 <?php
-
-
-
-
 function clean($string) {
       // Replaces all spaces with hyphens.
-
    $string = str_replace('0','233', $string); // Replaces all spaces with hyphens.
 
 return $string;

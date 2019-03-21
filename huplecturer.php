@@ -1,7 +1,7 @@
 <?php
 
 $active = 'hlecturers';
-$active = 'lecturers';
+//$active = 'lecturers';
 
 include 'layout/header.php';
 
@@ -33,7 +33,7 @@ if(isset($_POST['reglect'])){
 
     $UPLec = $lecturer->updatelec($lecID,$facID,$depID,$firstName,$lastName,$otherName,$email,$phone,$position);
     if($UPLec){
-        $success = "<script>document.write('LECTURER UPDATE SUCCESSFUL.');window.location.href='mlecturers';</script>";
+        $success = "<script>document.write('LECTURER UPDATE SUCCESSFUL.');window.location.href='hlecturers';</script>";
     }else{
         $error = "<script>document.write('LECTURER UPDATE FAILED, TRY AGAIN.');</script>";
     }
@@ -95,7 +95,7 @@ if(isset($_POST['reglect'])){
                       <div class="form-group">
                         <div class="input-icon">
                             <span class="input-icon-addon"><i class="fe fe-mail"></i><span class="form-required">*</span></span>
-                            <input type="email" name="email" class="form-control" value="<?php echo $lecDet['email'];?>" required>
+                            <input type="email" name="email" class="form-control" value="<?php echo $lecDet['email'];?>" required readonly>
                         </div>
                       </div>
 
@@ -125,40 +125,32 @@ if(isset($_POST['reglect'])){
                       </div>
 
                       <div class="row">
-                            <div class="col-md-6">
-                          <div class="form-group">
-                      <label class="form-label"><i class="fe fe-list"></i> Faculty Name<span class="form-required">*</span></label>
                         <?php
-                        $allfac = $faculty->find_all_fac();
-                        if($allfac){
+                            $allfac = $faculty->find_all_fac();
+                            if($allfac){
+                                foreach($allfac as $facrow){}
+                            }
                         ?>
-                        <select name="facID" class="form-control" required id="fac" onchange="facdep(this.value)">
-                            <option value="<?php echo $facnmrow['facID'];?>"><?php echo $facnmrow['facultyName']; ?></option>
-                            <?php
-                            foreach($allfac as $facrow){
-                            ?>
-                            <option value="<?php echo $facrow['facID'];?>" > <?php echo $facrow['facultyName'];?> </option>
-                            <?php }?>
-                        </select>
-                        <?php }else{ ?>
-                      <input type="text" name="facID" class="form-control" value="NO FACULTY CREATED" readonly disabled />
-                        <?php }?>
-                    </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <div class="input-icon">
+                                <span class="input-icon-addon"><i class="fe fe-list"></i><span class="form-required">*</span></span>
+                        <input type="text" name="facName" class="form-control" value="<?php echo $facnmrow['facultyName'];?>" readonly>
+                        <input type="text" name="facID" class="form-control" value="<?php echo $facnmrow['facID'];?>" readonly hidden>
+                            </div>
                           </div>
-                            <div class="col-md-6">
-                          <div class="form-group" id="dept">
-                              <label class="form-label"><i class="fe fe-grid"></i> Department Name</label>
-                                <select name="depID" class="form-control" required>
-                                <option value="<?php echo $dpnmrow['depID'];?>"><?php echo $dpnmrow['departmentName'];?></option>
-                                    <?php
-                                    $findalldep = $department->find_all_dep();
-                                    foreach($findalldep as $deprow){
-                                    ?>
-                                    <option value="<?php echo $deprow['depID'];?>" > <?php echo $deprow['departmentName'];?> </option>
-                                    <?php }?>
-                                </select>
-                                </div>
                           </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <div class="input-icon">
+                                <span class="input-icon-addon"><i class="fe fe-grid"></i><span class="form-required">*</span></span>
+                        <input type="text" name="depName" class="form-control" value="<?php echo $dpnmrow['departmentName'] ;?>" readonly>
+                        <input type="text" name="depID" class="form-control" value="<?php echo $dpnmrow['depID'];?>" readonly hidden>
+                            </div>
+                          </div>
+                          </div>
+
                       </div>
 
                     <div class="form-footer">

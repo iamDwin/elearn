@@ -3,17 +3,51 @@ $active = 'hassigns';
 include 'layout/header.php';
 
 if(isset($_POST['addAssign'])){
-    $cID = trim(htmlentities($_POST['cID']));
-    $lecID = trim(htmlentities($_POST['lecID']));
+    //COUNT NUMBER OD COURSE AND LEC...
+    $numcid = count($_POST['cID']);
+    $numlecid = count($_POST['cID']);
+
+    if($numcid > 0 && $numlecid > 0){
+        for($c = 0, $l = 0; $c < $numcid, $l < $numcid; $c++, $l++){
+            $cID = trim(htmlentities($_POST['cID'][$c]));
+            $lecID = trim(htmlentities($_POST['lecID'][$l]));
+            //ENSURE UNEMPTY FIELDS...
+            if(!empty($cID) && !empty($lecID)){
+                //CHECK COURSE ALREADY ASSINGED..
+                $slcourse = select("SELECT * FROM cmanagement WHERE cID='$cID'");
+                if($slcourse){
+                    $error = "<script>document.write('COURSE ALREADY ASSIGNED..!');</script>";
+                }else{
+                    //check max number of lecturer courses...
+                    //$numlec = select("SELECT * FROM cmanagement WHERE lecID='$lecID'");
+//                    if($numlec){
+//                        $countnum = count($numlec);
+//                        if($countnum >= 6){
+//                            $error = "<script>document.write('LECTURER ".$lecID." HAS REACHED MAX NUMBER OF COURSES.!');</script>";
+//                        }
+//                    }else{
+                        $saveassgn = $cmanage->addcmanage($userDet['depID'],$cID,$lecID,$dateToday);
+                        if($saveassgn){
+                            $success = "<script>document.write('COURSE ASSIGNED SUCCESFUL..!');window.location.href='./hassigns';</script>";
+                        }else{
+                            $error = "<script>document.write('COURSE ASSIGN FAILED, TRY AGAIN..!');</script>";
+                        }
+                    //}
+                }
+            }else{
+                $error = "<script>document.write('EMPTY FIELDS, CAN'T SAVE..!');</script>";
+            }
+
+        }
+    }else{
+        $error = "<script>document.write('NO DATA TO SAVE..!');</script>";
+    }
 }
 
 ?>
 
 <div class="my-3 my-md-5">
     <div class="container">
-<!--        <div class="page-header">-->
-<!--          <h1 class="page-title"> <i class="fe fe-users"></i>  Lecturers </h1>-->
-<!--        </div>-->
         <div class="row">
             <div class="col-md-12">
               <?php if($error){ ?>
@@ -49,7 +83,7 @@ if(isset($_POST['addAssign'])){
                                             $allcourse = $course->find_by_depID($userDet['depID']);
                                             if($allcourse){
                                         ?>
-                                        <select class="form-control" name="cID" required>
+                                        <select class="form-control" name="cID[]" required>
                                             <option></option>
                                             <?php foreach($allcourse as $courserow){ ?>
                                             <option value="<?php echo $courserow['cID'];?>"><?php echo $courserow['courseName'];?></option>
@@ -64,7 +98,7 @@ if(isset($_POST['addAssign'])){
                                             $alllec = $lecturer->find_all_lecdep($userDet['depID']);
                                             if($alllec){
                                         ?>
-                                        <select class="form-control" name="lecID" required>
+                                        <select class="form-control" name="lecID[]" required>
                                             <option></option>
                                             <?php foreach($alllec as $lecrow){ ?>
                                             <option value="<?php echo $lecrow['lecID'];?>"><?php echo $lecrow['firstName']." ".$lecrow['lastName'];?></option>
@@ -74,7 +108,7 @@ if(isset($_POST['addAssign'])){
                                         <input type="text" name="" class="form-control" value="No Lecturer Available" readonly >
                                         <?php }?>
                                     </td>
-                                    <td><button type="button" name="add" id="add4" class="btn btn-primary btn-block">ADD MORE</button></td>
+            <td><button type="button" name="add" id="add4" class="btn btn-primary btn-block">  ADD MORE <i class="fe fe-plus-square"></i></button></td>
                                 </tr>
                             </tbody>
                       </table>
@@ -100,37 +134,38 @@ if(isset($_POST['addAssign'])){
                       <thead>
                         <tr>
                           <th><i class="fe fe-hash"></i> COURSE ID</th>
-                          <th class="text-center"><i class="fe fe-grid"></i> COURSE</th>
-                          <th class="text-center"><i class="fe fe-grid"></i> LECTURER</th>
+                          <th><i class="fe fe-layers"></i> COURSE</th>
+                          <th><i class="fe fe-users"></i> LECTURER</th>
                           <th class="text-center"><i class="fa fa-cog"></i>  ACTION</th>
                         </tr>
                       </thead>
                       <tbody>
                           <?php
-                          $allcm = $cmanage->find_by_depID($depID)();
+                          $allcm = $cmanage->find_by_depID($userDet['depID']);
                           if($allcm){
                               foreach($allcm as $crow){
+                              //get course name
+                              $cname = select("SELECT * FROM courses WHERE cID='".$crow['cID']."'");
+                              foreach($cname as $cnrow){}
+                            //get lecturer
+                            $lname = select("SELECT * FROM lecturer WHERE lecID='".$crow['lecID']."'");
+                                  foreach($lname as $lrow){}
                           ?>
                         <tr>
-                          <td>
-                            <div><?php echo $crow['cID'];?></div>
-                          </td>
+                          <td><div><?php echo $crow['cID'];?></div></td>
+                          <td><?php echo $cnrow['courseName'];?></td>
+                          <td><?php echo $lrow['lastName']." ".$lrow['firstName']." ".$lrow['otherName'];?></td>
                           <td class="text-center">
-                              <?php echo $crow['courseName'];?>
-                          </td>
-                          <td class="text-center">
-                            <div class="item-action dropdown">
-                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                              <div class="dropdown-menu dropdown-menu-right">
-                                <a href="./#?dp=<?php echo $crow['cID'];?>" class="dropdown-item text-primary"><i class="dropdown-icon fe fe-edit"></i> Update </a>
-                                <a href="./#?dp=<?php echo $crow['cID'];?>" class="dropdown-item text-danger"><i class="dropdown-icon fe fe-trash"></i> Delete </a>
-                              </div>
-                            </div>
+
+                              <a href="./hupassigns?cm=<?php echo $crow['assignID'];?>" class="btn btn-primary btn-sm btn-square">
+                                Details  <i class="fe fe-file-text"></i>
+                              </a>
+
                           </td>
                         </tr>
                           <?php }}else{?>
                           <tr>
-                            <td colspan="3"> No <i class="fe fe-layers"></i> Courses Assigned.</td>
+                            <td colspan="3"> No <i class="fe fe-layers"></i> Assignments Saved.</td>
                           </tr>
                           <?php }?>
                       </tbody>
@@ -146,7 +181,7 @@ if(isset($_POST['addAssign'])){
         var i=1;
         $('#add4').click(function(){
             i++;
-            $('#dynamic_field4').append('<tr id="row'+i+'"><td><?php $allcourse = $course->find_by_depID($userDet['depID']); if($allcourse){ ?><select class="form-control" name="cID" required> <option></option> <?php foreach($allcourse as $courserow){ ?> <option value="<?php echo $courserow['cID'];?>"><?php echo $courserow['courseName'];?></option> <?php }?> </select> <?php }else{ ?> <input type="text" name="" class="form-control" value="No Course Available" readonly > <?php }?> </td> <td> <?php $alllec = $lecturer->find_all_lecdep($userDet['depID']); if($alllec){ ?> <select class="form-control" name="lecID" required> <option></option> <?php foreach($alllec as $lecrow){ ?> <option value="<?php echo $lecrow['lecID'];?>"><?php echo $lecrow['firstName']." ".$lecrow['lastName'];?></option> <?php }?> </select> <?php }else{ ?> <input type="text" name="" class="form-control" value="No Lecturer Available" readonly > <?php }?> </td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');
+            $('#dynamic_field4').append('<tr id="row'+i+'"><td><?php $allcourse = $course->find_by_depID($userDet['depID']); if($allcourse){ ?><select class="form-control" name="cID[]" required> <option></option> <?php foreach($allcourse as $courserow){ ?> <option value="<?php echo $courserow['cID'];?>"><?php echo $courserow['courseName'];?></option> <?php }?> </select> <?php }else{ ?> <input type="text" name="" class="form-control" value="No Course Available" readonly > <?php }?> </td> <td> <?php $alllec = $lecturer->find_all_lecdep($userDet['depID']); if($alllec){ ?> <select class="form-control" name="lecID[]" required> <option></option> <?php foreach($alllec as $lecrow){ ?> <option value="<?php echo $lecrow['lecID'];?>"><?php echo $lecrow['firstName']." ".$lecrow['lastName'];?></option> <?php }?> </select> <?php }else{ ?> <input type="text" name="" class="form-control" value="No Lecturer Available" readonly > <?php }?> </td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');
         });
 
         $(document).on('click', '.btn_remove', function(){

@@ -4,15 +4,6 @@ include 'layout/header.php';
 
 if($_GET['fid']){
     $fid = $_GET['fid'];
-    $fc = '';
-    $dp = '';
-    $lc = '';
-    $st = '';
-}else{
-    $fc = '';
-    $dp = '';
-    $lc = '';
-    $st = '';
 }
 
 $findfac = $faculty->find_by_facID($fid);
@@ -26,9 +17,9 @@ if(isset($_POST['updfac'])){
 
     $udpdatefac = $faculty->updateFac($facultyID,$facultyName);
     if($udpdatefac){
-        echo "<script>window.location.href='./faculty?fc=fup';</script>";
+        $success = "<script>document.write('FACULTY UPDATED..!');window.location.href='./mfaculty';</script>";
     }else{
-        echo "<script>window.location.href='./faculty?fc=fupf';</script>";
+        $error = "<script>document.write('FACULTY UPDATE FAILED, TRY AGAIN..!');</script>";
     }
 }
 
@@ -60,14 +51,33 @@ if(isset($_POST['updfac'])){
                       <input type="text" name="facultyName" class="form-control" value="<?php echo $facrow['facultyName'];?>" />
                     </div>
                     <div class="form-footer">
-                      <button type="submit" name="updfac" class="btn btn-info btn-block">UPDATE FACULTY <i class="fe fe-download"></i></button>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <a class="btn btn-primary btn-block" href="javascript:history.back()">
+                                    <i class="fe fe-arrow-left mr-2"></i>Go back
+                                </a>
+                            </div>
+                            <div class="col-md-8">
+                      <button type="submit" name="updfac" class="btn btn-info btn-block">UPDATE FACULTY <i class="fe fe-refresh-cw"></i></button>
+                            </div>
+                        </div>
                     </div>
                   </form>
                 </div>
               </div>
             </div>
               <div class="col-sm-7">
-            <?php include 'alert.php'; ?>
+            <?php if($success){ ?>
+                  <div class="alert alert-icon alert-success" role="alert">
+                      <button type="button" class="close" data-dismiss="alert"></button>
+                      <i class="fe fe-check mr-2" aria-hidden="true"></i> <?php echo $success; ?>
+                    </div>
+                <?php } if($error){ ?>
+                    <div class="alert alert-icon alert-danger" role="alert">
+                        <button type="button" class="close" data-dismiss="alert"></button>
+                      <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> <?php echo $error;?>
+                    </div>
+                <?php } ?>
                 <div class="card">
                   <div class="table-responsive">
                     <table class="table table-hover table-outline table-vcenter text-nowrap card-table">

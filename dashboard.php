@@ -2,6 +2,8 @@
 $active = 'dashboard';
 include 'layout/header.php';
 ?>
+
+<!-- ======================  START IT MANAGER DASHBOARD ==================== -->
 <?php if($access == 'manager'){ ?>
 <div class="my-3 my-md-5">
     <div class="container">
@@ -13,7 +15,7 @@ include 'layout/header.php';
         </div>
 -->
         <div class="row">
-          <div class="col-sm-3">
+          <div class="col-lg-3 col-md-6">
               <a href="./mfaculty" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
                 <div class="card">
                   <div class="card-body text-center">
@@ -23,7 +25,7 @@ include 'layout/header.php';
                 </div>
               </a>
           </div>
-          <div class="col-sm-3">
+          <div class="col-lg-3 col-md-6">
               <a href="./mdepartment" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
                 <div class="card">
                   <div class="card-body text-center">
@@ -33,7 +35,7 @@ include 'layout/header.php';
                 </div>
               </a>
           </div>
-          <div class="col-sm-3">
+          <div class="col-lg-3  col-md-6">
               <a href="./mlecturers" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
                 <div class="card">
                   <div class="card-body text-center">
@@ -43,7 +45,7 @@ include 'layout/header.php';
                 </div>
               </a>
           </div>
-          <div class="col-sm-3">
+          <div class="col-lg-3 col-md-6">
               <a href="./mstudents" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
                 <div class="card">
                   <div class="card-body text-center">
@@ -211,9 +213,14 @@ include 'layout/header.php';
     </div>
 </div>
 <?php }?>
+<!-- ======================  END IT MANAGER DASHBOARD ====================== -->
 
-<?php if($access == 'hod'){ ?>
-<?php
+
+
+
+
+<!-- ======================  START HOD DASHBOARD =========================== -->
+<?php if($access == 'hod'){
     $fac = $faculty->find_by_facID($userDet['facID']);
     foreach($fac as $facrow){}
     $dep = $department->find_by_depID($userDet['depID']);
@@ -228,7 +235,7 @@ include 'layout/header.php';
         </div>
 
         <div class="row">
-          <div class="col-sm-4">
+          <div class="col-lg-3 col-md-6">
               <a href="./hlecturers" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
                 <div class="card">
                   <div class="card-body text-center">
@@ -238,7 +245,7 @@ include 'layout/header.php';
                 </div>
               </a>
           </div>
-          <div class="col-sm-4">
+          <div class="col-lg-3 col-md-6">
               <a href="./hstudents" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
                 <div class="card">
                   <div class="card-body text-center">
@@ -248,7 +255,7 @@ include 'layout/header.php';
                 </div>
               </a>
           </div>
-          <div class="col-sm-4">
+          <div class="col-lg-3 col-md-6">
               <a href="./hcourses" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
                 <div class="card">
                   <div class="card-body text-center">
@@ -258,13 +265,42 @@ include 'layout/header.php';
                 </div>
               </a>
           </div>
+          <div class="col-lg-3 col-md-6">
+              <a href="" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
+                <div class="card">
+                  <div class="card-body text-center">
+                    <div class="h5"><i class="fe fe-file-text"></i> REPORTS</div>
+                    <div class="display-4 font-weight-bold mb-4">.</div>
+                  </div>
+                </div>
+              </a>
+          </div>
         </div>
     </div>
 </div>
 <?php }?>
+<!-- ======================  END HOD DASHBOARD ============================ -->
 
 
-<?php if($access == 'lecturer'){ ?>
+
+
+
+<!-- ======================  START LECTURER DASHBOARD ===================== -->
+<?php if($access == 'lecturer'){
+//get faculty details..
+$getfac = select("SELECT * FROM faculty WHERE facID='".$userDet['facID']."'");
+foreach($getfac as $facrow){}
+//get department details..
+$getdep = select("SELECT * FROM department WHERE depID='".$userDet['depID']."'");
+foreach($getdep as $deprow){}
+
+//get courses for level and department.
+$getcourse = select("SELECT * FROM cmanagement WHERE depID='".$userDet['depID']."' AND lecID='".$userDet['lecID']."'");
+if($getcourse){
+    $numcourses = count($getcourse);
+    foreach($getcourse as $allcourserow){}
+}
+?>
 <div class="my-3 my-md-5">
     <div class="container">
         <div class="page-header">
@@ -272,15 +308,75 @@ include 'layout/header.php';
             Lecturer Dashboard
           </h1>
         </div>
-
-        <div class="row"></div>
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                 <div class="card">
+                  <div class="card-body">
+                    <div class="media">
+                      <div class="media-body">
+                    <h4 class="m-0"><i class="fe fe-user"></i>: <?php echo $userDet['lastName']." ".$userDet['firstName']." ".$userDet['otherName'];?></h4>
+                    <p class="text-muted mb-0"><i class="fe fe-hash"></i> <?php echo $userDet['lecID'];?></p>
+                        <p class="text-muted mb-0"><i class="fe fe-list"></i> : <?php echo $facrow['facultyName'];?></p>
+                        <p class="text-muted mb-0"><i class="fe fe-grid"></i> : <?php echo $deprow['departmentName'];?></p>
+                        <p class="text-muted mb-0"><i class="fe fe-mail"></i> : <?php echo $userDet['email'];?></p>
+                        <p class="text-muted mb-0"><i class="fe fe-phone"></i> : <?php echo $userDet['phone'];?></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <a href="./lcourses" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
+                <div class="card">
+                  <div class="card-body text-center">
+                    <div class="h5"><i class="fe fe-layers"></i> ASSIGNED COURSES</div>
+                    <div class="display-4 font-weight-bold mb-4"><?php echo $numcourses;?></div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <a href="" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);" class="disabled">
+                <div class="card">
+                  <div class="card-body text-center">
+                    <div class="h5"><i class="fe fe-file"></i> TESTS</div>
+                    <div class="display-4 font-weight-bold mb-4">0</div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          <div class="col-lg-3 col-md-6">
+              <a href="" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
+                <div class="card">
+                  <div class="card-body text-center">
+                    <div class="h5"><i class="fe fe-file-text"></i> REPORTS</div>
+                    <div class="display-4 font-weight-bold mb-4">.</div>
+                  </div>
+                </div>
+              </a>
+          </div>
+        </div>
     </div>
 </div>
 <?php }?>
+<!-- ======================  END LECTURER DASHBOARD ======================= -->
 
 
 
-<?php if($access == 'student'){ ?>
+
+
+<!-- ======================  START STUDENT DASHBOARD ====================== -->
+<?php if($access == 'student'){
+$getdep = select("SELECT * FROM department WHERE depID='".$userDet['depID']."'");
+foreach($getdep as $deprow){}
+
+//get courses for level and department.
+$getcourse = select("SELECT * FROM courses WHERE depID='".$userDet['depID']."' AND level='".$userDet['level']."'");
+if($getcourse){
+    $numcourses = count($getcourse);
+    foreach($getcourse as $allcourserow){}
+}
+?>
 <div class="my-3 my-md-5">
     <div class="container">
         <div class="page-header">
@@ -290,46 +386,54 @@ include 'layout/header.php';
         </div>
 
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-lg-3 col-md-6">
                  <div class="card">
                   <div class="card-body">
                     <div class="media">
-                      <span class="avatar avatar-xxl mr-5" style=""><i class="fe fe-user"></i></span>
                       <div class="media-body">
-                        <h4 class="m-0"> Student Name</h4>
-                        <p class="text-muted mb-0">Student ID</p>
-                        <p class="text-muted mb-0">Faculty</p>
-                        <p class="text-muted mb-0">Department</p>
-                        <p class="text-muted mb-0">Level</p>
+                    <h4 class="m-0"> <?php echo $userDet['lastName']." ".$userDet['firstName']." ".$userDet['otherName'];?></h4>
+                    <p class="text-muted mb-0"><i class="fe fe-hash"></i> <?php echo $userDet['studentID'];?></p>
+                        <p class="text-muted mb-0">D : <?php echo $deprow['departmentName'];?></p>
+                        <p class="text-muted mb-0">L : <?php echo $userDet['level'];?></p>
                       </div>
                     </div>
                   </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-lg-3 col-md-6">
               <a href="./scourses" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
                 <div class="card">
                   <div class="card-body text-center">
                     <div class="h5"><i class="fe fe-layers"></i> COURSES</div>
-                    <div class="display-4 font-weight-bold mb-4"><?php echo $numStud = $student->find_num_student();?></div>
+                    <div class="display-4 font-weight-bold mb-4"><?php echo $numcourses;?></div>
                   </div>
                 </div>
               </a>
             </div>
-            <div class="col-md-4">
-              <a href="./scourses" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
+            <div class="col-lg-3 col-md-6">
+              <a href="" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
                 <div class="card">
                   <div class="card-body text-center">
-                    <div class="h5"><i class="fe fe-layers"></i> TESTS</div>
-                    <div class="display-4 font-weight-bold mb-4"><?php echo $numStud = $student->find_num_student();?></div>
+                    <div class="h5"><i class="fe fe-file"></i> TESTS</div>
+                    <div class="display-4 font-weight-bold mb-4">0</div>
                   </div>
                 </div>
               </a>
             </div>
+          <div class="col-lg-3 col-md-6">
+              <a href="" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
+                <div class="card">
+                  <div class="card-body text-center">
+                    <div class="h5"><i class="fe fe-file-text"></i> REPORTS</div>
+                    <div class="display-4 font-weight-bold mb-4">.</div>
+                  </div>
+                </div>
+              </a>
+          </div>
         </div>
     </div>
 </div>
 <?php }?>
-
+<!-- ======================  END STUDENT DASHBOARD ======================= -->
 
 <?php include 'layout/footer.php'; ?>

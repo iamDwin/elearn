@@ -1,0 +1,23 @@
+[21-Mar-2019 08:16:49 Africa/Accra] PHP Notice:  Undefined index: studentID in X:\xammp\htdocs\elearn\dashboard.php on line 304
+[21-Mar-2019 08:16:49 Africa/Accra] PHP Notice:  Undefined variable: deprow in X:\xammp\htdocs\elearn\dashboard.php on line 305
+[21-Mar-2019 08:16:49 Africa/Accra] PHP Notice:  Undefined index: level in X:\xammp\htdocs\elearn\dashboard.php on line 306
+[21-Mar-2019 08:16:49 Africa/Accra] PHP Notice:  Undefined variable: numcourses in X:\xammp\htdocs\elearn\dashboard.php on line 317
+[21-Mar-2019 08:16:50 Africa/Accra] PHP Notice:  Undefined index: studentID in X:\xammp\htdocs\elearn\dashboard.php on line 304
+[21-Mar-2019 08:16:50 Africa/Accra] PHP Notice:  Undefined variable: deprow in X:\xammp\htdocs\elearn\dashboard.php on line 305
+[21-Mar-2019 08:16:50 Africa/Accra] PHP Notice:  Undefined index: level in X:\xammp\htdocs\elearn\dashboard.php on line 306
+[21-Mar-2019 08:16:50 Africa/Accra] PHP Notice:  Undefined variable: numcourses in X:\xammp\htdocs\elearn\dashboard.php on line 317
+[21-Mar-2019 08:17:16 Africa/Accra] PHP Notice:  Undefined variable: deprow in X:\xammp\htdocs\elearn\dashboard.php on line 305
+[21-Mar-2019 08:17:16 Africa/Accra] PHP Notice:  Undefined index: level in X:\xammp\htdocs\elearn\dashboard.php on line 306
+[21-Mar-2019 08:17:16 Africa/Accra] PHP Notice:  Undefined variable: numcourses in X:\xammp\htdocs\elearn\dashboard.php on line 317
+[21-Mar-2019 08:17:17 Africa/Accra] PHP Notice:  Undefined variable: deprow in X:\xammp\htdocs\elearn\dashboard.php on line 305
+[21-Mar-2019 08:17:17 Africa/Accra] PHP Notice:  Undefined index: level in X:\xammp\htdocs\elearn\dashboard.php on line 306
+[21-Mar-2019 08:17:17 Africa/Accra] PHP Notice:  Undefined variable: numcourses in X:\xammp\htdocs\elearn\dashboard.php on line 317
+[21-Mar-2019 08:18:40 Africa/Accra] PHP Notice:  Undefined index: level in X:\xammp\htdocs\elearn\dashboard.php on line 316
+[21-Mar-2019 08:18:41 Africa/Accra] PHP Notice:  Undefined index: level in X:\xammp\htdocs\elearn\dashboard.php on line 316
+[21-Mar-2019 08:23:28 Africa/Accra] PHP Notice:  Undefined index: level in X:\xammp\htdocs\elearn\scourses.php on line 11
+[21-Mar-2019 08:23:32 Africa/Accra] PHP Notice:  Undefined index: level in X:\xammp\htdocs\elearn\scourses.php on line 11
+[21-Mar-2019 08:27:15 Africa/Accra] PHP Notice:  Undefined index: level in X:\xammp\htdocs\elearn\scourses.php on line 11
+[21-Mar-2019 08:30:25 Africa/Accra] PHP Notice:  Undefined index: level in X:\xammp\htdocs\elearn\lcourses.php on line 11
+[21-Mar-2019 08:30:28 Africa/Accra] PHP Notice:  Undefined index: level in X:\xammp\htdocs\elearn\lcourses.php on line 11
+[21-Mar-2019 08:31:15 Africa/Accra] PHP Notice:  Undefined index: courseName in X:\xammp\htdocs\elearn\lcourses.php on line 22
+[21-Mar-2019 09:38:25 Europe/Berlin] PHP Parse error:  syntax error, unexpected '?>' in X:\xammp\htdocs\elearn\lcourses.php on line 42

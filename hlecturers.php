@@ -2,18 +2,6 @@
 $active = 'hlecturers';
 include 'layout/header.php';
 
-if(isset($_GET['lc'])){
-    $lc = $_GET['lc'];
-    $dp = '';
-    $fc = '';
-    $st = '';
-}else{
-    $lc = '';
-    $dp = '';
-    $fc = '';
-    $st = '';
-}
-
 $numLec = $lecturer->find_num_lec();
 $LecNum = $numLec + 1;
 $lecID =  "LEC-".sprintf('%06s',$LecNum);
@@ -98,7 +86,6 @@ $lecID =  "LEC-".sprintf('%06s',$LecNum);
 
 
               <div class="col-md-12">
-                  <?php include 'alert.php'; ?>
                 <div class="card">
                   <div class="table-responsive">
 <!--                    <table id="example2" class="table table-bordered table-hover table-outline card-table table-vcenter">-->
@@ -121,9 +108,6 @@ $lecID =  "LEC-".sprintf('%06s',$LecNum);
                         <tr>
                           <td>
                             <div><?php echo $lecrow['lecID'];?></div>
-                            <div class="small text-muted">
-<!--                              Registered : <?php //echo $lecrow['doe'];?>-->
-                            </div>
                           </td>
                           <td class="text-center">
                               <?php echo $lecrow['lastName']." ".$lecrow['firstName']." ".$lecrow['otherName'];?>
@@ -131,7 +115,7 @@ $lecID =  "LEC-".sprintf('%06s',$LecNum);
                           <td class="text-center"> <?php echo $lecrow['email']; ?> </td>
                           <td class="text-center"> <?php echo $lecrow['phone']; ?> </td>
                           <td class="text-center">
-                              <a href="./#?lc=<?php echo $lecrow['depID'];?>" class="btn btn-primary btn-sm text-white">
+                              <a href="./huplecturer?lc=<?php echo $lecrow['lecID'];?>" class="btn btn-primary btn-sm text-white">
                                   <i class="fe fe-file-text"></i> Details
                               </a>
                           </td>
