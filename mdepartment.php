@@ -21,6 +21,8 @@ if(isset($_POST['addDep'])){
     }else{
         $saveDep = $department->addDep($departmentID,$facultyID,$departmentName,$dateToday);
         if($saveDep){
+//            $depnamedir =  str_replace(' ','-', $departmentName);
+//            echo make_dir($departmentName);
             $success = "<script>document.write('DEPARTMENT CREATED SUCCESSFUL..!');window.location.href='./mdepartment';</script>";
         }else{
             $error = "<script>document.write('FAILED TO CREATE DEPARTMENT, TRY AGAIN..!');</script>";

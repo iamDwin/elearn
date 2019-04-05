@@ -29,6 +29,8 @@ if(isset($_POST['REGCOURSE'])){
                     }else{
                         //insert courses into table after checks...
                         $insertcourse =$course->addcourse($cID,$depID,$courseName,$level,$semester,$dateToday);
+                        //$depnamedir =  str_replace(' ','-', $departmentName);
+                           echo make_dir($cID);
                         if($insertcourse){
                            $success = "<script>document.write('COURSE CREATED SUCCESSFULL.');window.location.href='hcourses';</script>";
                         }else{

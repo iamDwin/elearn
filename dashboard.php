@@ -297,29 +297,31 @@ foreach($getdep as $deprow){}
 //get courses for level and department.
 $getcourse = select("SELECT * FROM cmanagement WHERE depID='".$userDet['depID']."' AND lecID='".$userDet['lecID']."'");
 if($getcourse){
-    $numcourses = count($getcourse);
+    @$numcourses = count($getcourse);
     foreach($getcourse as $allcourserow){}
 }
 ?>
 <div class="my-3 my-md-5">
     <div class="container">
+<!--
         <div class="page-header">
           <h1 class="page-title">
             Lecturer Dashboard
           </h1>
         </div>
+-->
         <div class="row">
             <div class="col-lg-3 col-md-6">
                  <div class="card">
                   <div class="card-body">
                     <div class="media">
                       <div class="media-body">
-                    <h4 class="m-0"><i class="fe fe-user"></i>: <?php echo $userDet['lastName']." ".$userDet['firstName']." ".$userDet['otherName'];?></h4>
-                    <p class="text-muted mb-0"><i class="fe fe-hash"></i> <?php echo $userDet['lecID'];?></p>
-                        <p class="text-muted mb-0"><i class="fe fe-list"></i> : <?php echo $facrow['facultyName'];?></p>
-                        <p class="text-muted mb-0"><i class="fe fe-grid"></i> : <?php echo $deprow['departmentName'];?></p>
-                        <p class="text-muted mb-0"><i class="fe fe-mail"></i> : <?php echo $userDet['email'];?></p>
-                        <p class="text-muted mb-0"><i class="fe fe-phone"></i> : <?php echo $userDet['phone'];?></p>
+                    <h5 class="m-0"><i class="fe fe-user"></i> : <?php echo $userDet['lastName']." ".$userDet['firstName']." ".$userDet['otherName'];?></h5>
+                    <p class="text-mutd mb-0"><i class="fe fe-hash"></i> : <?php echo $userDet['lecID'];?></p>
+                        <p class="text-mutd mb-0"><i class="fe fe-list"></i> : <?php echo $facrow['facultyName'];?></p>
+                        <p class="text-mutd mb-0"><i class="fe fe-grid"></i> : <?php echo $deprow['departmentName'];?></p>
+                        <p class="text-mutd mb-0"><i class="fe fe-mail"></i> : <?php echo $userDet['email'];?></p>
+<!--                        <p class="text-mutd mb-0"><i class="fe fe-phone"></i> : <?php echo $userDet['phone'];?></p>-->
                       </div>
                     </div>
                   </div>

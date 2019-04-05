@@ -88,7 +88,6 @@ $lecID =  "LEC-".sprintf('%06s',$LecNum);
               <div class="col-md-12">
                 <div class="card">
                   <div class="table-responsive">
-<!--                    <table id="example2" class="table table-bordered table-hover table-outline card-table table-vcenter">-->
                     <table id="example" class="table table-hover table-outline table-vcenter text-nowrap card-table datatable">
                       <thead>
                         <tr>

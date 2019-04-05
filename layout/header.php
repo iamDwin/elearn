@@ -1,5 +1,5 @@
 <?php
-include 'assets/core/connection.php';
+include ('assets/core/connection.php');
 if(!$_SESSION['email'] && !$_SESSION['password'] && !$_SESSION['access']){
     echo "<script>window.location.href='index'</script>";
 }else{
@@ -17,7 +17,8 @@ if(!$_SESSION['email'] && !$_SESSION['password'] && !$_SESSION['access']){
 
 }
 
-$dateToday = date("Y-m-d H:m:i");
+
+$dateToday = date("Y-m-d H:i:s");
 $faculty = new Faculty();
 $department = new Department();
 $student = new Student();
@@ -230,7 +231,12 @@ $error = '';
                     <a href="./lstudents" class="nav-link <?php if($active == 'lstudents'){ echo 'active';}?>"><i class="fe fe-users"></i> Students</a>
                   </li>
                   <li class="nav-item">
-                    <a href="./ltests" class="nav-link <?php if($active == 'ltests'){ echo 'active';}?>"><i class="fe fe-file"></i> Tests</a>
+                    <a href="./ltests" class="nav-link <?php if($active == 'ltests'){ echo 'active';}?>"><i class="fe fe-file-text"></i>Manage Tests</a>
+                  </li>
+                  <li class="nav-item">
+                        <a href="./ltests" class="nav-link <?php if($active == 'lmessage'){ echo 'active';}?>">
+                            <i class="fe fe-mail"></i> Messages <span style="margin-left:10px; " class="btn btn-primary btn-sm">5</span>
+                        </a>
                   </li>
                   <li class="nav-item">
                     <a href="./lreports" class="nav-link <?php if($active == 'lreports'){ echo 'active';}?>"><i class="fe fe-file-text"></i> Reports</a>

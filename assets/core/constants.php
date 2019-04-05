@@ -12,7 +12,7 @@ define("STUDENT","student");
 define("FIRST","flog");
 define("CHANGED","cflog");
 
-//define("PARENT_DIR" , "uploads/");
+define("PARENT_DIR" , "uploads/");
 //define("LICENCE_DIR" , "../uploads/".PARENT_DIR."licence/");
 //define("LAB_RESULT_DIR" , "../uploads/labresults/");
 //define("PATIENT_DIR" , "../uploads/patient/");

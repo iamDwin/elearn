@@ -70,33 +70,25 @@ function decode5t($str){
     return $str;
 }
 
-
-//generation of IDs
-function randomString($length)
-{
-    return bin2hex(openssl_random_pseudo_bytes($length));
-}
-
-
 //folder creation
-function uploadDir($centerID){
-    $sDirPath = './'.$centerID.'/'; //Specified Pathname
-    if(!file_exists ($centerID)){
-        mkdir($centerID,0777,true);
-    }
-}
+//function uploadDir($cid){
+//    $sDirPath = './'.$cid.'/'; //Specified Pathname
+//    if(!file_exists ($cid)){
+//        mkdir($cid,0777,true);
+//    }
+//}
 
-function make_dir($centerID){
-    $parent = '../uploads/';
-   $the_dir = $parent.$centerID;
-   $licence = $parent.$centerID.'/licence';
-   $labresults = $parent.$centerID.'/labresults';
-   $patient = $parent.$centerID.'/patient';
+function make_dir($cid){
+    $parent = 'uploads/';
+   $the_dir = $parent.$cid;
+   $media = $parent.$cid.'/media';
+   $document = $parent.$cid.'/documents';
+   $assignment = $parent.$cid.'/assignment';
     if (!file_exists ($the_dir)){
    @mkdir($the_dir, 0777, TRUE);
-   @mkdir($licence, 0777, TRUE);
-   @mkdir($labresults, 0777, TRUE);
-   @mkdir($patient, 0777, TRUE);
+   @mkdir($media, 0777, TRUE);
+   @mkdir($document, 0777, TRUE);
+   @mkdir($assignment, 0777, TRUE);
     }
 }
 

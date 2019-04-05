@@ -71,9 +71,71 @@ CREATE TABLE `users`(
     `doe` datetime
 )engine = InnoDB;
 
+/*------ create course management table -----*/
 CREATE TABLE `cmanagement`(
     `assignID` int(255) not null primary key auto_increment,
     `cID` varchar(50) not null,
     `lecID` varchar(50) not null,
     `doe` datetime
 )engine = InnoDB;
+
+
+/*----  create course outline table --------*/
+CREATE TABLE `outline`(
+    `id` int(255) not null primary key auto_increment,
+    `cID` varchar(50) not null,
+    `lecID` varchar(50) not null,
+    `outline` varchar(255) not null,
+    `doe` datetime not null,
+    `dor` timestamp
+)engine = InnoDB;
+
+CREATE TABLE `lecture`(
+    `id` int(255) not null auto_increment primary key,
+    `cID` varchar(50) not null,
+    `lecID` varchar(255) not null,
+    `lecNum` int(20) not null,
+    `lecTitle` longtext not null,
+    `doe` datetime not null,
+    `dor` timestamp
+)engine = InnoDB;
+
+/*---- create course document table -------*/
+CREATE TABLE `cdocument`(
+    `id` int(255) not null primary key auto_increment,
+    `cID` varchar(50) not null,
+    `lecID` varchar(50) not null,
+    `lecture` int(100) not null,
+    `lectitle` varchar(255) not null,
+    `docName` varchar(255) not null,
+    `doe` datetime not null,
+    `dor` timestamp
+)engine = InnoDB;
+
+
+/*---- create course media table -------*/
+CREATE TABLE `cmedia`(
+    `id` int(255) not null primary key auto_increment,
+    `cID` varchar(50) not null,
+    `lecID` varchar(50) not null,
+    `lecture` int(100) not null,
+    `mediatype` int(5) not null, /* 1=video 2= audio*/
+    `mediaName` varchar(255) not null,
+    `path` varchar(255) not null,
+    `doe` datetime not null,
+    `dor` timestamp
+)engine = InnoDB;
+
+/*---- create required reading table -------*/
+CREATE TABLE `reqreading`(
+    `id` int(255) not null primary key auto_increment,
+    `cID` varchar(50) not null,
+    `lecID` varchar(50) not null,
+    `readType` varchar(30) not null,
+    `content` longtext not null,
+    `doe` datetime not null,
+    `dor` timestamp
+)engine = InnoDB;
+
+
+/*-------  create */

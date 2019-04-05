@@ -5,11 +5,21 @@ include 'layout/header.php';
 if(isset($_GET['cid'])){
     $cid = $_GET['cid'];
 }
+$MAIN_UPLOAD = PARENT_DIR.$cid.'/';
+$MEDIA_UPLOAD = PARENT_DIR.$cid.'/media/';
+$DOC_UPLOAD = PARENT_DIR.$cid.'/documents/';
+$ASSIGNMENT_UPLOAD = PARENT_DIR.$cid.'/assignment/';
 
 //get course details..
 $cdet = select("SELECT * FROM courses WHERE cID='$cid'");
 if($cdet){
     foreach($cdet as $crow){}
+    //get cmanage det
+    $cmanage = select("SELECT * FROM cmanagement WHERE cID='".$crow['cID']."'");
+    foreach($cmanage as $cmrow){}
+    //get lec det from cmanagement..
+    $lecdet = select("SELECT * FROM lecturer WHERE lecID='".$cmrow['lecID']."'");
+    foreach($lecdet as $lectdetrow){}
 }
 ?>
 <style>
@@ -37,9 +47,7 @@ if($cdet){
 <div class="my-3 my-md-5">
     <div class="container">
         <div class="page-header">
-          <h1 class="page-title">
-            <?php echo $crow['courseName'];?>
-          </h1>
+          <h1 class="page-title"><i class="fe fe-hash"></i> <?php echo $crow['cID'];?> : <?php echo $crow['courseName'];?></h1>
         </div>
         <div class="row">
 
@@ -50,7 +58,7 @@ if($cdet){
                       <i class="fe fe-user"></i>
                     </span>
                     <div>
-                      <h4 class="m-0"> Lecturer Name</h4>
+                      <h4 class="m-0">Lecture : <?php echo $lectdetrow['lastName']." ".$lectdetrow['firstName']." ".$lectdetrow['otherName'];?></h4>
                     </div>
                   </div>
                 </div>
@@ -61,23 +69,10 @@ if($cdet){
                         <div class="media-body">
                           <div class="media-heading">
                             <small class="float-right text-muted">4 min</small>
-                            <h5>Peter Richards</h5>
+                            <h5>Student Name</h5>
                           </div>
                           <div>
-                            Aenean lacinia bibendum nulla sed consectetur.
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li class="list-group-item py-5">
-                      <div class="media">
-                        <div class="media-body">
-                          <div class="media-heading">
-                            <small class="float-right text-muted">4 min</small>
-                            <h5>Peter Richards</h5>
-                          </div>
-                          <div>
-                            Aenean lacinia bibendum nulla sed consectetur.
+                            Message to lecturer
                           </div>
                         </div>
                       </div>
@@ -100,10 +95,91 @@ if($cdet){
               </div>
 
             <div class="col-md-6 col-xl-8">
-                <div class="card card-collapsed">
+                <!--===================== START REQUIRED READING ==============================-->
+                <div class="card card-collapsed" style="margin-top:5px;">
                     <div class="card-status bg-blue"></div>
                   <div class="card-header">
-                    <h3 class="card-title"> Lecture 1 - Introduction To Database Administration.</h3>
+                    <h3 class="card-title"> COURSE OUTLINE & REQUIRED READINGS </h3>
+                    <div class="card-options">
+                      <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                      <a href="#" class="card-options-fullscreen" data-toggle="card-fullscreen"><i class="fe fe-maximize"></i></a>
+                    </div>
+                  </div>
+
+                  <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-6">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <th style="font-weight:bold;"> COURSE OUTLINE </th>
+                                </thead>
+                                <?php
+                                $getoutline = select("SELECT * FROM outline WHERE cID='$cid'");
+                                if($getoutline){
+                                    foreach($getoutline as $outrow){
+                                ?>
+                                <tr>
+                                    <td>
+                                        <a href="<?php echo $DOC_UPLOAD.$outrow['outline'];?>" target="_blank"><i class="fe fe-file-text"></i> <?php echo $outrow['outline'];?></a>
+                                    </td>
+                                </tr>
+                                <?php }}else{?>
+                                <tr><td> No Outline Available.</td></tr>
+                                <?php }?>
+                            </table>
+                        </div>
+
+                    <div class="col-md-6">
+                        <table class="table table-bordered">
+                            <thead>
+                                <th style="font-weight:bold;"> Type</th>
+                                <th style="font-weight:bold;"> Required Readings</th>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $getrequired = select("SELECT * FROM reqreading WHERE cID='$cid'");
+                                if($getrequired){
+                                    foreach($getrequired as $reqrow){
+                                        $type = $reqrow['readType'];
+                                ?>
+                                    <?php if($type == 'book'){?>
+                                    <tr>
+                                        <td><?php echo $type; ?></td>
+                                        <td><?php echo $reqrow['content'];?></td>
+                                    </tr>
+                                    <?php } if($type == 'url'){ ?>
+                                <tr>
+                                    <td><?php echo $type; ?></td>
+                                    <td><a href="<?php echo $reqrow['content'];?>" target="_blank"><?php echo $reqrow['content'];?></a></td>
+                                </tr>
+                                    <?php } if($type == 'file'){?>
+                                <tr>
+                                    <td><?php echo $type; ?></td>
+                                    <td><a href="<?php echo $DOC_UPLOAD.$reqrow['content'];?>" target="_blank"><?php echo $reqrow['content'];?></a></td>
+                                </tr>
+                                    <?php }?>
+                                <?php }}else{?>
+                                <tr><td>No required reading Available.</td></tr>
+                                <?php }?>
+                            </tbody>
+                        </table>
+                    </div>
+                      </div>
+                  </div>
+                </div>
+                <!--===================== END REQUIRED READING ==============================-->
+
+
+                <!--===================== START COURSE CONTENT ==============================-->
+                <?php
+                $allLec = select("SELECT * FROM lecture WHERE cID='$cid'");
+                if($allLec){
+                    foreach($allLec as $lecrow){
+                ?>
+                <div class="card card-collapsed" style="margin-top:5px;">
+                    <div class="card-status bg-blue"></div>
+                  <div class="card-header">
+                <h3 class="card-title"> Lecture <?php echo $lecrow['lecNum']; ?> - <?php echo $lecrow['lecTitle']; ?>.</h3>
                     <div class="card-options">
                       <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
                       <a href="#" class="card-options-fullscreen" data-toggle="card-fullscreen"><i class="fe fe-maximize"></i></a>
@@ -113,40 +189,76 @@ if($cdet){
                   <div class="card-body">
                       <div class="row">
                         <div class="col-md-12">
+                            <?php
+                            //get lecture media...
+                        $lecmedia = select("SELECT * FROM cmedia WHERE cID='$cid' AND lecture='".$lecrow['lecNum']."'");
+                        if($lecmedia){
+                            foreach($lecmedia as $lmediarow){
+                                $mediaye = $lmediarow['mediatype'];
+                            ?>
+                            <?php if($mediaye == 'video'){?>
                         <div class="card">
                           <div class="card-body" style="padding:5px;">
                               <video width="100%" height="300" controls>
-                                  <source src="Ink In Motion.mp4" style="width:100%;" type="video/mp4">
+                                  <source src="<?php echo $MEDIA_UPLOAD.$lmediarow['mediaName'];?>" style="width:100%;" type="video/mp4">
                                 Your browser does not support the video tag.
                                 </video>
+
                           </div>
                         </div>
+                            <?php } if($mediaye == 'audio'){?>
+                        <div class="card">
+                          <div class="card-body" style="padding:5px;">
+                              <audio controls>
+                                  <source src="<?php echo $MEDIA_UPLOAD.$lmediarow['mediaName'];?>" type="">
+                                Your browser does not support the audio element.
+                                </audio>
+                          </div>
+                        </div>
+                            <?php }?>
+                        <?php }}else{?>
+
+                        <div class="card">
+                          <div class="card-body" style="padding:5px;">
+                              <h6> NO MEDIA FOR THIS LECTURE.</h6>
+                          </div>
+                        </div>
+                            <?php }?>
                       </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <table class="table table-bordered">
                             <thead>
                                 <th style="font-weight:bold;"> Lecture Documents</th>
                             </thead>
+                            <?php
+                            $lecdoc = select("SELECT * FROM cdocument WHERE cID='$cid' AND lecture='".$lecrow['lecNum']."'");
+                        if($lecdoc){
+                            foreach($lecdoc as $docrow){
+                            ?>
                             <tr>
                                 <td>
-                                    <a href="bootstrap_tutorial.pdf" target="_blank" class="btn btn-primary btn-sm btn-block"><i class="fe fe-file"></i> bootstrap_tutorial.pdf</a></td>
+                <a href="<?php echo $DOC_UPLOAD.$docrow['docName'];?>" target="_blank" class=""><i class="fe fe-file-text"></i> <?php echo $docrow['docName'];?></a>
+                                </td>
                             </tr>
+                            <?php }}else{?>
+                            <tr><td> NO LECTURE DOCUMENTS UPLOADED.</td></tr>
+                            <?php }?>
                         </table>
                           </div>
-                          <div class="col-md-6">
-                        <table class="table table-bordered">
-                            <thead>
-                                <th style="font-weight:bold;"> Required Readings</th>
-                            </thead>
-                            <tr>
-                                <td><a href="#" class="btn btn-primary btn-sm btn-block"></a></td>
-                            </tr>
-                        </table>
-                    </div>
                       </div>
                   </div>
                 </div>
+                <?php }}else{?>
+                 <div class="card card-collapsed" style="margin-top:5px;">
+                    <div class="card-status bg-red"></div>
+                  <div class="card-header">
+                    <h3 class="card-title">NO LECTURE MATERIALS UPLOADED FOR THIS COURSE</h3>
+                  </div>
+                </div>
+                <?php }?>
+                <!--===================== END COURSE CONTENT ==============================-->
+
               </div>
         </div>
     </div>

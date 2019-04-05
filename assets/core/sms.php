@@ -9,9 +9,9 @@ return $string;
 
 //SMS to student when approved
 function sendsmsme($tel,$body,$frm){
-$username = 'kingicon';
+$username = 'iamDwin';
 //$password = 'x6G0U6K7';
-$password = 'godwin1.';
+$password = 'tycles95.';
 $message = $body;
 $from = $frm;//your senderid example "kwamena"max is 11 chars;
 $baseurl = "http://isms.wigalsolutions.com/ismsweb/sendmsg/";
