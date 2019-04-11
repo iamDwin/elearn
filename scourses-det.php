@@ -58,40 +58,31 @@ if($cdet){
                       <i class="fe fe-user"></i>
                     </span>
                     <div>
-                      <h4 class="m-0">Lecture : <?php echo $lectdetrow['lastName']." ".$lectdetrow['firstName']." ".$lectdetrow['otherName'];?></h4>
+                      <h4 class="m-0">Lecturer : <?php echo $lectdetrow['lastName']." ".$lectdetrow['firstName']." ".$lectdetrow['otherName'];?></h4>
                     </div>
                   </div>
                 </div>
-                <div class="card">
-                  <ul class="list-group card-list-group" id="chatpanel" style="height:200px;">
-                    <li class="list-group-item py-5">
-                      <div class="media">
-                        <div class="media-body">
-                          <div class="media-heading">
-                            <small class="float-right text-muted">4 min</small>
-                            <h5>Student Name</h5>
-                          </div>
-                          <div>
-                            Message to lecturer
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
 
-                  <div class="card-footer">
-                    <form method="post" enctype="multipart/form-data" style="width:100%;">
-                        <div class="input-group">
-                              <input type="text" class="form-control" placeholder="Message To Lecturer">
-                              <div class="input-group-append">
-                                <button type="button" class="btn btn-secondary">
-                                  <i class="fe fe-send"></i>
-                                </button>
-                              </div>
+            <div class="card">
+                <div class="card-body">
+                  <form class="form" method="post" enctype="multipart/form-data" onsubmit="return confirm('SEND MESSAGE ?');" >
+                    <div class="form-group">
+                      <input type="text" name="heading" class="form-control" placeholder="Heading..."/>
+                    </div>
+                    <div class="form-group">
+                      <textarea class="form-control" placeholder="Message..." name="message" rows="3"></textarea>
+                    </div>
+                    <div class="form-footer">
+                        <div class="row">
+                            <div class="col-md-12">
+                      <button type="submit" name="sendmessage" class="btn btn-primary btn-block">SEND MESSAGE <i class="fe fe-send"></i></button>
+                            </div>
                         </div>
-                    </form>
-                  </div>
+                    </div>
+                  </form>
                 </div>
+              </div>
+
               </div>
 
             <div class="col-md-6 col-xl-8">

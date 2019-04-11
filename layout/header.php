@@ -234,8 +234,8 @@ $error = '';
                     <a href="./ltests" class="nav-link <?php if($active == 'ltests'){ echo 'active';}?>"><i class="fe fe-file-text"></i>Manage Tests</a>
                   </li>
                   <li class="nav-item">
-                        <a href="./ltests" class="nav-link <?php if($active == 'lmessage'){ echo 'active';}?>">
-                            <i class="fe fe-mail"></i> Messages <span style="margin-left:10px; " class="btn btn-primary btn-sm">5</span>
+                        <a href="" class="nav-link <?php if($active == 'lmessage'){ echo 'active';}?> text-danger text-bold">
+                            <i class="fe fe-mail"></i> Messages - 1
                         </a>
                   </li>
                   <li class="nav-item">

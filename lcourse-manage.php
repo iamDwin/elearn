@@ -227,7 +227,7 @@ if(isset($_POST['createLec'])){
     <div class="container">
         <div class="page-header">
           <h1 class="page-title">
-           <?php echo $cnmrow['cID'];?> : <?php echo $cnmrow['courseName'];?> - COURSE CONTENT
+           <?php echo $cnmrow['cID'];?> : <?php echo $cnmrow['courseName'];?> - COURSE CONTENT <small class="text-right"></small>
           </h1>
         </div>
         <div class="row">

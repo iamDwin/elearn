@@ -138,4 +138,38 @@ CREATE TABLE `reqreading`(
 )engine = InnoDB;
 
 
-/*-------  create */
+/*-------  create test table ------------------*/
+CREATE TABLE `test`(
+    `id` int(255) not null primary key auto_increment,
+    `cID` varchar(50) not null,
+    `testID` varchar(20) not null,
+    `lecture` int(20) not null,
+    `passMark` int(100) not null,
+    `duration` int(100) not null,
+    `status` varchar(20) not null,
+    `doe` datetime
+)engine = InnoDB;
+
+
+create table `objtest`(
+    `qid` int(255) not null primary key auto_increment,
+    `testID` varchar(20) not null,
+    `question` longtext not null,
+    `option1` varchar(255) not null,
+    `option2` varchar(255) not null,
+    `option3` varchar(255) not null,
+    `option4` varchar(255) not null,
+    `answer` int(10) not null,
+    `doe` datetime not null
+)engine = InnoDB;
+
+create table `objans`(
+    `id` int(255) not null primary key auto_increment,
+    `testID` varchar(20) not null,
+    `qid` int(20) not null,
+    `studentID` varchar(50) not null,
+    `answer` int(10) not null,
+    `right_ans` int(10) not null,
+    `score` int(5) not null,
+    `doe` datetime not null
+)engine = InnoDB;
