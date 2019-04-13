@@ -4,6 +4,8 @@ include 'layout/header.php';
 
 if(isset($_GET['tid'])){
     $tid = $_GET['tid'];
+    $test = select("SELECT * FROM test WHERE testID='$tid'");
+    foreach($test as $testrow){}
 }
 $_SESSION['current_page']=$_SERVER['REQUEST_URI'];
 
@@ -65,29 +67,36 @@ $_SESSION['current_page']=$_SERVER['REQUEST_URI'];
                         <tr>
                           <th><i class="fe fe-hash"></i> STUDENT ID</th>
                           <th class="text"><i class="fe fe-user"></i> NAME</th>
-                          <th class="text"><i class="fe fe-check"></i> PASS MARK</th>
-                          <th class="text"><i class="fe fe-check"></i> MARK</th>
+                          <th class="text"><i class="fe fe-check-square"></i> PASS MARK</th>
+                          <th class="text"><i class="fe fe-check"></i> SCORE</th>
                           <th class="text"><i class="fe fe-check"></i> STATUS</th>
                           <th class="text-center"><i class="fa fa-cog"></i> ACTION</th>
                         </tr>
                       </thead>
                       <tbody>
+                          <?php
+                            $select = select("SELECT * FROM generalreport WHERE testID='$tid' ORDER BY totalScore DESC");
+                            if($select){
+                                foreach($select as $reportrow){
+                                    $student = select("SELECT * FROM student WHERE studentID='".$reportrow['studentID']."'");
+                                    foreach($student as $studentrow){}
+                          ?>
                           <tr>
-                            <td> PUC/150413</td>
-                            <td> Effah Godwin Goodman</td>
-                            <td> 70</td>
-                            <td> 85</td>
-                            <td> <span class="tag tag-green"> PASS</span></td>
+                            <td> <?php echo $reportrow['studentID'];?></td>
+                            <td> <?php echo $studentrow['firstName']." ".$studentrow['otherName']." ".$studentrow['lastName'];?></td>
+                            <td> <?php echo $testrow['passMark']; ?></td>
+                            <td> <?php echo $reportrow['totalScore']; ?></td>
+                            <td> <?php if($reportrow['teststatus'] == 'PASS'){?>
+                                <span class="tag tag-green"> PASS</span>
+                                <?php } if($reportrow['teststatus'] == 'FAILED'){?>
+                                <span class="tag tag-red"> FAILED</span>
+                                <?php } ?>
+                            </td>
                             <td class="text-center"><a href="" class="btn btn-info"> Individual Report</a></td>
                           </tr>
-                          <tr>
-                            <td> PUC/150413</td>
-                            <td> Effah Godwin Goodman</td>
-                            <td> 70</td>
-                            <td> 85</td>
-                            <td> <span class="tag tag-red"> FAILED</span></td>
-                            <td class="text-center"><a href="" class="btn btn-info"> Individual Report</a></td>
-                          </tr>
+                          <?php }}else{ ?>
+                          <tr><td colspan="6"> NO REPORTS FOR THIS TEST YET.</td></tr>
+                          <?php }?>
                       </tbody>
                         <tfoot style="border-top:1px solid #eee;">
                             <tr>

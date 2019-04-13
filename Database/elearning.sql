@@ -173,3 +173,12 @@ create table `objans`(
     `score` int(5) not null,
     `doe` datetime not null
 )engine = InnoDB;
+
+create table `generalReport`(
+    `id` int(255) not null primary key auto_increment,
+    `studentID` varchar(50) not null,
+    `cID` varchar(100) not null,
+    `testID` varchar(50) not null,
+    `totalScore` int(100) not null,
+    `doe` timestamp
+)engine = InnoDB;

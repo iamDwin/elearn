@@ -75,6 +75,10 @@ $error = '';
     .text-white{
         color: white;
     }
+
+    .text-bold{
+        font-weight: bold;
+    }
 </style>
   </head>
   <body class="">
@@ -83,7 +87,7 @@ $error = '';
         <div class="header py-4">
           <div class="container">
             <div class="d-flex">
-              <a class="header-brand" href="./dashboard">
+              <a class="header-brand" href="<?php if(@$_SESSION['testactive'] == 'active'){ echo "";}else{ echo "./dashboard";}?>">
                 <img src="./favicon.ico" class="header-brand-img" alt="tabler logo">
                 <span style="font-weight:bold; font-size:100%; color:#2d89ef;"> eLearning</span>
               </a>
@@ -97,14 +101,14 @@ $error = '';
                     </span>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                    <a class="dropdown-item" href="./profile">
+                    <a class="dropdown-item" href="./profile"  style="<?php if(@$_SESSION['testactive'] == 'active'){ echo "display:none;";}?>">
                       <i class="dropdown-icon fe fe-user"></i> Profile
                     </a>
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="#" style="<?php if(@$_SESSION['testactive'] == 'active'){ echo "display:none;";}?>">
                       <span class="float-right"><span class="badge badge-primary">6</span></span>
                       <i class="dropdown-icon fe fe-mail"></i> Inbox
                     </a>
-                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-divider" style="<?php if(@$_SESSION['testactive'] == 'active'){ echo "display:none;";}?>"></div>
 <!--
                     <a class="dropdown-item" href="#">
                       <i class="dropdown-icon fe fe-help-circle"></i> Need help?
@@ -253,7 +257,7 @@ $error = '';
           <!-- ================================== START STUDENT NAVBAR ==============================================  -->
         <div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
           <div class="container">
-            <div class="row align-items-center">
+            <div class="row align-items-center"  style="<?php if($_SESSION['testactive'] == 'active'){ echo "display:none;";}?>">
               <div class="col-lg-3 ml-auto">
                 <form class="input-icon my-3 my-lg-0">
                   <input type="search" disabled class="form-control header-search" placeholder="Search&hellip;" tabindex="1">

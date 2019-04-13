@@ -18,13 +18,56 @@ if(isset($_POST['signIn'])){
             }elseif($flogin == 3){
 
             }else{
+
+            if($signrow['userstatus'] == 'testactive'){
+//                $error = "<script>document.write('TEST STILL ACTIVE, CAN'T ACCESS PORTAL.');</script>";
+                $error = "TEST ACTIVE, CAN'T ACCESS PORTAL.";
+            }else{
+
                 $_SESSION['email'] = $signrow['email'];
                 $_SESSION['password'] = $signrow['password'];
                 $_SESSION['access'] = $signrow['access'];
-                $success = "<script>document.write('Sign In Successful.');</script>";
-                echo "<script>window.location.href='dashboard';</script>";
-            }
 
+                if($_SESSION['access'] == 'student'){
+
+                //get student details..
+                $student = select("SELECT * FROM student WHERE email='".$_SESSION['email']."' ");
+                foreach($student as $studentrow){}
+
+                //GET ACTIVES TESTS....
+                $active = select("SELECT * FROM test WHERE status='active'");
+                if($active){
+                    foreach($active as $activerow){
+                        $activeCID = $activerow['cID'];
+
+                        //GET COURSE DETAILS...
+                        $cIDdetials = select("SELECT * FROM courses WHERE cID='$activeCID'");
+                        foreach($cIDdetials as $cIDdetialsrow){
+                            $courseLevel = $cIDdetialsrow['level'];
+                        }
+                        if($studentrow['level'] == $courseLevel && $cIDdetialsrow['depID'] == $studentrow['depID']){
+                            $_SESSION['testactive'] = 'active';
+$success = "<script>document.write('ACTIVE TEST AVAILABLE, REDIRECTING NOW...');window.location.href='take-test?tid=".$activerow['testID']."';</script>";
+
+                        }else{
+                            $success = "<script>document.write('Sign In Successful.');</script>";
+                                echo "<script>window.location.href='dashboard';</script>";
+                        }
+                    }
+                }else{
+                    $success = "<script>document.write('Sign In Successful.');</script>";
+                        echo "<script>window.location.href='dashboard';</script>";
+                }
+
+
+                }else{
+                    $success = "<script>document.write('Sign In Successful.');</script>";
+                        echo "<script>window.location.href='dashboard';</script>";
+                }
+
+
+            }
+        }
         }
     }else{
         $error = "<script>document.write('Wrong Email And Password.');</script>";

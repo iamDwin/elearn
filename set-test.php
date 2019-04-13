@@ -69,7 +69,7 @@ if(isset($_POST['createTest'])){
                             <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label"><i class="fe fe-check-square"></i> Pass Mark</label>
-                                  <input type="number" name="passMark" class="form-control" placeholder="Pass Mark"/>
+                                  <input type="number" min="1" name="passMark" class="form-control" placeholder="Pass Mark"/>
                                 </div>
                           </div>
                             <div class="col-md-6">

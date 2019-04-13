@@ -213,7 +213,8 @@ if(isset($_POST['createTest'])){
                                                 ?>
                                                 <tr>
                                                     <td> <?php echo $qstnrow['qid'];?></td>
-                                                    <td><?php echo $qstnrow['question']; ?></td>
+                                                    <td><?php echo wordwrap(substr($qstnrow['question'],0,100), 20)."....";?></td>
+
                                                     <td class="text-center">
                                                         <a href="manage-question?qid=<?php echo $qstnrow['qid'];?>" class="btn btn-primary btn-sm">Edit <i class="fe fe-edit"></i></a>
 

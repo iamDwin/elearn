@@ -16,44 +16,22 @@ $_SESSION['current_page']=$_SERVER['REQUEST_URI'];
 <!--            <div class="col-md-2"></div>-->
             <div class="col-sm-12">
             <div class="card">
+<!--
                 <div class="card-header">
                     <h4 class="card-title"> TEST PAGE</h4>
                 </div>
+-->
                 <div class="card-body">
                   <form class="form" method="post" enctype="multipart/form-data" onsubmit="return confirm('SEND MESSAGE ?');" >
 
-                     <div class="form-group">
-                        <div class="form-label">1. Quetion Details</div>
-                        <div class="custom-controls-stacked">
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" name="example-inline-radios" value="option1">
-                                        <span class="custom-control-label">Option 1</span>
-                                      </label>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" name="example-inline-radios" value="option2">
-                                        <span class="custom-control-label">Option 2</span>
-                                      </label>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" name="example-inline-radios" value="option3">
-                                        <span class="custom-control-label">Option 3</span>
-                                      </label>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" name="example-inline-radios" value="option4">
-                                        <span class="custom-control-label">Option 4</span>
-                                      </label>
-                                </div>
-                            </div>
-                        </div>
-                      </div>
+                      <table class="table table-stripped">
+                          <thead><th colspan="2"> TEST REPORT</th></thead>
+                            <tr> <td>CORRECT ANSWERS</td> <td>5</td> </tr>
+                            <tr> <td>WRONG ANSWERS</td> <td>5</td> </tr>
+                            <tr> <td>UNATTEMPTED QUESTIONS</td> <td>5</td> </tr>
+                            <tr> <td>TOTAL QUESTIONS</td> <td>5</td> </tr>
+                            <tr> <td>TEST STATUS</td> <td>5</td> </tr>
+                      </table>
 
                     <div class="form-footer" style="border-top:1px solid #eee;">
                         <div class="row" style="margin-top:5px;">
