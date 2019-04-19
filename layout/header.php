@@ -79,6 +79,12 @@ $error = '';
     .text-bold{
         font-weight: bold;
     }
+
+    .capital{
+        text-transform: uppercase;
+
+    }
+
 </style>
   </head>
   <body class="">
@@ -97,7 +103,7 @@ $error = '';
                     <span class="avatar"><i class="fe fe-user"></i></span>
                     <span class="ml-2 d-none d-lg-block">
                       <span class="text-default"><?php echo $userDet['userID'];?></span>
-                      <small class="text-muted d-block mt-1"><?php echo $userDet['access'];?></small>
+                      <small class="text-muted d-block mt-1 capital"><?php echo $userDet['access'];?></small>
                     </span>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
@@ -238,8 +244,8 @@ $error = '';
                     <a href="./ltests" class="nav-link <?php if($active == 'ltests'){ echo 'active';}?>"><i class="fe fe-file-text"></i>Manage Tests</a>
                   </li>
                   <li class="nav-item">
-                        <a href="" class="nav-link <?php if($active == 'lmessage'){ echo 'active';}?> text-danger text-bold">
-                            <i class="fe fe-mail"></i> Messages - 1
+                        <a href="./inbox" class="nav-link <?php if($active == 'message'){ echo 'active';}?> text-bold">
+                            <i class="fe fe-mail"></i> Messages
                         </a>
                   </li>
                   <li class="nav-item">
@@ -288,6 +294,11 @@ $error = '';
                   </li>
                   <li class="nav-item">
                     <a href="./dashboard" class="nav-link<?php if($active == 'stests'){ echo 'active';}?>"><i class="fe fe-file"></i> Tests</a>
+                  </li>
+                  <li class="nav-item">
+                        <a href="./inbox" class="nav-link <?php if($active == 'message'){ echo 'active';}?> text-bold">
+                            <i class="fe fe-mail"></i> Messages
+                        </a>
                   </li>
                   <li class="nav-item">
                     <a href="./dashboard" class="nav-link<?php if($active == 'sreports'){ echo 'active';}?>"><i class="fe fe-file-text"></i> Reports</a>

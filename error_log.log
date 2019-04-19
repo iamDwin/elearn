@@ -1,0 +1,10 @@
+[17-Apr-2019 13:24:22 Africa/Accra] PHP Notice:  Undefined index: testactive in X:\xammp\htdocs\elearn\layout\header.php on line 266
+[18-Apr-2019 00:34:39 Africa/Accra] PHP Notice:  Undefined index: testactive in X:\xammp\htdocs\elearn\layout\header.php on line 266
+[18-Apr-2019 23:29:24 Africa/Accra] PHP Notice:  Undefined index: testactive in X:\xammp\htdocs\elearn\layout\header.php on line 266
+[18-Apr-2019 23:29:31 Africa/Accra] PHP Notice:  Undefined index: testactive in X:\xammp\htdocs\elearn\layout\header.php on line 266
+[18-Apr-2019 23:29:32 Africa/Accra] PHP Notice:  Undefined index: testactive in X:\xammp\htdocs\elearn\layout\header.php on line 266
+[19-Apr-2019 01:50:58 Africa/Accra] PHP Notice:  Undefined variable: numunread in X:\xammp\htdocs\elearn\inbox.php on line 27
+[19-Apr-2019 01:51:08 Africa/Accra] PHP Notice:  Undefined variable: numunread in X:\xammp\htdocs\elearn\inbox.php on line 27
+[19-Apr-2019 07:54:04 Africa/Accra] PHP Notice:  Undefined variable: numunread in X:\xammp\htdocs\elearn\inbox.php on line 27
+[19-Apr-2019 07:54:05 Africa/Accra] PHP Notice:  Undefined variable: numunread in X:\xammp\htdocs\elearn\inbox.php on line 27
+[19-Apr-2019 07:59:57 Africa/Accra] PHP Notice:  Undefined variable: numunread in X:\xammp\htdocs\elearn\inbox.php on line 27

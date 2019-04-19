@@ -113,7 +113,7 @@ if(isset($_POST['reglect'])){
                            <div class="form-group">
                               <label class="form-label"><i class="fe fe-folder"></i> Lecturer Position<span class="form-required">*</span></label>
                                 <div class="input-icon">
-                                    <select class="form-control" placeholder="Positon" name="staffcat" required>
+                                    <select class="form-control" placeholder="Positon" name="staffcat" disabled required>
                                         <option value="<?php echo $lecDet['position'];?>"><?php echo $lecDet['position'];?></option>
                                         <option value="lecturer"> Lecturer</option>
                                         <option value="hod"> Head Of Department</option>

@@ -10,7 +10,7 @@ $_SESSION['current_page']=$_SERVER['REQUEST_URI'];
 if(isset($_POST['sendmessage'])){
     $message = $_POST['message'];
     $number = $_POST['number'];
-    $frm = "LUCID";
+    $frm = "DWIN";
     $send = sendmessage(clean($number),$message,$frm);
     if($send){
         echo "<script>alert('DONE..');</script>";

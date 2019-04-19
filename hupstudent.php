@@ -99,7 +99,7 @@ if(isset($_POST['updatestudent'])){
                               <div class="form-group">
                                 <div class="input-icon">
                                     <span class="input-icon-addon"><i class="fe fe-bar-chart"></i><span class="form-required">*</span></span>
-                                    <select class="form-control" name="level">
+                                    <select class="form-control" disabled name="level">
                                         <option value="<?php echo $strow['level'];?>"> <?php echo $strow['level'];?></option>
                                         <option value="100"> 100 </option>
                                         <option value="200"> 200 </option>
@@ -116,7 +116,7 @@ if(isset($_POST['updatestudent'])){
                           <div class="form-group">
                               <label class="form-label"><i class="fe fe-folder"></i> School<span class="form-required">*</span></label>
                                 <div class="input-icon">
-                                    <select class="form-control" name="school" required>
+                                    <select class="form-control" name="school" disabled required>
                                         <option value="<?php echo $strow['school'];?>"><?php echo $strow['school'];?></option>
                                         <option value="Regular"> Regular</option>
                                         <option value="Evening"> Evening</option>

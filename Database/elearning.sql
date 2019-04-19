@@ -182,3 +182,28 @@ create table `generalReport`(
     `totalScore` int(100) not null,
     `doe` timestamp
 )engine = InnoDB;
+
+
+create table `messages`(
+    `mid` int(255) not null primary key auto_increment,
+    `sender` varchar(100) not null,
+    `recipient` varchar(100) not null,
+    `heading` longtext not null,
+    `text` longtext not null,
+    `date` date not null,
+    `time` time not null,
+    `status` varchar(50) not null,
+    `doe` timestamp
+)engine = InnoDB;
+
+
+create table `message_reply`(
+    `rid` int(255) not null primary key auto_increment,
+    `mid` int(255) not null,
+    `sender` varchar(100) not null,
+    `text` longtext not null,
+    `date` date not null,
+    `time` time not null,
+    `status` varchar(100) not null,
+    `doe` timestamp
+)engine = InnoDB;
