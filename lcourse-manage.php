@@ -227,6 +227,7 @@ if(isset($_POST['createLec'])){
     <div class="container">
         <div class="page-header">
           <h1 class="page-title">
+            <a class="btn btn-primary" href="javascript:history.back()"><i class="fe fe-arrow-left mr-2"></i>Go back</a>
            <?php echo $cnmrow['cID'];?> : <?php echo $cnmrow['courseName'];?> - COURSE CONTENT <small class="text-right"></small>
           </h1>
         </div>
@@ -349,11 +350,20 @@ if(isset($_POST['createLec'])){
                                         $type = $reqrow['readType'];
                                 ?>
                                     <?php if($type == 'book'){?>
-                                    <tr><td><?php echo $reqrow['content'];?></td></tr>
+                                    <tr>
+                                        <td><?php echo $reqrow['content'];?></td>
+                                        <td><a onclick="return confirm('TRASH ?');" href="trash-required?id=<?php echo $reqrow['id']; ?>" class="btn btn-danger btn-sm"><i class="fe fe-trash text-white"></i></a></td>
+                                    </tr>
                                     <?php } if($type == 'url'){ ?>
-                                <tr><td><a href="<?php echo $reqrow['content'];?>" target="_blank"><?php echo $reqrow['content'];?></a></td></tr>
+                                <tr>
+                                    <td><a href="<?php echo $reqrow['content'];?>" target="_blank"><?php echo $reqrow['content'];?></a></td>
+                                    <td><a onclick="return confirm('TRASH ?');" href="trash-required?id=<?php echo $reqrow['id']; ?>" class="btn btn-danger btn-sm"><i class="fe fe-trash text-white"></i></a></td>
+                                </tr>
                                     <?php } if($type == 'file'){?>
-                                <tr><td><a href="<?php echo $DOC_UPLOAD.$reqrow['content'];?>" target="_blank"><?php echo $reqrow['content'];?></a></td></tr>
+                                <tr>
+                                    <td><a href="<?php echo $DOC_UPLOAD.$reqrow['content'];?>" target="_blank"><?php echo $reqrow['content'];?></a></td>
+                                    <td><a onclick="return confirm('TRASH ?');" href="trash-required?id=<?php echo $reqrow['id']; ?>" class="btn btn-danger btn-sm"><i class="fe fe-trash text-white"></i></a></td>
+                                </tr>
                                     <?php }?>
                                 <?php }}else{?>
                                 <tr><td>No required reading Available.</td></tr>
@@ -454,7 +464,7 @@ if(isset($_POST['createLec'])){
                                                 <tr>
                                                     <td>Lecture <?php echo $lecrow['lecNum'];?></td>
                                                     <td><?php echo $lecrow['lecTitle']; ?></td>
-                                                    <td><a href="manage-lec?lid=<?php echo $lecrow['id'];?>" class="btn btn-primary btn-sm btn-block">Manage <i class="fe fe-file-text"></i></a></td>
+                                                    <td><a href="manage-lec?cid=<?php echo $lecrow['cID']; ?>&lid=<?php echo $lecrow['lecNum'];?>" class="btn btn-primary btn-sm btn-block">Manage <i class="fe fe-file-text"></i></a></td>
                                                 </tr>
                                                 <?php }}else{?>
                                                 <tr>

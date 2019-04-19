@@ -47,6 +47,7 @@ if($cdet){
 <div class="my-3 my-md-5">
     <div class="container">
         <div class="page-header">
+            <a class="btn btn-primary" href="javascript:history.back()"><i class="fe fe-arrow-left mr-2"></i>Go back</a>
           <h1 class="page-title"><i class="fe fe-hash"></i> <?php echo $crow['cID'];?> : <?php echo $crow['courseName'];?></h1>
         </div>
         <div class="row">
@@ -54,9 +55,8 @@ if($cdet){
               <div class="col-sm-6 col-xl-4">
                 <div class="card p-3">
                   <div class="d-flex align-items-center">
-                    <span class="stamp stamp-md bg-green mr-3">
-                      <i class="fe fe-user"></i>
-                    </span>
+                      <div id="leconlimne">
+                      </div>
                     <div>
                       <h4 class="m-0">Lecturer : <?php echo $lectdetrow['lastName']." ".$lectdetrow['firstName']." ".$lectdetrow['otherName'];?></h4>
                     </div>
@@ -254,5 +254,17 @@ if($cdet){
         </div>
     </div>
 </div>
+<script>
+    function dis(){
+        xmlhttp=new XMLHttpRequest();
+        xmlhttp.open("GET","load/leconline.php?lecID=<?php echo $cmrow['lecID'];?>",false);
+        xmlhttp.send(null);
+        document.getElementById("leconlimne").innerHTML=xmlhttp.responseText;
+    }
+        dis();
 
+        setInterval(function(){
+            dis();
+        },5000);
+</script>
 <?php include 'layout/footer.php'; ?>

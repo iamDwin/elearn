@@ -27,6 +27,7 @@ if(isset($_POST['signIn'])){
                 $_SESSION['email'] = $signrow['email'];
                 $_SESSION['password'] = $signrow['password'];
                 $_SESSION['access'] = $signrow['access'];
+                $_SESSION['userID'] = $signrow['userID'];
 
                 if($_SESSION['access'] == 'student'){
 
@@ -55,14 +56,23 @@ $success = "<script>document.write('ACTIVE TEST AVAILABLE, REDIRECTING NOW...');
                         }
                     }
                 }else{
+
+                    //set online status
+                    $updateonline = update("UPDATE users SET onlinestatus='1' WHERE userID='".$signrow['userID']."'");
+                    if($updateonline){
                     $success = "<script>document.write('Sign In Successful.');</script>";
                         echo "<script>window.location.href='dashboard';</script>";
+                    }
                 }
 
 
                 }else{
+                    //set online status
+                    $updateonline = update("UPDATE users SET onlinestatus='1' WHERE userID='".$signrow['userID']."'");
+                    if($updateonline){
                     $success = "<script>document.write('Sign In Successful.');</script>";
                         echo "<script>window.location.href='dashboard';</script>";
+                    }
                 }
 
 
