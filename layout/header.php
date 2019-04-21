@@ -17,7 +17,6 @@ if(!$_SESSION['email'] && !$_SESSION['password'] && !$_SESSION['access']){
 
 }
 
-
 $dateToday = date("Y-m-d H:i:s");
 $faculty = new Faculty();
 $department = new Department();
@@ -29,6 +28,14 @@ $cmanage = new Cmanage();
 $access = $_SESSION['access'];
 $success = '';
 $error = '';
+
+//COUNT NUMBER OF UNREAD MESSAGES..
+$msg = count(select("SELECT * FROM messages WHERE recipient='".$_SESSION['userID']."' AND status='unread'"));
+if($msg <= 0){
+    $msgs = '';
+}else{
+    $msgs = $msg;
+}
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">
@@ -110,8 +117,8 @@ $error = '';
                     <a class="dropdown-item" href="./profile"  style="<?php if(@$_SESSION['testactive'] == 'active'){ echo "display:none;";}?>">
                       <i class="dropdown-icon fe fe-user"></i> Profile
                     </a>
-                    <a class="dropdown-item" href="#" style="<?php if(@$_SESSION['testactive'] == 'active'){ echo "display:none;";}?>">
-                      <span class="float-right"><span class="badge badge-primary">6</span></span>
+                    <a class="dropdown-item" href="./inbox" style="<?php if(@$_SESSION['testactive'] == 'active'){ echo "display:none;";}?>">
+                      <span class="float-right"><span class="badge badge-primary"><?php echo $msgs;?></span></span>
                       <i class="dropdown-icon fe fe-mail"></i> Inbox
                     </a>
                     <div class="dropdown-divider" style="<?php if(@$_SESSION['testactive'] == 'active'){ echo "display:none;";}?>"></div>
@@ -244,8 +251,8 @@ $error = '';
                     <a href="./ltests" class="nav-link <?php if($active == 'ltests'){ echo 'active';}?>"><i class="fe fe-file-text"></i>Manage Tests</a>
                   </li>
                   <li class="nav-item">
-                        <a href="./inbox" class="nav-link <?php if($active == 'message'){ echo 'active';}?> text-bold">
-                            <i class="fe fe-mail"></i> Messages
+                        <a href="./inbox" class="nav-link <?php if($active == 'message'){ echo 'active';}?> text-bold <?php if(!empty($msgs)){ echo "text-danger"; }?>">
+                            <i class="fe fe-mail"></i> Messages <?php if(!empty($msgs)){ echo "- ".$msgs; }?>
                         </a>
                   </li>
                   <li class="nav-item">
@@ -296,8 +303,8 @@ $error = '';
                     <a href="./dashboard" class="nav-link<?php if($active == 'stests'){ echo 'active';}?>"><i class="fe fe-file"></i> Tests</a>
                   </li>
                   <li class="nav-item">
-                        <a href="./inbox" class="nav-link <?php if($active == 'message'){ echo 'active';}?> text-bold">
-                            <i class="fe fe-mail"></i> Messages
+                        <a href="./inbox" class="nav-link <?php if($active == 'message'){ echo 'active';}?> text-bold <?php if(!empty($msgs)){ echo "text-danger"; }?>">
+                            <i class="fe fe-mail"></i> Messages <?php if(!empty($msgs)){ echo "- ".$msgs; }?>
                         </a>
                   </li>
                   <li class="nav-item">

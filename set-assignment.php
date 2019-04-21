@@ -12,32 +12,32 @@ $numTest = count($alltest);
 $newnum = $numTest + 1;
 $testID = date("dsi").$newnum;
 
-if(isset($_POST['createTest'])){
-    $testID = trim(htmlentities($_POST['testID']));
-    $lecture = trim(htmlentities($_POST['lecture']));
-    $passMark = trim(htmlentities($_POST['passMark']));
-    $questionMark = trim(htmlentities($_POST['questionMark']));
-    $duration = trim(htmlentities($_POST['duration']));
-
-    //check if test ID exixts....
-    $TIDexist = select("SELECT * FROM test WHERE testID='$testID'");
-    if($TIDexist){
-        $testID = $testID + 1;
-        $saveTest = insert("INSERT INTO test(cID,testID,lecture,passMark,duration,doe) VALUES('$cid','$testID','$lecture','$passMark','$duration','$dateToday')");
-        if($saveTest){
-            $success = "<script>document.write('TEST CREATED..!');window.location.href='".$_SESSION['current_page']."';</script>";
-        }else{
-            $error = "<script>document.write('TEST CREATION FAILED,TRY AGAIN.!');</script>";
-        }
-    }else{
-        $saveTest = insert("INSERT INTO test(cID,testID,lecture,passMark,questionMark,duration,doe) VALUES('$cid','$testID','$lecture','$passMark','$questionMark','$duration','$dateToday')");
-        if($saveTest){
-            $success = "<script>document.write('TEST CREATED..!');window.location.href='".$_SESSION['current_page']."';</script>";
-        }else{
-            $error = "<script>document.write('TEST CREATION FAILED,TRY AGAIN.!');</script>";
-        }
-    }
-}
+//if(isset($_POST['createTest'])){
+//    $testID = trim(htmlentities($_POST['testID']));
+//    $lecture = trim(htmlentities($_POST['lecture']));
+//    $passMark = trim(htmlentities($_POST['passMark']));
+//    $questionMark = trim(htmlentities($_POST['questionMark']));
+//    $duration = trim(htmlentities($_POST['duration']));
+//
+//    //check if test ID exixts....
+//    $TIDexist = select("SELECT * FROM test WHERE testID='$testID'");
+//    if($TIDexist){
+//        $testID = $testID + 1;
+//        $saveTest = insert("INSERT INTO test(cID,testID,lecture,passMark,duration,doe) VALUES('$cid','$testID','$lecture','$passMark','$duration','$dateToday')");
+//        if($saveTest){
+//            $success = "<script>document.write('TEST CREATED..!');window.location.href='".$_SESSION['current_page']."';</script>";
+//        }else{
+//            $error = "<script>document.write('TEST CREATION FAILED,TRY AGAIN.!');</script>";
+//        }
+//    }else{
+//        $saveTest = insert("INSERT INTO test(cID,testID,lecture,passMark,questionMark,duration,doe) VALUES('$cid','$testID','$lecture','$passMark','$questionMark','$duration','$dateToday')");
+//        if($saveTest){
+//            $success = "<script>document.write('TEST CREATED..!');window.location.href='".$_SESSION['current_page']."';</script>";
+//        }else{
+//            $error = "<script>document.write('TEST CREATION FAILED,TRY AGAIN.!');</script>";
+//        }
+//    }
+//}
 
 ?>
 
@@ -49,8 +49,8 @@ if(isset($_POST['createTest'])){
                 <div class="card-body">
                   <form class="form" method="post" enctype="multipart/form-data" onsubmit="return confirm('SAVE TEST ?');" >
                     <div style="display:none;" class="form-group">
-                      <label class="form-label"><i class="fe fe-hash"></i> Test ID</label>
-                      <input type="text" name="testID" value="<?php echo $testID;?>" class="form-control" readonly/>
+                      <label class="form-label"><i class="fe fe-hash"></i> Assignment ID</label>
+                      <input type="text" name="testID" value="<?php echo $testID;?>" class="form-control" hidden readonly/>
                     </div>
                     <div class="form-group">
                       <label class="form-label"><i class="fe fe-list"></i> Lecture</label>
@@ -68,8 +68,8 @@ if(isset($_POST['createTest'])){
                       <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                  <label class="form-label"><i class="fe fe-check-square"></i> Pass Mark</label>
-                                  <input type="number" min="1" name="passMark" class="form-control" placeholder="Pass Mark"/>
+                                  <label class="form-label"><i class="fe fe-calendar"></i> Submittion Date</label>
+                                  <input type="date"  name="subDate" class="form-control" placeholder="Submittion"/>
                                 </div>
                           </div>
                             <div class="col-md-6">
@@ -92,7 +92,7 @@ if(isset($_POST['createTest'])){
                                 </a>
                             </div>
                             <div class="col-md-8">
-                      <button type="submit" name="createTest" class="btn btn-primary btn-block">CREATE TEST <i class="fe fe-download"></i></button>
+                      <button type="submit" name="createTest" class="btn btn-primary btn-block">SAVE ASSIGNMENT <i class="fe fe-download"></i></button>
                             </div>
                         </div>
                     </div>

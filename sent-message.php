@@ -20,10 +20,10 @@ $_SESSION['current_page']=$_SERVER['REQUEST_URI'];
             <a href="./inbox" class="list-group-item list-group-item-action d-flex align-items-center ">
               <span class="icon mr-3"><i class="fe fe-inbox"></i></span>Inbox <span class="ml-auto badge badge-primary"><?php echo $msgs;?></span>
             </a>
-            <a href="./sent-message" class="list-group-item list-group-item-action d-flex align-items-center">
+            <a href="./sent-message" class="list-group-item list-group-item-action d-flex align-items-center active">
               <span class="icon mr-3"><i class="fe fe-send"></i></span>Sent Mail
             </a>
-            <a href="./trash-message" class="list-group-item list-group-item-action d-flex align-items-center active">
+            <a href="./trash-message" class="list-group-item list-group-item-action d-flex align-items-center ">
               <span class="icon mr-3"><i class="fe fe-trash-2"></i></span>Trash
             </a>
           </div>
