@@ -50,11 +50,42 @@ if(isset($_POST['createTest'])){
         $error = "<script>document.write('NO DATA TO BE SAVED..');</script>";
     }
 }
+
+
+if(isset($_POST['updateTest'])){
+    $testID = trim(htmlentities($_POST['testID']));
+//    $lecture = trim(htmlentities($_POST['lecture']));
+    $passMark = trim(htmlentities($_POST['passMark']));
+    $questionMark = trim(htmlentities($_POST['questionMark']));
+    $duration = trim(htmlentities($_POST['duration']));
+
+    //check if test ID exixts....
+    $TIDexist = select("SELECT * FROM test WHERE testID='$testID'");
+    if($TIDexist){
+        $testID = $testID + 1;
+        $saveTest = insert("INSERT INTO test(cID,testID,lecture,passMark,duration,doe) VALUES('$cid','$testID','$lecture','$passMark','$duration','$dateToday')");
+        if($saveTest){
+            $success = "<script>document.write('TEST CREATED..!');window.location.href='".$_SESSION['current_page']."';</script>";
+        }else{
+            $error = "<script>document.write('TEST CREATION FAILED,TRY AGAIN.!');</script>";
+        }
+    }else{
+        $saveTest = insert("INSERT INTO test(cID,testID,lecture,passMark,questionMark,duration,doe) VALUES('$cid','$testID','$lecture','$passMark','$questionMark','$duration','$dateToday')");
+        if($saveTest){
+            $success = "<script>document.write('TEST CREATED..!');window.location.href='".$_SESSION['current_page']."';</script>";
+        }else{
+            $error = "<script>document.write('TEST CREATION FAILED,TRY AGAIN.!');</script>";
+        }
+    }
+}
 ?>
 <div class="my-3 my-md-5">
     <div class="container">
         <div class="page-header">
           <h1 class="page-title">
+               <a class="btn btn-primary" href="javascript:history.back()">
+                                    <i class="fe fe-arrow-left mr-2"></i>Go back
+                                </a>
            <?php echo $cnmrow['cID'];?> : <?php echo $cnmrow['courseName'];?> - TEST <?php echo $tid; ?>
           </h1>
         </div>
@@ -175,7 +206,7 @@ if(isset($_POST['createTest'])){
                     <!--====================  ENDING COURSE CONTENT PANEL =================-->
 
                     <!--====================  START COURSE CONTENT PANEL =================-->
-                    <div class="col-md-12">
+                    <div class="col-md-7">
                         <div class="card">
                           <div class="card-status card-status-left bg-blue"></div>
                           <div class="card-header">
@@ -213,7 +244,7 @@ if(isset($_POST['createTest'])){
                                                 ?>
                                                 <tr>
                                                     <td> <?php echo $qstnrow['qid'];?></td>
-                                                    <td><?php echo wordwrap(substr($qstnrow['question'],0,100), 20)."....";?></td>
+                                                    <td><?php echo wordwrap(substr($qstnrow['question'],0,50), 20)."....";?></td>
 
                                                     <td class="text-center">
                                                         <a href="manage-question?qid=<?php echo $qstnrow['qid'];?>" class="btn btn-primary btn-sm">Edit <i class="fe fe-edit"></i></a>
@@ -237,6 +268,63 @@ if(isset($_POST['createTest'])){
                           </div>
                         </div>
                     </div>
+
+                                <div class="col-sm-5">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title"> TEST SETTINGS</h4>
+                </div>
+                <div class="card-body">
+                  <form class="form" method="post" enctype="multipart/form-data" onsubmit="return confirm('SAVE TEST ?');" >
+                    <div style="" class="form-group">
+                      <label class="form-label"><i class="fe fe-hash"></i> Test ID</label>
+                      <input type="text" name="testID" value="<?php echo $tid;?>" class="form-control" readonly/>
+                    </div>
+<!--
+                    <div class="form-group">
+                      <label class="form-label"><i class="fe fe-list"></i> Lecture</label>
+                        <select name="lecture" class="form-control" required>
+                            <option></option>
+                            <?php
+                            $allLecs = select("SELECT * FROM lecture WHERE cID='$cid'");
+                            if($allLecs){
+                                foreach($allLecs as $lecsRow){
+                            ?>
+                            <option value="<?php echo $lecsRow['lecNum'];?>"> Lecture <?php echo $lecsRow['lecNum']." - ".$lecsRow['lecTitle'];?></option>
+                            <?php }}?>
+                        </select>
+                    </div>
+-->
+                      <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class="form-label"><i class="fe fe-check-square"></i> Pass Mark</label>
+                                  <input type="number" min="1" name="passMark" class="form-control" value="<?php echo $testdetrow['passMark'];?>"  placeholder="Pass Mark"/>
+                                </div>
+                          </div>
+                            <div class="col-md-6">
+                               <div class="form-group">
+                                  <label class="form-label"><i class="fe fe-check-circle"></i> Mark Per Question</label>
+                                  <input type="number" min="1" name="questionMark" value="<?php echo $testdetrow['questionMark'];?>" class="form-control" placeholder="Mark Per Question"/>
+                                </div>
+                          </div>
+                      </div>
+
+                    <div class="form-group">
+                      <label class="form-label"><i class="fe fe-clock"></i> Duration In Seconds</label>
+                      <input type="number" min="1" name="duration" class="form-control" value="<?php echo $testdetrow['duration'];?>"  placeholder="Test Duration..."/>
+                    </div>
+                    <div class="form-footer">
+                        <div class="row">
+                            <div class="col-md-12">
+                      <button type="submit" name="updateTest" class="btn btn-primary btn-block">UPDATE TEST <i class="fe fe-download"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
                     <!--====================  ENDING COURSE CONTENT PANEL =================-->
 
                 </div>

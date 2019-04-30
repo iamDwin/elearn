@@ -52,7 +52,7 @@ $success = "<script>document.write('ACTIVE TEST AVAILABLE, REDIRECTING NOW...');
 
                         }else{
                             $success = "<script>document.write('Sign In Successful.');</script>";
-                                echo "<script>window.location.href='dashboard';</script>";
+                                echo "<script>window.location.href='dashboard.php';</script>";
                         }
                     }
                 }else{
@@ -61,7 +61,7 @@ $success = "<script>document.write('ACTIVE TEST AVAILABLE, REDIRECTING NOW...');
                     $updateonline = update("UPDATE users SET onlinestatus='1' WHERE userID='".$signrow['userID']."'");
                     if($updateonline){
                     $success = "<script>document.write('Sign In Successful.');</script>";
-                        echo "<script>window.location.href='dashboard';</script>";
+                        echo "<script>window.location.href='dashboard.php';</script>";
                     }
                 }
 
@@ -71,7 +71,7 @@ $success = "<script>document.write('ACTIVE TEST AVAILABLE, REDIRECTING NOW...');
                     $updateonline = update("UPDATE users SET onlinestatus='1' WHERE userID='".$signrow['userID']."'");
                     if($updateonline){
                     $success = "<script>document.write('Sign In Successful.');</script>";
-                        echo "<script>window.location.href='dashboard';</script>";
+                        echo "<script>window.location.href='dashboard.php';</script>";
                     }
                 }
 

@@ -69,20 +69,20 @@ if(isset($_POST['createTest'])){
                             <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label"><i class="fe fe-check-square"></i> Pass Mark</label>
-                                  <input type="number" min="1" name="passMark" class="form-control" placeholder="Pass Mark"/>
+                                  <input type="number" min="1" name="passMark" class="form-control" placeholder="Pass Mark" required />
                                 </div>
                           </div>
                             <div class="col-md-6">
                                <div class="form-group">
                                   <label class="form-label"><i class="fe fe-check-circle"></i> Mark Per Question</label>
-                                  <input type="number" min="1" name="questionMark" class="form-control" placeholder="Mark Per Question"/>
+                                  <input type="number" min="1" name="questionMark" class="form-control" placeholder="Mark Per Question" required />
                                 </div>
                           </div>
                       </div>
 
                     <div class="form-group">
                       <label class="form-label"><i class="fe fe-clock"></i> Duration In Seconds</label>
-                      <input type="number" min="1" name="duration" class="form-control" placeholder="Test Duration..."/>
+                      <input type="number" min="1" name="duration" class="form-control" placeholder="Test Duration..." required />
                     </div>
                     <div class="form-footer">
                         <div class="row">

@@ -22,7 +22,7 @@ if($allLec){
 }
 
 //CREATE LECTURE QUERY..
-if(isset($_POST['createLec'])){
+if(isset($_POST['updateLec'])){
     $lectitle = trim(htmlspecialchars($_POST['lectitle']));
 
     $numlecdoc = count($_FILES['lecdoc']['name']);
@@ -30,8 +30,9 @@ if(isset($_POST['createLec'])){
 
     if($numlecdoc > 0 && $numdoctype > 0){
     //create lecture codes
-    $createlec = insert("INSERT INTO lecture(cID,lecID,lecNum,lecTitle,doe) VALUES('$cid','".$userDet['lecID']."','$newlec','$lectitle','$dateToday')");
-    if($createlec){
+//    $createlec = insert("INSERT INTO lecture(cID,lecID,lecNum,lecTitle,doe) VALUES('$cid','".$userDet['lecID']."','$newlec','$lectitle','$dateToday')");
+    $updatelec = update("UPDATE lecture SET lectitle='$lectitle' WHERE lecNum='$lecNum' AND cID='$cid'");
+    if($updatelec){
         for($d=0, $t=0; $d < $numlecdoc, $t < $numdoctype; $d++, $t++){
             if($_POST['type'][$t] != '' && $_FILES['lecdoc']['name'][$d] != ''){
                 $type = $_POST['type'][$t];
@@ -45,7 +46,7 @@ if(isset($_POST['createLec'])){
                     $file_ext = strtolower(end($file_ext));
 
                     if($type == 'file'){
-                        $allowed = array('application','doc','docx','ppt','pptx');
+                        $allowed = array('application','doc','docx','ppt','pptx','pdf');
                     }
 
                     if($type == 'video'){
@@ -73,11 +74,11 @@ if(isset($_POST['createLec'])){
                 if(move_uploaded_file($file_tmp,$file_destination)){
 
                 if($type == 'file'){
-                    $savedoc = insert("INSERT INTO cdocument(cID,lecID,lecture,docName,doe) VALUES('$cid','".$userDet['lecID']."','$newlec','$file_name_new', '$dateToday')");
+                    $savedoc = insert("INSERT INTO cdocument(cID,lecID,lecture,docName,doe) VALUES('$cid','".$userDet['lecID']."','$lecNum','$file_name_new', '$dateToday')");
                 }
 
                 if($type == 'video' || $type == 'audio'){
-                    $savedoc = insert("INSERT INTO cmedia(cID,lecID,lecture,mediatype,mediaName,doe) VALUES('$cid','".$userDet['lecID']."','$newlec','$type','$file_name_new', '$dateToday')");
+                    $savedoc = insert("INSERT INTO cmedia(cID,lecID,lecture,mediatype,mediaName,doe) VALUES('$cid','".$userDet['lecID']."','$lecNum','$type','$file_name_new', '$dateToday')");
                 }
 
     if($savedoc){
@@ -155,11 +156,11 @@ if(isset($_POST['createLec'])){
                             <table id="dynamic_field4" class="table table-bordered" width="100%">
                             <tbody>
                                 <tr>
-                                    <td colspan="2">
+                                    <td colspan="3">
                                         <input type="text" name="lectitle" class="form-control" value="<?php echo $lecrow['lecTitle']; ?>" placeholder="Lecture Title..." required />
                                     </td>
 
-                                    <td class="text-center"></td>
+<!--                                    <td class="text-center"></td>-->
                                 </tr>
                             <tr>
                                 <th style="width:30%;"><i class="fe fe-grid"></i> File Type<span class="form-required">*</span></th>
@@ -192,7 +193,7 @@ if(isset($_POST['createLec'])){
 
                         <div class="col-md-12">
                           <div class="form-footer">
-                                <button type="submit" name="createLec" class="btn btn-primary btn-block" >
+                                <button type="submit" name="updateLec" class="btn btn-primary btn-block" >
                                   UPDATE LECTURE <?php echo $lecNum; ?>  <i class="fe fe-refresh-cw"></i>
                                 </button>
                             </div>

@@ -8,11 +8,9 @@ include 'layout/header.php';
 $_SESSION['current_page']=$_SERVER['REQUEST_URI'];
 
 //GET ALL MESSAGES FOR USER..
-$msges = select("SELECT * FROM messages WHERE recipient='".$userDet['userID']."' AND status='unread'");
+$msges = select("SELECT * FROM messages WHERE recipient='".$userDet['userID']."' AND status!='trashed' ORDER BY status DESC");
 if($msges){
     foreach($msges as $msgrow){}
-    //num of unread messages...
-    $numunread = count(select("SELECT * FROM messages WHERE recipient='".$userDet['userID']."' AND status='unread'"));
 }
 ?>
 
@@ -60,13 +58,13 @@ if($msges){
                             }
                         }
               ?>
-            <tr>
-                <td class="">
-                    <a href="./message-details?mid=<?php echo $msgrow['mid'];?>" > <i class="fe fe-user"></i> <?php echo $sender; ?></a>
+            <tr class="">
+                <td>
+                    <a  class="<?php if($msgrow['status'] == 'read'){ echo 'text-black';}?>" href="./message-details?mid=<?php echo $msgrow['mid'];?>" > <i class="fe fe-user"></i> <?php echo $sender; ?></a>
                 </td>
-                <td><a href="./message-details?mid=<?php echo $msgrow['mid'];?>"><?php echo $msgrow['heading'];?></a> </td>
-                <td class="text-right text-muted d-none d-md-table-cell text-nowrap"> <?php echo timeago($msgrow['doe']);?></td>
-                <td class="text-right text-muted d-none d-md-table-cell text-nowrap">
+                <td><a  class="<?php if($msgrow['status'] == 'read'){ echo 'text-black';}?>" href="./message-details?mid=<?php echo $msgrow['mid'];?>"><?php echo $msgrow['heading'];?></a> </td>
+                <td class="text-right d-none d-md-table-cell text-nowrap <?php if($msgrow['status'] == 'read'){ echo 'text-black';}else{ echo 'text-primary';}?>"> <?php echo timeago($msgrow['date'].$msgrow['time']);?></td>
+                <td class="text-right d-none d-md-table-cell text-nowrap">
                   <a href="./trash-msg?mid=<?php echo $msgrow['mid'];?>" onclick="return confirm('TRASH MESSAGE ?');" class="btn btn-danger btn-sm"><i class="fe fe-trash"></i></a>
                 </td>
             </tr>

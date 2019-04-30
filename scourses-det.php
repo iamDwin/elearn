@@ -52,38 +52,6 @@ if($cdet){
         </div>
         <div class="row">
 
-              <div class="col-sm-6 col-xl-4">
-                <div class="card p-3">
-                  <div class="d-flex align-items-center">
-                      <div id="leconlimne">
-                      </div>
-                    <div>
-                      <h4 class="m-0">Lecturer : <?php echo $lectdetrow['lastName']." ".$lectdetrow['firstName']." ".$lectdetrow['otherName'];?></h4>
-                    </div>
-                  </div>
-                </div>
-
-            <div class="card">
-                <div class="card-body">
-                  <form class="form" method="post" enctype="multipart/form-data" onsubmit="return confirm('SEND MESSAGE ?');" >
-                    <div class="form-group">
-                      <input type="text" name="heading" class="form-control" placeholder="Heading..."/>
-                    </div>
-                    <div class="form-group">
-                      <textarea class="form-control" placeholder="Message..." name="message" rows="3"></textarea>
-                    </div>
-                    <div class="form-footer">
-                        <div class="row">
-                            <div class="col-md-12">
-                      <button type="submit" name="sendmessage" class="btn btn-primary btn-block">SEND MESSAGE <i class="fe fe-send"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-
-              </div>
 
             <div class="col-md-6 col-xl-8">
                 <!--===================== START REQUIRED READING ==============================-->
@@ -100,7 +68,7 @@ if($cdet){
                   <div class="card-body">
                       <div class="row">
                         <div class="col-md-6">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered table-responsive">
                                 <thead>
                                     <th style="font-weight:bold;"> COURSE OUTLINE </th>
                                 </thead>
@@ -250,6 +218,41 @@ if($cdet){
                 <?php }?>
                 <!--===================== END COURSE CONTENT ==============================-->
 
+              </div>
+
+
+              <div class="col-md-6 col-xl-4">
+                <div class="card p-3">
+                  <div class="d-flex align-items-center">
+                      <div id="leconlimne">
+                      </div>
+                    <div>
+                      <h4 class="m-0"> Lecturer : <?php echo $lectdetrow['lastName']." ".$lectdetrow['firstName']." ".$lectdetrow['otherName'];?></h4>
+                    </div>
+                  </div>
+                </div>
+
+            <div class="card">
+                <div class="card-body">
+                  <form class="form" method="post" enctype="multipart/form-data" onsubmit="return confirm('SEND MESSAGE ?');" >
+                    <div class="form-group">
+                      <input type="text" name="heading" class="form-control" placeholder="Heading..."/>
+                    </div>
+                    <div class="form-group">
+                      <textarea class="form-control" placeholder="Message..." name="message" rows="3"></textarea>
+                    </div>
+                    <div class="form-footer">
+                        <div class="row">
+                            <div class="col-md-12">
+                      <button type="submit" name="sendmessage" class="btn btn-primary btn-block">SEND MESSAGE <i class="fe fe-send"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              </div>
               </div>
         </div>
     </div>

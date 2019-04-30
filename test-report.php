@@ -9,37 +9,6 @@ if(isset($_GET['tid'])){
 }
 $_SESSION['current_page']=$_SERVER['REQUEST_URI'];
 
-//$alltest = select("SELECT * FROM test WHERE cID='$cid'");
-//$numTest = count($alltest);
-//$newnum = $numTest + 1;
-//$testID = date("dsi").$newnum;
-
-//if(isset($_POST['createTest'])){
-//    $testID = trim(htmlentities($_POST['testID']));
-//    $lecture = trim(htmlentities($_POST['lecture']));
-//    $passMark = trim(htmlentities($_POST['passMark']));
-//    $duration = trim(htmlentities($_POST['duration']));
-//
-//    //check if test ID exixts....
-//    $TIDexist = select("SELECT * FROM test WHERE testID='$testID'");
-//    if($TIDexist){
-//        $testID = $testID + 1;
-//        $saveTest = insert("INSERT INTO test(cID,testID,lecture,passMark,duration,doe) VALUES('$cid','$testID','$lecture','$passMark','$duration','$dateToday')");
-//        if($saveTest){
-//            $success = "<script>document.write('TEST CREATED..!');window.location.href='".$_SESSION['current_page']."';</script>";
-//        }else{
-//            $error = "<script>document.write('TEST CREATION FAILED,TRY AGAIN.!');</script>";
-//        }
-//    }else{
-//        $saveTest = insert("INSERT INTO test(cID,testID,lecture,passMark,duration,doe) VALUES('$cid','$testID','$lecture','$passMark','$duration','$dateToday')");
-//        if($saveTest){
-//            $success = "<script>document.write('TEST CREATED..!');window.location.href='".$_SESSION['current_page']."';</script>";
-//        }else{
-//            $error = "<script>document.write('TEST CREATION FAILED,TRY AGAIN.!');</script>";
-//        }
-//    }
-//}
-
 ?>
 
 <div class="my-3 my-md-5">
@@ -92,7 +61,7 @@ $_SESSION['current_page']=$_SERVER['REQUEST_URI'];
                                 <span class="tag tag-red"> FAILED</span>
                                 <?php } ?>
                             </td>
-                            <td class="text-center"><a href="" class="btn btn-info"> Individual Report</a></td>
+                            <td class="text-center"><a href="./individual-report?tid=<?php echo $tid."&sid=".$reportrow['studentID']; ?>" class="btn btn-info"> Individual Report</a></td>
                           </tr>
                           <?php }}else{ ?>
                           <tr><td colspan="6"> NO REPORTS FOR THIS TEST YET.</td></tr>

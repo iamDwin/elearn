@@ -39,7 +39,7 @@ function start_countdown()
    $.ajax
    ({
      type:'post',
-     url:'logout.php',
+     url:'logout.php?test=logout',
      data:{
       logout:"logout"
      },
@@ -66,7 +66,7 @@ function start_countdown()
             <div class="col-sm-12">
             <div class="card">
                 <div class="card-header" style="width:100%;">
-                    <h4 class="card-title text-center text-danger"  id="countdown"> </h4>
+                    <h5 class="card-title text-center text-danger"  id="countdown"> </h5>
                 </div>
                   <form class="form" method="post" enctype="multipart/form-data" onsubmit="return confirm('SUBMIT ANSWERS ?');" >
                 <div class="card-body">

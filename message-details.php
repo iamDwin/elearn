@@ -2,8 +2,6 @@
 $active = 'message';
 include 'layout/header.php';
 
-
-
 if(isset($_GET['mid'])){
     $mid = $_GET['mid'];
 }
@@ -13,9 +11,51 @@ $_SESSION['current_page']=$_SERVER['REQUEST_URI'];
 $mesage = select("SELECT * FROM messages WHERE mid='$mid'");
 if(count($mesage) > 0){
     foreach($mesage as $msgrow){}
+    //update message to read...
+    $update = update("UPDATE messages SET status='read' WHERE mid='$mid'");
+    //get sender..
+    $lecsearch = select("SELECT * FROM lecturer WHERE lecID='".$msgrow['sender']."'");
+    if(count($lecsearch) > 0){
+        foreach($lecsearch as $lecfrow){
+            if($msgrow['sender'] == $userDet['userID']){
+                 $sender = "You";
+            }else{
+                $sender = $lecfrow['firstName']." ".$lecfrow['lastName'];
+            }
+
+        }
+    }else{
+        $stusearch = select("SELECT * FROM student WHERE studentID='".$msgrow['sender']."'");
+        if(count($stusearch) > 0){
+            foreach($stusearch as $stufrow){
+                 if($msgrow['sender'] == $userDet['userID']){
+                 $sender = "You";
+                }else{
+                    $sender = $stufrow['firstName']." ".$stufrow['lastName'];
+                }
+            }
+        }
+    }
 }
 
 
+if(isset($_POST['sendreply'])){
+    $text = trim(htmlspecialchars($_POST['text']));
+    $date = trim(date("Y-m-d"));
+    $time = trim(date("H:i:s"));
+    $status = trim("unread");
+
+    $insert = insert("INSERT INTO message_reply(mid,sender,text,date,time,status) VALUES('$mid','".$userDet['userID']."','$text','$date','$time','$status')");
+
+    //update message and set it to unread..
+    $update = update("UPDATE messages SET status='unread' WHERE mid='$mid'");
+
+    if($insert && $update){
+        $success = "<script>document.write('REPLY SENT..!');window.location.href='./inbox';</script>";
+    }else{
+        $error = "<script>document.write('FAILED TO SEND REPLY, TRY AGAIN!');</script>";
+    }
+}
 
 ?>
 
@@ -42,50 +82,84 @@ if(count($mesage) > 0){
         </div>
       </div>
       <div class="col-md-9">
+    <?php if($success){ ?>
+          <div class="alert alert-icon alert-success" role="alert">
+              <button type="button" class="close" data-dismiss="alert"></button>
+              <i class="fe fe-check mr-2" aria-hidden="true"></i> <?php echo $success; ?>
+            </div>
+        <?php } if($error){ ?>
+            <div class="alert alert-icon alert-danger" role="alert">
+                <button type="button" class="close" data-dismiss="alert"></button>
+              <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> <?php echo $error;?>
+            </div>
+        <?php } ?>
         <div class="card">
           <div class="card-header">
-              <h4 class="card-title"> Message Heading.</h4>
+              <h4 class="card-title text-bold"> <?php echo $msgrow['heading'];?></h4>
           </div>
           <ul class="list-group card-list-group">
             <li class="list-group-item py-5">
               <div class="media">
-                <div class="media-object avatar mr-4"> <i class="fe fe-user"></i></div>
+                <div class="media-object avatar mr-1"> <i class="fe fe-user"></i></div>
                 <div class="media-body">
                   <div class="media-heading">
                     <small class="float-right text-muted"><?php echo timeago($msgrow['doe']);?></small>
-                    <h5>Peter Richards</h5>
+                    <h5><?php echo $sender; ?></h5>
                   </div>
-                  <div>
-                    Aenean lacinia bibendum nulla sed consectetur. Vestibulum id ligula porta felis euismod semper. Morbi leo risus, porta ac consectetur
-                  </div>
-                  <ul class="media-list" style="height:150px; overflow: scroll;">
+                  <div><?php echo $msgrow['text'];?></div>
+                    <ul class="media-list" style="height:150px; overflow: scroll;">
+                <?php
+                //get replies to this message..
+                    $replies = select("SELECT * FROM message_reply WHERE mid='$mid' ORDER BY time ASC");
+                    if(count($replies) > 0){
+                        foreach($replies as $reprow){
+
+                    //get sender..
+                    $lecsearch = select("SELECT * FROM lecturer WHERE lecID='".$reprow['sender']."'");
+                    if(count($lecsearch) > 0){
+                        foreach($lecsearch as $lecfrow){
+                            $sender2 = $lecfrow['firstName']." ".$lecfrow['lastName'];
+                        }
+                    }else{
+                        $stusearch = select("SELECT * FROM student WHERE studentID='".$reprow['sender']."'");
+                        if(count($stusearch) > 0){
+                            foreach($stusearch as $stufrow){
+                                $sender2 = $stufrow['firstName']." ".$stufrow['lastName'];
+                            }
+                        }
+                    }
+                ?>
                     <li class="media mt-4">
-                      <div class="media-object avatar mr-4"><i class="fe fe-user"></i></div>
+<!--                      <div class="media-object avatar mr-1"><i class="fe fe-user"></i></div>-->
                       <div class="media-body">
-                        <strong>Debra Beck: </strong>
-                        Donec id elit non mi porta gravida at eget metus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Donec ullamcorper nulla non metus
-                        auctor fringilla. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Sed posuere consectetur est at lobortis.
+                        <strong><?php if($userDet['userID'] ==  $reprow['sender'] ){ echo "You";}else{ echo $sender2;} ?> </strong><br>
+                        <?php echo $reprow['text'];?>
                       </div>
                     </li>
-                      <hr>
+
+                <?php }}?>
                   </ul>
+
+
                 </div>
               </div>
             </li>
           </ul>
             <div class="card-footer">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="input-group">
-                          <input type="text" class="form-control" placeholder="Message">
-                          <div class="input-group-append">
-                            <button type="button" class="btn btn-secondary">
-                              Send Reply <i class="fe fe-send"></i>
-                            </button>
-                          </div>
+                <form method="post" enctype="multipart/form-data" onsubmit="return confirm('REPLY MESSAGE ?');">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="input-group">
+                              <input type="text" class="form-control" name="text" placeholder="Message">
+                              <div class="input-group-append">
+                                <button type="submit" name="sendreply" class="btn btn-secondary">
+                                  Send Reply <i class="fe fe-send"></i>
+                                </button>
+                              </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
       </div>

@@ -89,7 +89,9 @@ if($msg <= 0){
 
     .capital{
         text-transform: uppercase;
-
+    }
+    .text-black{
+        color: #4b4b4b;
     }
 
 </style>
@@ -117,10 +119,12 @@ if($msg <= 0){
                     <a class="dropdown-item" href="./profile"  style="<?php if(@$_SESSION['testactive'] == 'active'){ echo "display:none;";}?>">
                       <i class="dropdown-icon fe fe-user"></i> Profile
                     </a>
+                      <?php if($access != 'manager' && $access != 'hod' ){ ?>
                     <a class="dropdown-item" href="./inbox" style="<?php if(@$_SESSION['testactive'] == 'active'){ echo "display:none;";}?>">
                       <span class="float-right"><span class="badge badge-primary"><?php echo $msgs;?></span></span>
                       <i class="dropdown-icon fe fe-mail"></i> Inbox
                     </a>
+                      <?php }?>
                     <div class="dropdown-divider" style="<?php if(@$_SESSION['testactive'] == 'active'){ echo "display:none;";}?>"></div>
 <!--
                     <a class="dropdown-item" href="#">
