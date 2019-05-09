@@ -207,3 +207,35 @@ create table `message_reply`(
     `status` varchar(100) not null,
     `doe` timestamp
 )engine = InnoDB;
+
+create table `assignment`(
+    `asID` int(255) not null primary key auto_increment,
+    `cID` varchar(100) not null,
+    `lecNum` int(10) not null,
+    `type` varchar(100) not null,
+    `question` longtext not null,
+    `dueDate` date not null,
+    `doe` datetime not null,
+    `dor` timestamp
+)engine = InnoDB;
+
+create table `assignment_answers`(
+    `id` int(255) not null primary key auto_increment,
+    `asID` varchar(100) not null,
+    `studentID` varchar(100) not null,
+    `answer` longtext not null,
+    `score` int(100) not null,
+    `doe` timestamp
+)engine = InnoDB;
+
+
+
+
+
+
+
+
+
+
+
+

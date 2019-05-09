@@ -94,6 +94,11 @@ if($msg <= 0){
         color: #4b4b4b;
     }
 
+    .nav-item{
+        text-transform: uppercase;
+        font-size: 90%;
+    }
+
 </style>
   </head>
   <body class="">
@@ -116,16 +121,20 @@ if($msg <= 0){
                     </span>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                      <?php if($access !== 'manager'){ ?>
                     <a class="dropdown-item" href="./profile"  style="<?php if(@$_SESSION['testactive'] == 'active'){ echo "display:none;";}?>">
                       <i class="dropdown-icon fe fe-user"></i> Profile
                     </a>
+                      <?php }?>
                       <?php if($access != 'manager' && $access != 'hod' ){ ?>
                     <a class="dropdown-item" href="./inbox" style="<?php if(@$_SESSION['testactive'] == 'active'){ echo "display:none;";}?>">
                       <span class="float-right"><span class="badge badge-primary"><?php echo $msgs;?></span></span>
                       <i class="dropdown-icon fe fe-mail"></i> Inbox
                     </a>
                       <?php }?>
+                       <?php if($access !== 'manager'){ ?>
                     <div class="dropdown-divider" style="<?php if(@$_SESSION['testactive'] == 'active'){ echo "display:none;";}?>"></div>
+                      <?php }?>
 <!--
                     <a class="dropdown-item" href="#">
                       <i class="dropdown-icon fe fe-help-circle"></i> Need help?
@@ -243,10 +252,10 @@ if($msg <= 0){
               <div class="col-lg order-lg-first">
                 <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
                   <li class="nav-item">
-                    <a href="./dashboard" class="nav-link  <?php if($active == 'dashboard'){ echo 'active';}?>"><i class="fe fe-home"></i> Home</a>
+                    <a href="./dashboard" class="nav-link  <?php if($active == 'dashboard'){ echo 'active';}?>"><i class="fe fe-home"></i> HOME</a>
                   </li>
                   <li class="nav-item">
-                    <a href="./lcourses" class="nav-link <?php if($active == 'lcourses'){ echo 'active';}?>"><i class="fe fe-layers"></i> Courses</a>
+                    <a href="./lcourses" class="nav-link <?php if($active == 'lcourses'){ echo 'active';}?>"><i class="fe fe-layers"></i> COURSES</a>
                   </li>
                   <li class="nav-item">
                     <a href="./lstudents" class="nav-link <?php if($active == 'lstudents'){ echo 'active';}?>"><i class="fe fe-users"></i> Students</a>
@@ -274,7 +283,7 @@ if($msg <= 0){
           <!-- ================================== START STUDENT NAVBAR ==============================================  -->
         <div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
           <div class="container">
-            <div class="row align-items-center"  style="<?php if($_SESSION['testactive'] == 'active'){ echo "display:none;";}?>">
+            <div class="row align-items-center"  style="<?php if(@$_SESSION['testactive'] == 'active'){ echo "display:none;";}?>">
               <div class="col-lg-3 ml-auto">
                 <form class="input-icon my-3 my-lg-0">
                   <input type="search" disabled class="form-control header-search" placeholder="Search&hellip;" tabindex="1">

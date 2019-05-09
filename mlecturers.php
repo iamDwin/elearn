@@ -18,6 +18,7 @@ if(isset($_POST['reglect'])){
     $facID = trim(htmlspecialchars($_POST['facID']));
     $depID = trim(htmlspecialchars($_POST['depID']));
     $password = rand(8,122).rand(500,680).date('i');
+    $fullname = $firstName." ".$otherName." ".$lastName;
     $flogin = 1;
     $chekPhone = $lecturer->checkphone($phone);
     if($chekPhone){
@@ -30,6 +31,18 @@ if(isset($_POST['reglect'])){
             $addLec = $lecturer->addlec($lecID,$facID,$depID,$firstName,$lastName,$otherName,$email,$phone,$position,$dateToday);
             $adduser = $user->addUser($lecID,$email,$password,$position,$flogin,$dateToday);
             if($addLec && $adduser){
+                //SEND SMS TO LECTURER....
+                $tel = clean($phone);
+                $body = "Hello ".$fullname.", Your Account has been created succesfully, use code ".$password." on first log in To change your password";
+                $sendsms =  sendsmsme($tel,$body);
+
+                //SEND MAIL TO LECTURER...
+                $send_to = $email;
+                $copy = '';
+$body = "Hello ".$fullname.", Your Account has been created succesfully, use code ".$password." on first log in to change your password";
+                $subj = "ELEARNING LECTURER ACCOUNT";
+                $SENDMAIL = send_mail($email,'',$body,$subj);
+
                 $success = "<script>document.write('LECTURER REGISTRATION SUCCESSFULL.');window.location.href='mlecturers';</script>";
             }else{
                 $error = "<script>document.write('LECTURER REGISTRATION FAILED, TRY AGAIN.');</script>";
@@ -226,4 +239,5 @@ function facdep(val){
    });
 }
 </script>
+
 <?php include 'layout/footer.php'; ?>

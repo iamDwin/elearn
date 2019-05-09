@@ -53,7 +53,7 @@ if($getcourse){
           <i class="fe fe-layers"></i>
         </span>
         <div>
-          <h5 class="m-0"><a href="./lcourse-manage?cid=<?php echo $cnmrow['cID'];?>"><?php echo $cnmrow['courseName'];?></a></h5>
+          <h5 class="m-0"><a href="./lcourse-manage?cid=<?php echo $cnmrow['cID'];?>"><?php echo strtoupper($cnmrow['courseName']);?></a></h5>
             <small class="text-muted">OUTLINE : <?php echo $outlinestat; ?></small><br>
             <small class="text-muted">REQUIRED : <?php echo $reqstat; ?></small><br>
             <small class="text-muted">LECTURES : <?php echo $lecstat; ?></small>
@@ -62,7 +62,13 @@ if($getcourse){
     </div>
   </div>
 </a>
-<?php }}}?>
+<?php }}}else{?>
+    <div class="page-header">
+          <h1 class="page-title">
+            NO COURSE ASSIGNED.
+          </h1>
+        </div>
+            <?php }?>
         </div>
     </div>
 </div>

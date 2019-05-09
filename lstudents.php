@@ -28,7 +28,7 @@ if($getcourse){
                           <th><i class="fe fe-layers"></i> COURSE NAME</th>
                           <th><i class="fe fe-grid"></i> LEVEL</th>
                           <th class="text-center"><i class="fe fe-users"></i> NUM. OF STUDENTS</th>
-                          <th class="text-center"><i class="fa fa-cog"></i>  ACTION</th>
+<!--                          <th class="text-center"><i class="fa fa-cog"></i>  ACTION</th>-->
                         </tr>
                       </thead>
                       <tbody>
@@ -51,9 +51,11 @@ if($getcourse){
                                 <td><?php echo $cnmrow['courseName'];?></td>
                                 <td><?php echo $cnmrow['level'];?></td>
                                 <td class="text-center"><?php echo $num;?></td>
-                                <td class="text-center"><a class="btn btn-primary btn-sm text-white">Details <i class="fe fe-file-text"></i></a></td>
+<!--                                <td class="text-center"><a class="btn btn-primary btn-sm text-white">Details <i class="fe fe-file-text"></i></a></td>-->
                           </tr>
-                          <?php }}}?>
+                          <?php }}}else{?>
+                          <tr> <td colspan="4"> No Student Offers Any Courses Assigned To You.</td></tr>
+                          <?php }?>
                       </tbody>
                     </table>
                   </div>

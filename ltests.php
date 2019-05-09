@@ -52,7 +52,9 @@ if($getcourse){
                 <td class="text-right"><a href="set-assignment?cid=<?php echo $cnmrow['cID']; ?>" class="btn btn-info text-white">ASSIGNMENT <i class="fe fe-file"></i></a></td>
                 <td class="text-left"><a href="set-test?cid=<?php echo $cnmrow['cID']; ?>" class="btn btn-primary text-white">TEST <i class="fe fe-file-text"></i></a></td>
                           </tr>
-                          <?php }}}?>
+                          <?php }}}else{?>
+                          <tr> <td colspan="4"> No Courses Assigned To Create Test.</td></tr>
+                          <?php }?>
                       </tbody>
                     </table>
                   </div>

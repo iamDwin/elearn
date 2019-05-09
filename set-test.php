@@ -12,6 +12,10 @@ $numTest = count($alltest);
 $newnum = $numTest + 1;
 $testID = date("dsi").$newnum;
 
+//get course details..
+$cnm = select("SELECT * FROM courses WHERE ciD='$cid'");
+foreach($cnm as $cnmrow){}
+
 if(isset($_POST['createTest'])){
     $testID = trim(htmlentities($_POST['testID']));
     $lecture = trim(htmlentities($_POST['lecture']));
@@ -43,6 +47,12 @@ if(isset($_POST['createTest'])){
 
 <div class="my-3 my-md-5">
     <div class="container">
+        <div class="page-header">
+          <h1 class="page-title">
+            <a class="btn btn-primary" href="javascript:history.back()"><i class="fe fe-arrow-left mr-2"></i>Go back</a>
+           <?php echo strtoupper($cnmrow['courseName']);?> TESTS <small class="text-right"></small>
+          </h1>
+        </div>
         <div class="row">
             <div class="col-sm-5">
             <div class="card">

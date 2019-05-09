@@ -56,6 +56,7 @@ include 'layout/header.php';
               </a>
           </div>
         </div>
+<!--
         <div class="row row-cards">
             <div class="col-lg-6 col-xl-4">
                 <div class="card">
@@ -210,6 +211,7 @@ include 'layout/header.php';
                 </script>
               </div>
         </div>
+-->
     </div>
 </div>
 <?php }?>
@@ -230,7 +232,7 @@ include 'layout/header.php';
     <div class="container">
         <div class="page-header">
           <h1 class="page-title">
-            HOD > <?php echo $facrow['facultyName']." > ".$deprow['departmentName'];?>
+            <?php echo strtoupper($facrow['facultyName'])." - ".strtoupper($deprow['departmentName']);?>
           </h1>
         </div>
 
@@ -316,12 +318,12 @@ if($getcourse){
                   <div class="card-body">
                     <div class="media">
                       <div class="media-body">
-                    <h5 class="m-0"><i class="fe fe-user"></i> : <?php echo $userDet['lastName']." ".$userDet['firstName']." ".$userDet['otherName'];?></h5>
-                    <p class="text-mutd mb-0"><i class="fe fe-hash"></i> : <?php echo $userDet['lecID'];?></p>
+                    <h5 class="m-0"><?php echo strtoupper($userDet['lastName']." ".$userDet['firstName']." ".$userDet['otherName']);?></h5>
+<!--                    <p class="text-mutd mb-0"><i class="fe fe-hash"></i> : <?php echo $userDet['lecID'];?></p>-->
                         <p class="text-mutd mb-0"><i class="fe fe-list"></i> : <?php echo $facrow['facultyName'];?></p>
                         <p class="text-mutd mb-0"><i class="fe fe-grid"></i> : <?php echo $deprow['departmentName'];?></p>
                         <p class="text-mutd mb-0"><i class="fe fe-mail"></i> : <?php echo $userDet['email'];?></p>
-<!--                        <p class="text-mutd mb-0"><i class="fe fe-phone"></i> : <?php echo $userDet['phone'];?></p>-->
+<!--                        <p class="text-mutd mb-0"><i class="fe fe-phone"></i> : <?php // echo $userDet['phone'];?></p>-->
                       </div>
                     </div>
                   </div>
@@ -332,7 +334,7 @@ if($getcourse){
                 <div class="card">
                   <div class="card-body text-center">
                     <div class="h5"><i class="fe fe-layers"></i> ASSIGNED COURSES</div>
-                    <div class="display-4 font-weight-bold mb-4"><?php echo $numcourses;?></div>
+                    <div class="display-4 font-weight-bold mb-4"><?php echo (int)$numcourses;?></div>
                   </div>
                 </div>
               </a>
@@ -348,11 +350,11 @@ if($getcourse){
               </a>
             </div>
           <div class="col-lg-3 col-md-6">
-              <a href="" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
+              <a href="./inbox" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
                 <div class="card">
                   <div class="card-body text-center">
-                    <div class="h5"><i class="fe fe-file-text"></i> REPORTS</div>
-                    <div class="display-4 font-weight-bold mb-4">.</div>
+                    <div class="h5"><i class="fe fe-mail"></i> MESSAGES</div>
+                    <div class="display-4 font-weight-bold mb-4"><?php if($msgs == ''){echo '0';}else{ echo $msgs;}?></div>
                   </div>
                 </div>
               </a>
@@ -395,7 +397,7 @@ if($getcourse){
                   <div class="card-body">
                     <div class="media">
                       <div class="media-body">
-                    <h4 class="m-0"> <?php echo $userDet['lastName']." ".$userDet['firstName']." ".$userDet['otherName'];?></h4>
+                    <h5 class="m-0"> <?php echo strtoupper($userDet['lastName']." ".$userDet['firstName']." ".$userDet['otherName']);?></h5>
                     <p class="text-muted mb-0"><i class="fe fe-hash"></i> <?php echo $userDet['studentID'];?></p>
                         <p class="text-muted mb-0">D : <?php echo $deprow['departmentName'];?></p>
                         <p class="text-muted mb-0">L : <?php echo $userDet['level'];?></p>

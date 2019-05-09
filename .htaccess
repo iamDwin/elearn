@@ -1,5 +1,5 @@
 #redirection when page not found
-ErrorDocument 404 http://localhost:8080/elearn/404
+ErrorDocument 404 http://localhost/elearn/404
 
 
 #Hides all file extensions in the url
@@ -26,10 +26,12 @@ RewriteRule ^(.*)$ $1.html
    php_value docref_ext 0
 
 
-  # enable PHP error logging
+# enable PHP error logging
    php_flag  log_errors on
-   php_value error_log  X:\xammp\htdocs\Elearn\error_log.log
+# php_value error_log  X:\xammp\htdocs\Elearn\error_log.log
+   php_value error_log  /opt/lampp/htdocs/elearn/error_log.log
 
 
- # general directive for setting php error level
+
+# general directive for setting php error level
    php_value error_reporting -1

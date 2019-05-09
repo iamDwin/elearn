@@ -5,53 +5,124 @@ include 'layout/header.php';
 if(isset($_GET['cid'])){
     $cid = $_GET['cid'];
 }
+
+$MAIN_UPLOAD = PARENT_DIR.$cid.'/';
+$MEDIA_UPLOAD = PARENT_DIR.$cid.'/media/';
+$DOC_UPLOAD = PARENT_DIR.$cid.'/documents/';
+$ASSIGNMENT_UPLOAD = PARENT_DIR.$cid.'/assignment/';
+
 $_SESSION['current_page']=$_SERVER['REQUEST_URI'];
 
-$alltest = select("SELECT * FROM test WHERE cID='$cid'");
-$numTest = count($alltest);
-$newnum = $numTest + 1;
-$testID = date("dsi").$newnum;
+//$alltest = select("SELECT * FROM test WHERE cID='$cid'");
+//$numTest = count($alltest);
+//$newnum = $numTest + 1;
+//$testID = date("dsi").$newnum;
 
-//if(isset($_POST['createTest'])){
+//get course details..
+$cnm = select("SELECT * FROM courses WHERE ciD='$cid'");
+foreach($cnm as $cnmrow){}
+
+if(isset($_POST['createAssignment'])){
 //    $testID = trim(htmlentities($_POST['testID']));
-//    $lecture = trim(htmlentities($_POST['lecture']));
-//    $passMark = trim(htmlentities($_POST['passMark']));
-//    $questionMark = trim(htmlentities($_POST['questionMark']));
-//    $duration = trim(htmlentities($_POST['duration']));
-//
-//    //check if test ID exixts....
-//    $TIDexist = select("SELECT * FROM test WHERE testID='$testID'");
-//    if($TIDexist){
-//        $testID = $testID + 1;
-//        $saveTest = insert("INSERT INTO test(cID,testID,lecture,passMark,duration,doe) VALUES('$cid','$testID','$lecture','$passMark','$duration','$dateToday')");
-//        if($saveTest){
-//            $success = "<script>document.write('TEST CREATED..!');window.location.href='".$_SESSION['current_page']."';</script>";
-//        }else{
-//            $error = "<script>document.write('TEST CREATION FAILED,TRY AGAIN.!');</script>";
-//        }
-//    }else{
-//        $saveTest = insert("INSERT INTO test(cID,testID,lecture,passMark,questionMark,duration,doe) VALUES('$cid','$testID','$lecture','$passMark','$questionMark','$duration','$dateToday')");
-//        if($saveTest){
-//            $success = "<script>document.write('TEST CREATED..!');window.location.href='".$_SESSION['current_page']."';</script>";
-//        }else{
-//            $error = "<script>document.write('TEST CREATION FAILED,TRY AGAIN.!');</script>";
-//        }
+    $lecture = trim(htmlentities($_POST['lecture']));
+    $passMark = trim(htmlentities($_POST['passMark']));
+    $overallMark = trim(htmlentities($_POST['overallMark']));
+    $dueDate = trim(htmlentities($_POST['dueDate']));
+    $type = trim(htmlentities($_POST['type']));
+
+        // Declare two dates
+    $start_date = strtotime(date("Y-m-d"));
+    $end_date = strtotime($dueDate);
+
+    // Get the difference and divide into
+    // total no. seconds 60/60/24 to get
+    // number of days
+    $datdif =  ($end_date - $start_date)/60/60/24;
+
+    if($datdif < 0){
+        $error = "<script>document.write('SELECTED DUE DATE IS PAST, SELECT NEW DATE.!');</script>";
+    }else{
+
+        if($type == 'text'){
+            $question = trim(htmlspecialchars($_POST['question']));
+            $saveTest = insert("INSERT INTO assignment(cID,lecNum,type,question,overallMark,passMark,dueDate,doe) VALUES('$cid','$lecture','$type','$question','$overallMark','$passMark','$dueDate','$dateToday')");
+            if($saveTest){
+                $success = "<script>document.write('ASSIGNMENT CREATED..!');window.location.href='".$_SESSION['current_page']."';</script>";
+            }else{
+                $error = "<script>document.write('ASSIGNMENT CREATION FAILED,TRY AGAIN.!');</script>";
+            }
+        }
+
+        if($type == 'file'){
+
+            //file properties
+            $file_name=$_FILES['question']['name'];
+            $file_tmp=$_FILES['question']['tmp_name'];
+            $file_size= $_FILES['question']['size'];
+            $file_error = $_FILES['question']['error'];
+            //etract extension
+            $file_ext =explode('.',$file_name);
+            $file_ext = strtolower(end($file_ext));
+            $allowed = array('application','doc','docx','txt','ppt','pptx','pdf');
+
+            if(in_array($file_ext, $allowed)){
+                if($file_error===0){
+                    if($file_size <= 4097152){
+                        $count = count(select("SELECT * FROM assignment WHERE cID='$cid'")) + 1;
+                     $file_name_new=$cid.'-assigment'.$count.'.'.$file_ext;
+                        $file_destination = $ASSIGNMENT_UPLOAD.$file_name_new;
+                        //check if file has been loaded earlier and move it from temporary location into folder
+                        if(move_uploaded_file($file_tmp,$file_destination)){
+
+
+            $saveTest = insert("INSERT INTO assignment(cID,lecNum,type,question,overallMark,passMark,dueDate,doe) VALUES('$cid','$lecture','$type','$file_destination','$overallMark','$passMark','$dueDate','$dateToday')");
+
+            if($saveTest){
+    $success = "<script>document.write('ASSIGNMENT FILE UPLOAD.');window.location.href='".$_SESSION['current_page']."'</script>";
+            }else{
+                $error = "<script>document.write('ASSIGNMENT CREATION FAILED,TRY AGAIN.!');</script>";
+            }
+                        }else{
+                           $error = "<script>document.write('FILE NOT MOVED, TRY AGAIN');</script>";
+                        }
+                    }else{
+                        $error = "<script>document.write('FILE EXCEEDS MAX SIZE OF 10MB, TRY AGAIN');</script>";
+                    }
+
+                }else{
+                    $error = "<script>document.write('".$file_error."');</script>";
+                }
+            }else{
+                $error = "<script>document.write('FILE EXTENSION NOT SUPPORTED, TRY AGAIN');</script>";
+            }
+
+
+        }
+
+
+    }
+
+
+
 //    }
-//}
+}
 
 ?>
 
 <div class="my-3 my-md-5">
     <div class="container">
+        <div class="page-header">
+          <h1 class="page-title">
+            <a class="btn btn-primary" href="javascript:history.back()"><i class="fe fe-arrow-left mr-2"></i>Go back</a>
+           <?php echo strtoupper($cnmrow['courseName']);?> ASIGNMENTS <small class="text-right"></small>
+          </h1>
+        </div>
         <div class="row">
             <div class="col-sm-5">
             <div class="card">
                 <div class="card-body">
-                  <form class="form" method="post" enctype="multipart/form-data" onsubmit="return confirm('SAVE TEST ?');" >
-                    <div style="display:none;" class="form-group">
-                      <label class="form-label"><i class="fe fe-hash"></i> Assignment ID</label>
-                      <input type="text" name="testID" value="<?php echo $testID;?>" class="form-control" hidden readonly/>
-                    </div>
+                  <form class="form" method="post" enctype="multipart/form-data" onsubmit="return confirm('SAVE ASSIGNMENT ?');" >
+
                     <div class="form-group">
                       <label class="form-label"><i class="fe fe-list"></i> Lecture</label>
                         <select name="lecture" class="form-control" required>
@@ -65,25 +136,46 @@ $testID = date("dsi").$newnum;
                             <?php }}?>
                         </select>
                     </div>
+
                       <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                  <label class="form-label"><i class="fe fe-calendar"></i> Submittion Date</label>
-                                  <input type="date"  name="subDate" class="form-control" placeholder="Submittion"/>
+                                  <label class="form-label"><i class="fe fe-calendar"></i> Due Date</label>
+                                  <input type="date"  name="dueDate" class="form-control" placeholder="Submittion" required />
                                 </div>
                           </div>
                             <div class="col-md-6">
                                <div class="form-group">
-                                  <label class="form-label"><i class="fe fe-check-circle"></i> Mark Per Question</label>
-                                  <input type="number" min="1" name="questionMark" class="form-control" placeholder="Mark Per Question"/>
+                                  <label class="form-label"><i class="fe fe-file"></i> Question Type</label>
+                                   <select class="form-control" name="type" onchange="aType(this.value)" required>
+                                        <option value=""></option>
+                                        <option value="file"> File </option>
+                                        <option value="text"> Text </option>
+                                   </select>
                                 </div>
                           </div>
                       </div>
 
-                    <div class="form-group">
-                      <label class="form-label"><i class="fe fe-clock"></i> Duration In Seconds</label>
-                      <input type="number" min="1" name="duration" class="form-control" placeholder="Test Duration..."/>
-                    </div>
+                      <div class="row" id="textType">
+
+                      </div>
+
+                      <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class="form-label"><i class="fe fe-check-circle"></i> Overall Mark</label>
+                                  <input type="number" min="1"  name="overallMark" class="form-control" placeholder="Overall Mark"/>
+                                </div>
+                          </div>
+                            <div class="col-md-6">
+                               <div class="form-group">
+                                  <label class="form-label"><i class="fe fe-check-circle"></i> Pass Mark</label>
+                                  <input type="number" min="1" name="passMark" class="form-control" placeholder="Pass Mark"/>
+                                </div>
+                          </div>
+                      </div>
+
+
                     <div class="form-footer">
                         <div class="row">
                             <div class="col-md-4">
@@ -92,7 +184,7 @@ $testID = date("dsi").$newnum;
                                 </a>
                             </div>
                             <div class="col-md-8">
-                      <button type="submit" name="createTest" class="btn btn-primary btn-block">SAVE ASSIGNMENT <i class="fe fe-download"></i></button>
+                      <button type="submit" name="createAssignment" class="btn btn-primary btn-block">SAVE ASSIGNMENT <i class="fe fe-download"></i></button>
                             </div>
                         </div>
                     </div>
@@ -117,7 +209,7 @@ $testID = date("dsi").$newnum;
                     <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
                       <thead>
                         <tr>
-                          <th><i class="fe fe-hash"></i> ID</th>
+                          <th><i class="fe fe-hash"></i></th>
                           <th class="text-center"><i class="fe fe-list"></i> LECTURE</th>
                           <th class="text-center"><i class="fe fe-check"></i> PASS MARK</th>
                           <th class="text-center"><i class="fa fa-cog"></i> ACTION</th>
@@ -126,32 +218,35 @@ $testID = date("dsi").$newnum;
                       <tbody>
                           <?php
 //                          $allfac = $faculty->find_all_fac();
-                          $alltest = select("SELECT * FROM test WHERE cID='$cid'");
+                          $counter = 0;
+                          $alltest = select("SELECT * FROM assignment WHERE cID='$cid'");
                           if($alltest){
                               foreach($alltest as $testRow){
+
+                              $counter ++ ;
                           ?>
                         <tr>
-                          <td> <div><?php echo $testRow['testID'];?></div> </td>
-                          <td class="text-center"> <?php echo $testRow['lecture'];?> </td>
+                          <td> <div><?php echo $counter;?></div> </td>
+                          <td class="text-center"> <?php echo $testRow['lecNum'];?> </td>
                           <td class="text-center"> <?php echo $testRow['passMark'];?> </td>
                           <td class="text-center">
-                <a href="./set-test-questions?tid=<?php echo $testRow['testID'];?>" class="btn btn-info btn-sm text-white <?php if($testRow['status'] == 'active'){ echo 'disabled';} ?> "><i class="fe fe-file-text"></i> Manage </a>
+                <a href="./set-test-questions?aid=<?php echo $testRow['asID'];?>" class="btn btn-info btn-sm text-white <?php if($testRow['status'] == 'active'){ echo 'disabled';} ?> "><i class="fe fe-file-text"></i> Manage </a>
                               ||
                               <?php
                               if($testRow['status'] == ''){
                               ?>
-                              <a onclick="return confirm('CONFIRM ACTIVATION.');" href="./activate-test?tid=<?php echo $testRow['testID'];?>&cid=<?php echo $testRow['cID'];?>" class="btn btn-success btn-sm text-white"><i class="fe fe-check-square"></i> Activate</a>
+                              <a onclick="return confirm('CONFIRM ACTIVATION.');" href="./activate-assignment?aid=<?php echo $testRow['asID'];?>&cid=<?php echo $testRow['cID'];?>" class="btn btn-success btn-sm text-white"><i class="fe fe-check-square"></i> Activate</a>
                               <?php }
                               if($testRow['status'] == 'active'){
                               ?>
-            <a onclick="return confirm('CONFIRM DEACTIVATION.');" href="./deactivate-test?tid=<?php echo $testRow['testID'];?>&cid=<?php echo $testRow['cID'];?>" class="btn btn-danger btn-sm text-white"><i class="fe fe-x-square"></i> Deactivate</a>
+            <a onclick="return confirm('CONFIRM DEACTIVATION.');" href="./deactivate-assignment?aid=<?php echo $testRow['asID'];?>&cid=<?php echo $testRow['cID'];?>" class="btn btn-danger btn-sm text-white"><i class="fe fe-x-square"></i> Deactivate</a>
                               <?php } ?>
                               ||
-                <a href="./test-report?tid=<?php echo $testRow['testID'];?>" class="btn btn-primary btn-sm text-white <?php if($testRow['status'] == 'active'){ echo 'disabled';} ?> "><i class="fe fe-folder"></i> Report </a>
+                <a href="./test-report?aid=<?php echo $testRow['asID'];?>" class="btn btn-primary btn-sm text-white <?php if($testRow['status'] == 'active'){ echo 'disabled';} ?> "><i class="fe fe-folder"></i> Report </a>
                           </td>
                         </tr>
                           <?php }}else{?>
-                          <tr><td colspan="4"> NO TEST AVAIABLE..</td></tr>
+                          <tr><td colspan="4"> NO ASIGNMENT AVAIABLE..</td></tr>
                           <?php }?>
                       </tbody>
                     </table>
@@ -161,5 +256,13 @@ $testID = date("dsi").$newnum;
         </div>
     </div>
 </div>
-
+<script>
+function aType(val){
+// load the select option data into a div
+    $('#loader').html("Please Wait...");
+    $('#textType').load('load/asstype.php?type='+val, function(){
+    $('#loader').html("");
+   });
+}
+</script>
 <?php include 'layout/footer.php'; ?>

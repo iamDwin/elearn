@@ -46,7 +46,7 @@ if(isset($_POST['updateLec'])){
                     $file_ext = strtolower(end($file_ext));
 
                     if($type == 'file'){
-                        $allowed = array('application','doc','docx','ppt','pptx','pdf');
+                        $allowed = array('application','doc','docx','ppt','pptx','pdf','txt');
                     }
 
                     if($type == 'video'){

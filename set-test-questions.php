@@ -86,7 +86,7 @@ if(isset($_POST['updateTest'])){
                <a class="btn btn-primary" href="javascript:history.back()">
                                     <i class="fe fe-arrow-left mr-2"></i>Go back
                                 </a>
-           <?php echo $cnmrow['cID'];?> : <?php echo $cnmrow['courseName'];?> - TEST <?php echo $tid; ?>
+           <?php echo strtoupper($cnmrow['cID']);?> : <?php echo strtoupper($cnmrow['courseName']);?> - TEST <?php echo $tid; ?>
           </h1>
         </div>
         <div class="row">
