@@ -15,3 +15,23 @@ Stack trace:
 #1 /opt/lampp/htdocs/elearn/mdepartment.php(3): include('/opt/lampp/htdo...')
 #2 {main}
   thrown in /opt/lampp/htdocs/elearn/assets/core/connection.php on line 23
+[07-May-2019 18:58:29 Africa/Accra] PHP Notice:  Undefined variable: tid in /opt/lampp/htdocs/elearn/set-test-questions.php on line 9
+[07-May-2019 18:58:29 Africa/Accra] PHP Notice:  Undefined variable: cnmrow in /opt/lampp/htdocs/elearn/set-test-questions.php on line 89
+[07-May-2019 18:58:29 Africa/Accra] PHP Notice:  Undefined variable: cnmrow in /opt/lampp/htdocs/elearn/set-test-questions.php on line 89
+[07-May-2019 18:58:29 Africa/Accra] PHP Notice:  Undefined variable: tid in /opt/lampp/htdocs/elearn/set-test-questions.php on line 89
+[07-May-2019 18:58:29 Africa/Accra] PHP Notice:  Undefined variable: tid in /opt/lampp/htdocs/elearn/set-test-questions.php on line 240
+[07-May-2019 18:58:29 Africa/Accra] PHP Notice:  Undefined variable: tid in /opt/lampp/htdocs/elearn/set-test-questions.php on line 281
+[07-May-2019 18:58:29 Africa/Accra] PHP Notice:  Undefined variable: cid in /opt/lampp/htdocs/elearn/set-test-questions.php on line 289
+[07-May-2019 18:58:29 Africa/Accra] PHP Notice:  Undefined variable: testdetrow in /opt/lampp/htdocs/elearn/set-test-questions.php on line 302
+[07-May-2019 18:58:29 Africa/Accra] PHP Notice:  Undefined variable: testdetrow in /opt/lampp/htdocs/elearn/set-test-questions.php on line 308
+[07-May-2019 18:58:29 Africa/Accra] PHP Notice:  Undefined variable: testdetrow in /opt/lampp/htdocs/elearn/set-test-questions.php on line 315
+[08-May-2019 10:35:26 Africa/Accra] PHP Notice:  Undefined variable: tid in /opt/lampp/htdocs/elearn/set-test-questions.php on line 9
+[08-May-2019 10:35:26 Africa/Accra] PHP Notice:  Undefined variable: cnmrow in /opt/lampp/htdocs/elearn/set-test-questions.php on line 89
+[08-May-2019 10:35:26 Africa/Accra] PHP Notice:  Undefined variable: cnmrow in /opt/lampp/htdocs/elearn/set-test-questions.php on line 89
+[08-May-2019 10:35:26 Africa/Accra] PHP Notice:  Undefined variable: tid in /opt/lampp/htdocs/elearn/set-test-questions.php on line 89
+[08-May-2019 10:35:26 Africa/Accra] PHP Notice:  Undefined variable: tid in /opt/lampp/htdocs/elearn/set-test-questions.php on line 240
+[08-May-2019 10:35:26 Africa/Accra] PHP Notice:  Undefined variable: tid in /opt/lampp/htdocs/elearn/set-test-questions.php on line 281
+[08-May-2019 10:35:26 Africa/Accra] PHP Notice:  Undefined variable: cid in /opt/lampp/htdocs/elearn/set-test-questions.php on line 289
+[08-May-2019 10:35:26 Africa/Accra] PHP Notice:  Undefined variable: testdetrow in /opt/lampp/htdocs/elearn/set-test-questions.php on line 302
+[08-May-2019 10:35:26 Africa/Accra] PHP Notice:  Undefined variable: testdetrow in /opt/lampp/htdocs/elearn/set-test-questions.php on line 308
+[08-May-2019 10:35:26 Africa/Accra] PHP Notice:  Undefined variable: testdetrow in /opt/lampp/htdocs/elearn/set-test-questions.php on line 315
