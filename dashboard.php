@@ -427,7 +427,7 @@ if($getcourse){
               </a>
             </div>
           <div class="col-lg-3 col-md-6">
-              <a href="" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
+              <a href="./student-report" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
                 <div class="card">
                   <div class="card-body text-center">
                     <div class="h5"><i class="fe fe-file-text"></i> REPORTS</div>

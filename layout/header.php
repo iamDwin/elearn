@@ -225,8 +225,19 @@ if($msg <= 0){
                   <li class="nav-item">
                     <a href="./hassigns" class="nav-link <?php if($active == 'hassigns'){ echo 'active';}?>"><i class="fe fe-layers"></i><i class="fe fe-chevron-right"></i><i class="fe fe-users"></i> Course Management</a>
                   </li>
+<!--
                   <li class="nav-item">
-                    <a href="./hreports" class="nav-link <?php if($active == 'hreports'){ echo 'active';}?>"><i class="fe fe-file-text"></i> Reports</a>
+                    <a href="./hreports" class="nav-link <?php // if($active == 'hreports'){ echo 'active';}?>"><i class="fe fe-file-text"></i> Reports</a>
+                  </li>
+-->
+                  <li class="nav-item dropdown">
+                    <a href="javascript:void(0)" class="nav-link  <?php if($active == 'hreports'){ echo 'active';}?>" data-toggle="dropdown">
+                        <i class="fe fe-file-text"></i> Reports</a>
+                    <div class="dropdown-menu dropdown-menu-arrow">
+                      <a href="./hgeneral-report.php" class="dropdown-item ">GENERAL REPORTS</a>
+                      <a href="./icons.html" class="dropdown-item ">LECTURER REPORTS</a>
+                      <a href="./store.html" class="dropdown-item ">STUDENTS REPORTS</a>
+                    </div>
                   </li>
                 </ul>
               </div>
@@ -235,9 +246,10 @@ if($msg <= 0){
         </div>
           <!-- ===================================== END HOD NAVBAR =================================================   -->
 
-<?php } if($access == 'lecturer'){ ?>
 
           <!-- ================================== START LECTURER NAVBAR ==============================================  -->
+<?php } if($access == 'lecturer'){ ?>
+
         <div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
           <div class="container">
             <div class="row align-items-center">
@@ -323,8 +335,9 @@ if($msg <= 0){
                         </a>
                   </li>
                   <li class="nav-item">
-                    <a href="./student-report" class="nav-link<?php if($active == 'sreports'){ echo 'active';}?>"><i class="fe fe-file-text"></i> Reports</a>
+                    <a href="./student-report" class="nav-link <?php if($active == 'sreports'){ echo 'active';}?>"><i class="fe fe-file-text"></i> Reports</a>
                   </li>
+
                 </ul>
               </div>
             </div>

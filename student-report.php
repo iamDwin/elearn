@@ -1,5 +1,5 @@
 <?php
-$active = 'ltests';
+$active = 'sreports';
 include 'layout/header.php';
 
 //if(isset($_GET['tid'])){
@@ -71,7 +71,7 @@ $_SESSION['current_page']=$_SERVER['REQUEST_URI'];
                                 <span class="tag tag-red"> FAILED</span>
                                 <?php } ?>
                             </td>
-                            <td class="text-center"><a href="./individual-report?tid=<?php echo $tstrow['testID']."&sid=".$reportrow['studentID']; ?>" class="btn btn-info"> Individual Report</a></td>
+                            <td class="text-center"><a href="./detailed-report?tid=<?php echo $tstrow['testID']."&sid=".$reportrow['studentID']; ?>" class="btn btn-info"> Individual Report</a></td>
                           </tr>
                           <?php }}else{ ?>
                           <tr><td colspan="6"> NO REPORTS FOR THIS TEST YET.</td></tr>
