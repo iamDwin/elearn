@@ -156,11 +156,9 @@ $success = "<script>document.write('ACTIVE TEST AVAILABLE, REDIRECTING NOW...');
                   </div>
                 </div>
               </form>
-<!--
               <div class="text-center text-muted">
-                Don't have account yet? <a href="./register.html">Sign up</a>
+                Don't have account yet? <a href="./register">Sign up</a>
               </div>
--->
             </div>
           </div>
         </div>

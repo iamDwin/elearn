@@ -312,16 +312,18 @@ if($msg <= 0){
                         <?php }}?>
                     </div>
                   </li>
+<!--
                   <li class="nav-item">
-                    <a href="./dashboard" class="nav-link<?php if($active == 'stests'){ echo 'active';}?>"><i class="fe fe-file"></i> Tests</a>
+                    <a href="./dashboard" class="nav-link<?php // if($active == 'stests'){ echo 'active';}?>"><i class="fe fe-file"></i> Tests</a>
                   </li>
+-->
                   <li class="nav-item">
                         <a href="./inbox" class="nav-link <?php if($active == 'message'){ echo 'active';}?> text-bold <?php if(!empty($msgs)){ echo "text-danger"; }?>">
                             <i class="fe fe-mail"></i> Messages <?php if(!empty($msgs)){ echo "- ".$msgs; }?>
                         </a>
                   </li>
                   <li class="nav-item">
-                    <a href="./dashboard" class="nav-link<?php if($active == 'sreports'){ echo 'active';}?>"><i class="fe fe-file-text"></i> Reports</a>
+                    <a href="./student-report" class="nav-link<?php if($active == 'sreports'){ echo 'active';}?>"><i class="fe fe-file-text"></i> Reports</a>
                   </li>
                 </ul>
               </div>

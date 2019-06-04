@@ -411,7 +411,7 @@ if($getcourse){
                 <div class="card">
                   <div class="card-body text-center">
                     <div class="h5"><i class="fe fe-layers"></i> COURSES</div>
-                    <div class="display-4 font-weight-bold mb-4"><?php echo $numcourses;?></div>
+                    <div class="display-4 font-weight-bold mb-4"><?php if($numcourses < 1 || $numcourses == ''){ echo '0';}else{ echo $numcourses;} ?></div>
                   </div>
                 </div>
               </a>
@@ -431,7 +431,7 @@ if($getcourse){
                 <div class="card">
                   <div class="card-body text-center">
                     <div class="h5"><i class="fe fe-file-text"></i> REPORTS</div>
-                    <div class="display-4 font-weight-bold mb-4">.</div>
+                    <div class="display-4 font-weight-bold mb-4"><i class="fe fe-file-text"></i></div>
                   </div>
                 </div>
               </a>
