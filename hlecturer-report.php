@@ -8,12 +8,13 @@ $getDep = select("SELECT * FROM department WHERE depID='".$userDet['depID']."'")
 foreach($getDep as $depdet){}
 
 //get number of lecturers...
-$getlecNum = count(select("SELECT * FROM lecturer WHERE depID='".$userDet['depID']."'"));
+$getlec = select("SELECT * FROM lecturer WHERE depID='".$userDet['depID']."'");
+
 //get number of students...
-$getstNum = count(select("SELECT * FROM student WHERE depID='".$userDet['depID']."'"));
+//$getstNum = count(select("SELECT * FROM student WHERE depID='".$userDet['depID']."'"));
 
 //get number of courses...
-$getcrsNum = count(select("SELECT * FROM courses WHERE depID='".$userDet['depID']."'"));
+//$getcrsNum = count(select("SELECT * FROM courses WHERE depID='".$userDet['depID']."'"));
 
 
 ?>
@@ -21,7 +22,7 @@ $getcrsNum = count(select("SELECT * FROM courses WHERE depID='".$userDet['depID'
 <div class="my-3 my-md-5">
     <div class="container">
         <div class="page-header">
-        <h1 class="page-title"> <?php echo strtoupper($depdet['departmentName']);?> GENERAL REPORT</h1>
+        <h1 class="page-title"> <?php echo strtoupper($depdet['departmentName']);?> LECTURERS REPORT</h1>
         </div>
         <div class="row">
               <div class="col-sm-12">
@@ -39,12 +40,26 @@ $getcrsNum = count(select("SELECT * FROM courses WHERE depID='".$userDet['depID'
                 <div class="card">
                   <div class="table-responsive">
                     <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+                        <thead>
+                            <th class="text-bold"> <i class="fe fe-hash"></i> ID</th>
+                            <th class="text-bold"> <i class="fe fe-user"></i> FULL NAME</th>
+                            <th class="text-bold"> <i class="fe fe-user"></i> POSITION</th>
+                            <th class="text-bold"> <i class="fe fe-layers"></i> ASSIGNED COURSES</th>
+                        </thead>
                         <tbody>
-                                <tr> <td class="text-bold"> DEPARTMENT ID </td> <td><?php echo $depdet['depID'];?></td></tr>
-                                <tr> <td class="text-bold"> DEPARTMENT NAME</td>  <td><?php echo $depdet['departmentName'];?></td></tr>
-                                <tr> <td class="text-bold"> NUMBER OF LECTURERS</td>  <td><?php echo $getlecNum;?></td></tr>
-                                <tr> <td class="text-bold"> NUMBER OF STUDENTS </td>  <td><?php echo $getstNum;?></td></tr>
-                                <tr> <td class="text-bold"> NUMBER OF COURSES </td>  <td><?php echo $getcrsNum;?></td></tr>
+                            <?php
+                            if($getlec){
+                                foreach($getlec as $lecDet){
+                                    //GET NUMBER OF ASSIGNED COURSES..
+                                    $getnumcourse = count(select("SELECT * FROM cmanagement WHERE lecID='".$lecDet['lecID']."'"));
+                            ?>
+                            <tr>
+                                <td><?php echo $lecDet['lecID'];?></td>
+                                <td><?php echo $lecDet['firstName']." ".$lecDet['otherName']." ".$lecDet['lastName'];?></td>
+                                <td><?php echo strtoupper($lecDet['position']); ?></td>
+                                <td><?php echo $getnumcourse; ?></td>
+                            </tr>
+                            <?php }}?>
                         </tbody>
                         <tfoot style="border-top:1px solid #eee;">
                             <tr>

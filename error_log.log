@@ -28,3 +28,6 @@ Stack trace:
   thrown in D:\xampp\htdocs\elearn\assets\core\connection.php on line 24
 [04-Jun-2019 19:56:40 Africa/Accra] PHP Warning:  move_uploaded_file(uploads/PUIS221/documents/ITPM Semester Assignment.docx) [<a href='0function.move-uploaded-file0'>function.move-uploaded-file0</a>]: failed to open stream: No such file or directory in D:\xampp\htdocs\elearn\manage-lec.php on line 74
 [04-Jun-2019 19:56:40 Africa/Accra] PHP Warning:  move_uploaded_file() [<a href='0function.move-uploaded-file0'>function.move-uploaded-file0</a>]: Unable to move 'D:\xampp\tmp\php379.tmp' to 'uploads/PUIS221/documents/ITPM Semester Assignment.docx' in D:\xampp\htdocs\elearn\manage-lec.php on line 74
+[05-Jun-2019 01:11:51 Africa/Accra] PHP Notice:  Undefined variable: depdet in C:\xampp\htdocs\elearn\hstudent-report.php on line 15
+[05-Jun-2019 01:11:52 Africa/Accra] PHP Notice:  Undefined variable: depdet in C:\xampp\htdocs\elearn\hstudent-report.php on line 15
+[05-Jun-2019 01:11:52 Africa/Accra] PHP Notice:  Undefined variable: depdet in C:\xampp\htdocs\elearn\hstudent-report.php on line 15

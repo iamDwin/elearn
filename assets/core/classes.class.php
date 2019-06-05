@@ -183,7 +183,7 @@
     }
 
     public function find_studentdep($depID){
-      $result=query("SELECT * FROM student WHERE depID='$depID'");
+      $result=query("SELECT * FROM student WHERE depID='$depID' ORDER BY level");
       return $result;
     }
 

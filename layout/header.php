@@ -216,9 +216,11 @@ if($msg <= 0){
                   <li class="nav-item">
                     <a href="./hlecturers" class="nav-link <?php if($active == 'hlecturers'){ echo 'active';}?>"><i class="fe fe-users"></i> Lecturers</a>
                   </li>
+<!--
                   <li class="nav-item">
                     <a href="./hstudents" class="nav-link <?php if($active == 'hstudents'){ echo 'active';}?>"><i class="fe fe-users"></i> Students</a>
                   </li>
+-->
                   <li class="nav-item">
                     <a href="./hcourses" class="nav-link <?php if($active == 'hcourses'){ echo 'active';}?>"><i class="fe fe-layers"></i> Courses</a>
                   </li>
@@ -234,9 +236,9 @@ if($msg <= 0){
                     <a href="javascript:void(0)" class="nav-link  <?php if($active == 'hreports'){ echo 'active';}?>" data-toggle="dropdown">
                         <i class="fe fe-file-text"></i> Reports</a>
                     <div class="dropdown-menu dropdown-menu-arrow">
-                      <a href="./hgeneral-report.php" class="dropdown-item ">GENERAL REPORTS</a>
-                      <a href="./icons.html" class="dropdown-item ">LECTURER REPORTS</a>
-                      <a href="./store.html" class="dropdown-item ">STUDENTS REPORTS</a>
+                      <a href="./hgeneral-report" class="dropdown-item ">GENERAL REPORTS</a>
+                      <a href="./hlecturer-report" class="dropdown-item ">LECTURER REPORTS</a>
+                      <a href="./hstudent-report" class="dropdown-item ">STUDENTS REPORTS</a>
                     </div>
                   </li>
                 </ul>
