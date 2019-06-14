@@ -1,6 +1,7 @@
 <?php
 $active = 'scourses';
 include 'layout/header.php';
+$_SESSION['current_page']=$_SERVER['REQUEST_URI'];
 
 if(isset($_GET['cid'])){
     $cid = $_GET['cid'];
@@ -20,6 +21,29 @@ if($cdet){
     //get lec det from cmanagement..
     $lecdet = select("SELECT * FROM lecturer WHERE lecID='".$cmrow['lecID']."'");
     foreach($lecdet as $lectdetrow){}
+}
+
+if(isset($_POST['sendMessage'])){
+    $sernder = $userDet['userID'];
+    $recipient = trim(htmlspecialchars($lectdetrow['lecID']));
+    $heading = trim(htmlspecialchars($_POST['heading']));
+    $text = trim(htmlspecialchars($_POST['message']));
+    $date = trim(date("Y-m-d"));
+    $time = trim(date("H:i:s"));
+    $status = trim("unread");
+
+    if($sernder == $recipient){
+       $error = "<script>document.write('SENDER AND RECIPIENT ARE THE SAME..');</script>";
+    }else{
+         $savemsg = insert("INSERT INTO messages(sender,recipient,heading,text,date,time,status,doe) VALUES('$sernder','$recipient','$heading','$text','$date','$time','$status','$dateToday')");
+        if($savemsg){
+            $success = "<script>document.write('MESSAGE SENT..!');window.location.href='".$_SESSION['current_page']."';</script>";
+        }else{
+            $error = "<script>document.write('FAILED TO SEND MESSAGE, TRY AGAIN!');</script>";
+        }
+    }
+
+
 }
 ?>
 <style>
@@ -48,14 +72,14 @@ if($cdet){
     <div class="container">
         <div class="page-header">
             <a class="btn btn-primary" href="javascript:history.back()"><i class="fe fe-arrow-left mr-2"></i>Go back</a>
-          <h1 class="page-title"><i class="fe fe-hash"></i> <?php echo $crow['cID'];?> : <?php echo $crow['courseName'];?></h1>
+          <h1 class="page-title"><i class="fe fe-hash"></i> <?php echo $crow['cID'];?> : <?php echo strtoupper($crow['courseName']);?></h1>
         </div>
         <div class="row">
 
 
             <div class="col-md-6 col-xl-8">
                 <!--===================== START REQUIRED READING ==============================-->
-                <div class="card card-collapsed" style="margin-top:5px;">
+                <div class="card card-collapseds" style="margin-top:5px;">
                     <div class="card-status bg-blue"></div>
                   <div class="card-header">
                     <h3 class="card-title"> COURSE OUTLINE & REQUIRED READINGS </h3>
@@ -68,10 +92,11 @@ if($cdet){
                   <div class="card-body">
                       <div class="row">
                         <div class="col-md-6">
-                            <table class="table table-bordered table-responsive">
+                            <table class="table table-bordered">
                                 <thead>
                                     <th style="font-weight:bold;"> COURSE OUTLINE </th>
                                 </thead>
+                                <tbody>
                                 <?php
                                 $getoutline = select("SELECT * FROM outline WHERE cID='$cid'");
                                 if($getoutline){
@@ -85,14 +110,15 @@ if($cdet){
                                 <?php }}else{?>
                                 <tr><td> No Outline Available.</td></tr>
                                 <?php }?>
+                                </tbody>
                             </table>
                         </div>
 
                     <div class="col-md-6">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered table-reponsive">
                             <thead>
-                                <th style="font-weight:bold;"> Type</th>
-                                <th style="font-weight:bold;"> Required Readings</th>
+<!--                                <th style="font-weight:bold;"> Type</th>-->
+                                <th style="font-weight:bold;"> REQUIRED READING</th>
                             </thead>
                             <tbody>
                                 <?php
@@ -103,22 +129,22 @@ if($cdet){
                                 ?>
                                     <?php if($type == 'book'){?>
                                     <tr>
-                                        <td><?php echo $type; ?></td>
+<!--                                        <td><?php echo $type; ?></td>-->
                                         <td><?php echo $reqrow['content'];?></td>
                                     </tr>
                                     <?php } if($type == 'url'){ ?>
                                 <tr>
-                                    <td><?php echo $type; ?></td>
+<!--                                    <td><?php echo $type; ?></td>-->
                                     <td><a href="<?php echo $reqrow['content'];?>" target="_blank"><?php echo $reqrow['content'];?></a></td>
                                 </tr>
                                     <?php } if($type == 'file'){?>
                                 <tr>
-                                    <td><?php echo $type; ?></td>
+<!--                                    <td><?php echo $type; ?></td>-->
                                     <td><a href="<?php echo $DOC_UPLOAD.$reqrow['content'];?>" target="_blank"><?php echo $reqrow['content'];?></a></td>
                                 </tr>
                                     <?php }?>
                                 <?php }}else{?>
-                                <tr><td>No required reading Available.</td></tr>
+                                <tr><td colspan="">No required reading Available.</td></tr>
                                 <?php }?>
                             </tbody>
                         </table>
@@ -224,10 +250,9 @@ if($cdet){
               <div class="col-md-6 col-xl-4">
                 <div class="card p-3">
                   <div class="d-flex align-items-center">
-                      <div id="leconlimne">
-                      </div>
+                      <div id="leconlimne"></div>
                     <div>
-                      <h4 class="m-0"> Lecturer : <?php echo $lectdetrow['lastName']." ".$lectdetrow['firstName']." ".$lectdetrow['otherName'];?></h4>
+                <h4 class="m-0"> Lecturer : <?php echo $lectdetrow['lastName']." ".$lectdetrow['firstName']." ".$lectdetrow['otherName'];?></h4>
                     </div>
                   </div>
                 </div>
@@ -244,7 +269,7 @@ if($cdet){
                     <div class="form-footer">
                         <div class="row">
                             <div class="col-md-12">
-                      <button type="submit" name="sendmessage" class="btn btn-primary btn-block">SEND MESSAGE <i class="fe fe-send"></i></button>
+                      <button type="submit" name="sendMessage" class="btn btn-primary btn-block">SEND MESSAGE <i class="fe fe-send"></i></button>
                             </div>
                         </div>
                     </div>
@@ -268,6 +293,6 @@ if($cdet){
 
         setInterval(function(){
             dis();
-        },5000);
+        },1000);
 </script>
 <?php include 'layout/footer.php'; ?>

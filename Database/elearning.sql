@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.6
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: May 10, 2019 at 12:23 AM
--- Server version: 10.1.29-MariaDB
--- PHP Version: 7.2.0
+-- Host: 127.0.0.1
+-- Generation Time: Jun 11, 2019 at 04:10 AM
+-- Server version: 10.1.28-MariaDB
+-- PHP Version: 7.1.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,47 +25,110 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `assignment`
+-- Table structure for table `audit`
 --
 
-CREATE TABLE `assignment` (
-  `asID` int(255) NOT NULL,
-  `cID` varchar(100) NOT NULL,
-  `lecNum` int(10) NOT NULL,
-  `type` varchar(100) NOT NULL,
-  `question` longtext NOT NULL,
-  `overallMark` int(100) NOT NULL,
-  `passMark` int(100) NOT NULL,
-  `dueDate` date NOT NULL,
-  `status` varchar(100) NOT NULL,
-  `doe` datetime NOT NULL,
-  `dor` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `assignment`
---
-
-INSERT INTO `assignment` (`asID`, `cID`, `lecNum`, `type`, `question`, `overallMark`, `passMark`, `dueDate`, `status`, `doe`, `dor`) VALUES
-(1, 'PUIS221', 2, '', '', 20, 15, '2019-05-03', '', '2019-05-06 17:04:31', '2019-05-06 17:04:31'),
-(3, 'PUIS221', 2, 'text', '', 22, 5, '2019-05-08', '', '2019-05-06 18:57:53', '2019-05-06 18:57:53'),
-(4, 'PUIS221', 1, 'text', 'this is an assignment', 50, 35, '2019-05-17', '', '2019-05-07 13:23:05', '2019-05-07 18:56:56'),
-(5, 'PUIS221', 2, 'file', 'uploads/PUIS221/assignment/PUIS221-assigment4.pdf', 50, 40, '2019-05-23', '', '2019-05-07 13:31:26', '2019-05-07 13:31:26');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `assignment_answers`
---
-
-CREATE TABLE `assignment_answers` (
+CREATE TABLE `audit` (
   `id` int(255) NOT NULL,
-  `asID` varchar(100) NOT NULL,
-  `studentID` varchar(100) NOT NULL,
-  `answer` longtext NOT NULL,
-  `score` int(100) NOT NULL,
+  `userID` varchar(50) NOT NULL,
+  `action` varchar(255) NOT NULL,
   `doe` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `audit`
+--
+
+INSERT INTO `audit` (`id`, `userID`, `action`, `doe`) VALUES
+(1, 'USER-000001', 'LOGIN', '2019-06-07 06:59:05'),
+(2, 'USER-000001', 'LOGIN', '2019-06-07 06:59:48'),
+(3, 'USER-000001', 'LOGOUT', '2019-06-07 07:03:50'),
+(4, 'USER-000001', 'LOGIN', '2019-06-07 07:04:20'),
+(5, 'USER-000001', 'LOGOUT', '2019-06-07 07:04:31'),
+(6, 'USER-000001', 'LOGIN', '2019-06-07 07:04:57'),
+(7, 'USER-000001', 'LOGOUT', '2019-06-07 07:05:10'),
+(8, 'LEC-000004', 'LOGIN', '2019-06-07 07:05:17'),
+(9, 'PUC/190002', 'LOGOUT', '2019-06-07 07:35:19'),
+(10, 'PUC/190002', 'LOGIN', '2019-06-07 07:35:31'),
+(11, 'LEC-000004', 'LOGOUT', '2019-06-07 09:16:30'),
+(12, 'LEC-000001', 'LOGIN', '2019-06-07 09:16:36'),
+(13, 'LEC-000001', 'LOGOUT', '2019-06-07 09:40:01'),
+(14, 'LEC-000001', 'LOGIN', '2019-06-07 09:41:06'),
+(15, 'LEC-000001', 'LOGOUT', '2019-06-07 09:41:12'),
+(16, 'LEC-000004', 'LOGIN', '2019-06-07 09:41:15'),
+(17, 'LEC-000004', 'LOGOUT', '2019-06-07 09:56:46'),
+(18, 'USER-000001', 'LOGIN', '2019-06-07 09:56:54'),
+(19, 'USER-000001', 'LOGOUT', '2019-06-07 10:00:25'),
+(20, 'LEC-000004', 'LOGIN', '2019-06-07 10:00:41'),
+(21, 'LEC-000004', 'LOGOUT', '2019-06-07 10:02:52'),
+(22, 'LEC-000005', 'LOGIN', '2019-06-07 10:03:45'),
+(23, 'LEC-000005', 'LOGOUT', '2019-06-07 10:04:36'),
+(24, 'LEC-000004', 'LOGIN', '2019-06-07 10:04:40'),
+(25, 'LEC-000004', 'LOGOUT', '2019-06-07 10:05:05'),
+(26, 'LEC-000005', 'LOGIN', '2019-06-07 10:05:10'),
+(27, 'LEC-000005', 'LOGOUT', '2019-06-07 10:05:31'),
+(28, 'LEC-000001', 'LOGIN', '2019-06-07 10:05:34'),
+(29, 'LEC-000001', 'LOGOUT', '2019-06-07 10:05:50'),
+(30, 'LEC-000005', 'LOGIN', '2019-06-07 10:06:04'),
+(31, 'LEC-000005', 'LOGOUT', '2019-06-07 10:06:06'),
+(32, 'LEC-000005', 'LOGIN', '2019-06-07 10:09:21'),
+(33, 'LEC-000005', 'LOGOUT', '2019-06-07 10:09:29'),
+(34, 'LEC-000005', 'LOGIN', '2019-06-07 10:09:40'),
+(35, 'LEC-000005', 'LOGOUT', '2019-06-07 10:10:11'),
+(36, 'LEC-000005', 'LOGIN', '2019-06-07 10:10:14'),
+(37, 'LEC-000005', 'LOGOUT', '2019-06-07 10:10:33'),
+(38, 'LEC-000005', 'LOGIN', '2019-06-07 10:10:37'),
+(39, 'LEC-000005', 'LOGOUT', '2019-06-07 10:10:42'),
+(40, 'PUC/190002', 'LOGOUT', '2019-06-07 10:11:23'),
+(41, 'USER-000001', 'LOGIN', '2019-06-07 10:11:28'),
+(42, 'USER-000001', 'LOGOUT', '2019-06-07 10:12:03'),
+(43, 'LEC-000004', 'LOGIN', '2019-06-07 10:12:09'),
+(44, 'LEC-000004', 'LOGOUT', '2019-06-07 10:15:10'),
+(45, 'LEC-000005', 'LOGIN', '2019-06-07 10:15:14'),
+(46, 'PUC/190002', 'LOGIN', '2019-06-07 10:16:50'),
+(47, 'LEC-000005', 'LOGOUT', '2019-06-07 10:26:40'),
+(48, 'LEC-000005', 'LOGIN', '2019-06-07 10:27:06'),
+(49, 'PUC/190002', 'LOGOUT', '2019-06-07 17:47:31'),
+(50, 'LEC-000005', 'LOGOUT', '2019-06-07 17:47:47'),
+(51, 'LEC-000001', 'LOGIN', '2019-06-07 17:47:55'),
+(52, 'LEC-000001', 'LOGOUT', '2019-06-07 17:48:40'),
+(53, 'LEC-000001', 'LOGIN', '2019-06-07 20:26:02'),
+(54, 'LEC-000001', 'LOGOUT', '2019-06-07 20:26:24'),
+(55, 'LEC-000005', 'LOGIN', '2019-06-07 20:26:54'),
+(56, 'PUC/190002', 'LOGIN', '2019-06-07 20:29:26'),
+(57, 'PUC/160222', 'LOGIN', '2019-06-08 20:37:14'),
+(58, 'PUC/160222', 'LOGOUT', '2019-06-08 20:38:48'),
+(59, 'PUC/190001', 'LOGIN', '2019-06-08 20:39:22'),
+(60, 'PUC/190001', 'LOGOUT', '2019-06-08 20:39:30'),
+(61, 'PUC/150332', 'LOGIN', '2019-06-08 20:40:32'),
+(62, 'PUC/150332', 'LOGOUT', '2019-06-08 20:46:13'),
+(63, 'PUC/150332', 'LOGOUT', '2019-06-08 20:46:57'),
+(64, 'PUC/150332', 'LOGIN', '2019-06-08 20:49:12'),
+(65, 'PUC/150332', 'LOGOUT', '2019-06-08 20:50:32'),
+(66, 'PUC/150332', 'LOGOUT', '2019-06-08 20:57:42'),
+(67, '1911199', 'LOGIN', '2019-06-08 21:01:07'),
+(68, '1911199', 'LOGOUT', '2019-06-08 21:01:53'),
+(69, 'PUC/150332', 'LOGIN', '2019-06-08 21:02:03'),
+(70, 'PUC/150332', 'LOGOUT', '2019-06-08 21:04:23'),
+(71, 'PUC/150332', 'LOGIN', '2019-06-08 21:05:54'),
+(72, 'PUC/150332', 'LOGOUT', '2019-06-08 21:06:53'),
+(73, 'LEC-000005', 'LOGOUT', '2019-06-08 21:27:12'),
+(74, 'LEC-000004', 'LOGIN', '2019-06-08 21:55:10'),
+(75, 'LEC-000004', 'LOGOUT', '2019-06-08 21:56:08'),
+(77, 'LEC-000004', 'LOGIN', '2019-06-11 00:42:15'),
+(78, 'LEC-000004', 'LOGOUT', '2019-06-11 00:44:31'),
+(79, 'LEC-000004', 'LOGIN', '2019-06-11 00:45:06'),
+(80, 'LEC-000004', 'LOGOUT', '2019-06-11 00:45:15'),
+(81, 'USER-000001', 'LOGIN', '2019-06-11 00:45:24'),
+(82, 'USER-000001', 'LOGOUT', '2019-06-11 00:47:19'),
+(83, 'LEC-000004', 'LOGIN', '2019-06-11 00:47:25'),
+(84, 'LEC-000004', 'LOGOUT', '2019-06-11 00:48:12'),
+(85, 'USER-000001', 'LOGIN', '2019-06-11 00:48:19'),
+(86, 'USER-000001', 'LOGOUT', '2019-06-11 00:53:41'),
+(87, 'LEC-000004', 'LOGIN', '2019-06-11 00:53:58'),
+(88, 'LEC-000004', 'LOGOUT', '2019-06-11 00:57:16'),
+(89, 'USER-000001', 'LOGIN', '2019-06-11 00:57:23'),
+(90, 'PUC/190002', 'LOGIN', '2019-06-11 02:00:39');
 
 -- --------------------------------------------------------
 
@@ -88,10 +151,9 @@ CREATE TABLE `cdocument` (
 --
 
 INSERT INTO `cdocument` (`id`, `cID`, `lecID`, `lecture`, `docName`, `doe`, `dor`) VALUES
-(1, 'PUIS221', 'LEC-000001', 1, 'AI LECTURE 1.pptx', '2019-03-29 07:06:50', '2019-03-29 07:06:50'),
-(2, 'PUIS221', 'LEC-000001', 4, 'AI LECTURE 4.pptx', '2019-03-29 07:16:32', '2019-03-29 07:16:32'),
-(3, 'PUIS221', 'LEC-000001', 1, 'Account Opening Forms - Individual or Joint Account (2).pdf', '2019-04-28 13:43:38', '2019-04-28 13:43:38'),
-(4, 'PUIS221', 'LEC-000001', 1, 'dataDictionary.pdf', '2019-05-03 01:59:16', '2019-05-03 01:59:16');
+(1, 'PUIS401', 'LEC-000005', 1, 'DS_LECTURE_1.pptx', '2019-06-07 10:38:14', '2019-06-07 10:38:14'),
+(2, 'PUIS401', 'LEC-000005', 2, 'DS LECTURE 2R.pptx', '2019-06-07 10:39:26', '2019-06-07 10:39:26'),
+(3, 'PUIS401', 'LEC-000005', 3, 'DS LECTURE 3R.pptx', '2019-06-07 10:40:01', '2019-06-07 10:40:02');
 
 -- --------------------------------------------------------
 
@@ -112,8 +174,13 @@ CREATE TABLE `cmanagement` (
 --
 
 INSERT INTO `cmanagement` (`assignID`, `depID`, `cID`, `lecID`, `doe`) VALUES
-(8, 'DEP-000001', 'PUIS221', 'LEC-000001', '2019-03-29 02:03:48'),
-(9, 'DEP-000001', 'PUIT123', 'LEC-000005', '2019-03-29 02:03:48');
+(1, 'DEP-000001', 'PUIS403', 'LEC-000006', '2019-06-07 10:02:10'),
+(2, 'DEP-000001', 'PUIS404', 'LEC-000001', '2019-06-07 10:02:10'),
+(3, 'DEP-000001', 'PUIS407', 'LEC-000006', '2019-06-07 10:02:10'),
+(4, 'DEP-000001', 'PUIS405', 'LEC-000005', '2019-06-07 10:02:10'),
+(5, 'DEP-000001', 'PUIS401', 'LEC-000005', '2019-06-07 10:02:10'),
+(6, 'DEP-000001', 'PUIS402', 'LEC-000002', '2019-06-07 10:02:10'),
+(7, 'DEP-000001', 'PUIS406', 'LEC-000005', '2019-06-07 10:02:10');
 
 -- --------------------------------------------------------
 
@@ -132,14 +199,6 @@ CREATE TABLE `cmedia` (
   `doe` datetime NOT NULL,
   `dor` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `cmedia`
---
-
-INSERT INTO `cmedia` (`id`, `cID`, `lecID`, `lecture`, `mediatype`, `mediaName`, `path`, `doe`, `dor`) VALUES
-(1, 'PUIS221', 'LEC-000001', 3, 'audio', 'elShaddai.mp3', '', '2019-03-29 07:09:04', '2019-03-29 07:11:28'),
-(2, 'PUIS221', 'LEC-000001', 4, 'video', 'Ink In Motion.mp4', '', '2019-03-29 07:16:32', '2019-03-29 07:16:32');
 
 -- --------------------------------------------------------
 
@@ -161,8 +220,13 @@ CREATE TABLE `courses` (
 --
 
 INSERT INTO `courses` (`cID`, `depID`, `courseName`, `level`, `semester`, `doe`) VALUES
-('PUIS221', 'DEP-000001', 'Distributed Systems', 400, 2, '2019-03-29 02:03:46'),
-('PUIT123', 'DEP-000001', 'Systems Integration', 400, 1, '2019-03-29 02:03:46');
+('PUIS401', 'DEP-000001', 'Distributed System', 400, 2, '2019-06-07 09:51:22'),
+('PUIS402', 'DEP-000001', 'Systems Integration', 400, 2, '2019-06-07 09:51:22'),
+('PUIS403', 'DEP-000001', 'System Analysis And Design', 400, 1, '2019-06-07 09:51:22'),
+('PUIS404', 'DEP-000001', 'I.T Entrepreneurship And Innovation', 400, 1, '2019-06-07 09:51:22'),
+('PUIS405', 'DEP-000001', 'Artificial Intelligence', 400, 1, '2019-06-07 09:51:22'),
+('PUIS406', 'DEP-000001', 'I.T.P.M', 400, 2, '2019-06-07 09:51:22'),
+('PUIS407', 'DEP-000001', 'Computer Forensics', 400, 2, '2019-06-07 09:51:22');
 
 -- --------------------------------------------------------
 
@@ -188,8 +252,7 @@ INSERT INTO `department` (`depID`, `facID`, `departmentName`, `doe`) VALUES
 ('DEP-000004', 'FAC-000002', 'SDDD', '2019-03-21 16:03:37'),
 ('DEP-000005', 'FAC-000005', 'Insurance With Actuarial Science', '2019-03-22 13:03:10'),
 ('DEP-000006', 'FAC-000001', 'Building And Constructions', '2019-03-22 13:03:11'),
-('DEP-000007', 'FAC-000005', 'FTB DEP', '2019-03-26 11:03:25'),
-('DEP-000008', 'FAC-000001', 'INFORMATION TECHNOLOGY 2', '2019-03-26 11:03:26');
+('DEP-000007', 'FAC-000005', 'FTB DEP', '2019-03-26 11:03:25');
 
 -- --------------------------------------------------------
 
@@ -235,8 +298,7 @@ CREATE TABLE `generalreport` (
 --
 
 INSERT INTO `generalreport` (`id`, `studentID`, `cID`, `testID`, `totalScore`, `teststatus`, `doe`) VALUES
-(1, 'PUC/190002', 'PUIS221', '1007461', 15, 'FAILED', '2019-04-13 08:48:44'),
-(2, 'PUC/190003', 'PUIS221', '1007461', 30, 'PASS', '2019-04-13 08:57:47');
+(1, 'PUC/150332', 'PUIS401', '0754511', 0, 'FAILED', '2019-06-08 20:57:42');
 
 -- --------------------------------------------------------
 
@@ -259,10 +321,9 @@ CREATE TABLE `lecture` (
 --
 
 INSERT INTO `lecture` (`id`, `cID`, `lecID`, `lecNum`, `lecTitle`, `doe`, `dor`) VALUES
-(3, 'PUIS221', 'LEC-000001', 1, 'Introduction', '2019-03-29 07:06:50', '2019-04-28 13:43:54'),
-(4, 'PUIS221', 'LEC-000001', 2, 'Literature Review', '2019-03-29 07:08:08', '2019-03-29 07:08:08'),
-(5, 'PUIS221', 'LEC-000001', 3, 'Literature Review 2', '2019-03-29 07:09:04', '2019-04-28 13:44:49'),
-(6, 'PUIS221', 'LEC-000001', 4, 'Conclusion', '2019-03-29 07:16:32', '2019-03-29 07:16:32');
+(1, 'PUIS401', 'LEC-000005', 1, 'INTRODUCTION', '2019-06-07 10:38:14', '2019-06-07 10:43:34'),
+(2, 'PUIS401', 'LEC-000005', 2, 'ARCHITECTURAL STYLES &amp; SYSTEM ARCHITECTURES', '2019-06-07 10:39:26', '2019-06-07 10:44:13'),
+(3, 'PUIS401', 'LEC-000005', 3, 'PROCESSES (THREADS &amp; VIRTUALIZATION)', '2019-06-07 10:40:01', '2019-06-07 10:40:01');
 
 -- --------------------------------------------------------
 
@@ -290,10 +351,10 @@ CREATE TABLE `lecturer` (
 INSERT INTO `lecturer` (`lecID`, `facID`, `depID`, `firstName`, `lastName`, `otherName`, `email`, `phone`, `position`, `doe`) VALUES
 ('LEC-000001', 'FAC-000001', 'DEP-000001', 'Michael', 'Agbeko', 'Nartey', 'michael@gmail.com', '0541524233', 'lecturer', '2019-03-03 20:03:35'),
 ('LEC-000002', 'FAC-000001', 'DEP-000001', 'Michael', 'Delove', 'Kwame', 'michael@ymail.com', '0269807823', 'lecturer', '2019-03-03 20:03:41'),
-('LEC-000003', 'FAC-000001', 'DEP-000001', 'Mary', 'Sheela', 'Immaculate', 'sheela@gmail.com', '0207892495', 'dean', '2019-03-03 20:03:43'),
+('LEC-000003', 'FAC-000001', 'DEP-000001', 'Mary', 'Sheela', 'Immaculate', 'sheela@gmail.com', '0207892496', 'dean', '2019-03-03 20:03:43'),
 ('LEC-000004', 'FAC-000001', 'DEP-000001', 'Charlse', 'Andoh', 'Boabeng', 'charlse@gmail.com', '0541114785', 'hod', '2019-03-21 13:03:32'),
-('LEC-000005', 'FAC-000001', 'DEP-000001', 'Godwin', 'Effah', 'Goodman', 'godwinabeaku2@ymail.com', '0207892496', 'lecturer', '2019-05-01 14:00:28'),
-('LEC-000006', 'FAC-000001', 'DEP-000001', 'Michael', 'Segbefia', 'Sena', 'khasperh@gmail.com', '0541785085', 'lecturer', '2019-05-03 01:18:13');
+('LEC-000005', 'FAC-000001', 'DEP-000001', 'Savior', 'Okine', '', 'savior@gmail.com', '0201425875', 'lecturer', '2019-06-07 09:57:47'),
+('LEC-000006', 'FAC-000001', 'DEP-000001', 'Fred', 'Tottimeh', '', 'fred@gmail.com', '0201154875', 'lecturer', '2019-06-07 09:59:46');
 
 -- --------------------------------------------------------
 
@@ -318,7 +379,7 @@ CREATE TABLE `messages` (
 --
 
 INSERT INTO `messages` (`mid`, `sender`, `recipient`, `heading`, `text`, `date`, `time`, `status`, `doe`) VALUES
-(1, 'PUC/190002', 'LEC-000002', 'Greetins from Above', 'Hello sir, i send my warm regards', '2019-04-27', '13:35:38', 'read', '2019-04-27 13:35:50');
+(1, 'PUC/190002', 'LEC-000001', 'Help On Project', 'Hello sir', '2019-06-02', '21:46:34', 'read', '2019-06-07 17:47:11');
 
 -- --------------------------------------------------------
 
@@ -336,6 +397,13 @@ CREATE TABLE `message_reply` (
   `status` varchar(100) NOT NULL,
   `doe` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `message_reply`
+--
+
+INSERT INTO `message_reply` (`rid`, `mid`, `sender`, `text`, `date`, `time`, `status`, `doe`) VALUES
+(1, 1, 'LEC-000001', 'Hello enoch', '2019-06-06', '22:42:09', 'unread', '2019-06-06 22:42:09');
 
 -- --------------------------------------------------------
 
@@ -359,18 +427,9 @@ CREATE TABLE `objans` (
 --
 
 INSERT INTO `objans` (`id`, `testID`, `qid`, `studentID`, `answer`, `right_ans`, `score`, `doe`) VALUES
-(1, '1007461', 1, 'PUC/190002', 4, 3, 0, '2019-04-13 07:35:48'),
-(2, '1007461', 2, 'PUC/190002', 2, 2, 5, '2019-04-13 07:35:48'),
-(3, '1007461', 3, 'PUC/190002', 4, 4, 5, '2019-04-13 07:35:48'),
-(4, '1007461', 4, 'PUC/190002', 1, 2, 0, '2019-04-13 07:35:48'),
-(5, '1007461', 5, 'PUC/190002', 2, 1, 0, '2019-04-13 07:35:48'),
-(6, '1007461', 6, 'PUC/190002', 2, 2, 5, '2019-04-13 07:35:48'),
-(7, '1007461', 1, 'PUC/190003', 3, 3, 5, '2019-04-13 08:57:08'),
-(8, '1007461', 2, 'PUC/190003', 2, 2, 5, '2019-04-13 08:57:08'),
-(9, '1007461', 3, 'PUC/190003', 4, 4, 5, '2019-04-13 08:57:08'),
-(10, '1007461', 4, 'PUC/190003', 2, 2, 5, '2019-04-13 08:57:08'),
-(11, '1007461', 5, 'PUC/190003', 1, 1, 5, '2019-04-13 08:57:08'),
-(12, '1007461', 6, 'PUC/190003', 2, 2, 5, '2019-04-13 08:57:08');
+(1, '0754511', 1, 'PUC/150332', 1, 2, 0, '2019-06-08 20:57:36'),
+(2, '0754511', 2, 'PUC/150332', 2, 4, 0, '2019-06-08 20:57:36'),
+(3, '0754511', 3, 'PUC/150332', 2, 1, 0, '2019-06-08 20:57:36');
 
 -- --------------------------------------------------------
 
@@ -395,13 +454,9 @@ CREATE TABLE `objtest` (
 --
 
 INSERT INTO `objtest` (`qid`, `testID`, `question`, `option1`, `option2`, `option3`, `option4`, `answer`, `doe`) VALUES
-(1, '1007461', 'first Question', 'first', 'second', 'third', 'fourth', 3, '0000-00-00 00:00:00'),
-(2, '1007461', 'first Question 2', 'first 2', 'second 2', 'third 2', 'fourth 2', 2, '0000-00-00 00:00:00'),
-(3, '1007461', 'first Question 3', 'first 3', 'second 3', 'third 3', 'fourth 3', 4, '0000-00-00 00:00:00'),
-(4, '1007461', 'One way you can become loyal to the group.', 'Be a good ambassador', 'Never withhold personal information', 'Ensure that everything is well with yourself', 'Do not become a receiver of complaints but giver of bad news.', 2, '0000-00-00 00:00:00'),
-(5, '1007461', 'Bad habits are easy to form and not difficult to live with whiles good habits are easy to form and easy to live with', 'True', 'False', 'Maybe', 'None', 1, '0000-00-00 00:00:00'),
-(6, '1007461', 'He persisted and his relentless efforts paid off in the end. He failed in business in 1831, He was defeated for legislature in 1832, He experienced a second failure in business in 1833, He suffered nervous breakdown in 1836, He was defeated for Speaker in 1838, He was defeated for Elector in 1840, He was defeated for Congress in 1843.', 'John Fitzgerald Kennedy', 'Bill Clinton', 'Abraham Lincoln', 'George Bush', 2, '0000-00-00 00:00:00'),
-(7, '1342232', 'first Question 2', 'first', 'second 2', 'third 2', 'fourth', 2, '0000-00-00 00:00:00');
+(1, '0754511', 'One approach for organizing the clients and servers is to distribute the programs in the application layers across different machines, this is known as ?', 'Hybrid Architecture', 'multi-tiered Architecture.', 'Decentralized Architecture', 'Centralized Architecture', 2, '0000-00-00 00:00:00'),
+(2, '0754511', 'Examples of software architecture include Centralized, Decentralized and ... ?', 'Concentrated Architecture', 'Distributed Architecture', 'Combined Architecture', 'Hybrid Architecture', 4, '0000-00-00 00:00:00'),
+(3, '0754511', '3 types of application layering include the user-interface level, the processing level and ... ?', 'Data Level', 'Digital Level', 'Output Level', 'Manufacturing Level', 1, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -423,8 +478,7 @@ CREATE TABLE `outline` (
 --
 
 INSERT INTO `outline` (`id`, `cID`, `lecID`, `outline`, `doe`, `dor`) VALUES
-(1, 'PUIS221', 'LEC-000001', 'PUIS221-outline.doc', '2019-03-29 03:41:59', '2019-03-29 03:41:59'),
-(3, 'PUIT123', 'LEC-000001', 'PUIT123-outline.doc', '2019-03-29 04:59:34', '2019-03-29 04:59:34');
+(1, 'PUIS401', 'LEC-000005', 'PUIS401-outline.docx', '2019-06-07 10:16:43', '2019-06-07 10:16:43');
 
 -- --------------------------------------------------------
 
@@ -447,10 +501,7 @@ CREATE TABLE `reqreading` (
 --
 
 INSERT INTO `reqreading` (`id`, `cID`, `lecID`, `readType`, `content`, `doe`, `dor`) VALUES
-(2, 'PUIS221', 'LEC-000001', 'book', 'Morden Day Distributed Systems by John D.A Goodman', '2019-03-29 04:19:44', '2019-03-29 04:19:44'),
-(3, 'PUIS221', 'LEC-000001', 'file', '9901993-dzone2018-researchguide-ai.pdf', '2019-03-29 04:32:00', '2019-03-29 04:32:00'),
-(4, 'PUIT123', 'LEC-000001', 'url', 'http://localhost:8080/Elearn/form-elements.html', '2019-03-29 16:18:24', '2019-03-29 16:18:24'),
-(5, 'PUIS221', 'LEC-000001', 'url', 'http://localhost:8080/Elearn/form-elements.html', '2019-04-19 12:28:54', '2019-04-19 12:28:54');
+(1, 'PUIS401', 'LEC-000005', 'url', 'https://www.distributedsystems.com', '2019-06-07 10:27:48', '2019-06-07 10:27:48');
 
 -- --------------------------------------------------------
 
@@ -476,6 +527,9 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`studentID`, `depID`, `firstName`, `lastName`, `otherName`, `email`, `phone`, `school`, `level`, `doe`) VALUES
+('1911199', 'DEP-000007', 'Kwame', 'Akwasi', 'Nipa', 'meandyou@us.com', '019900', 'Evening', 200, '2019-06-08 00:00:00'),
+('PUC/150332', 'DEP-000001', 'Samuel', 'Sarpong', 'Bills', 'bills@gmail.com', '0209153288', 'Regular', 400, '2019-06-03 00:00:00'),
+('PUC/160222', 'DEP-000001', 'Florence', 'Takyi', 'Ahemaa', 'ftakyi@gmail.com', '0268511953', 'Regular', 100, '2019-06-03 00:00:00'),
 ('PUC/190001', 'DEP-000001', 'Felix', 'Amponsah', 'Kofi', 'felix@gmail.com', '02487755412', 'Regular', 100, '2019-03-03 21:03:59'),
 ('PUC/190002', 'DEP-000001', 'Enoch', 'Tetteh', 'Paa Kwesi', 'enoch@gmail.com', '0544265478', 'Regular', 400, '2019-03-03 22:03:02'),
 ('PUC/190003', 'DEP-000001', 'Ijeoma', 'Onyesom', 'Peace', 'peace@gmail.com', '0261713219', 'Regular', 400, '2019-03-10 10:03:58');
@@ -503,8 +557,7 @@ CREATE TABLE `test` (
 --
 
 INSERT INTO `test` (`id`, `cID`, `testID`, `lecture`, `passMark`, `questionMark`, `duration`, `status`, `doe`) VALUES
-(1, 'PUIS221', '1007461', 1, 20, 5, 50, '', '2019-04-10 16:46:44'),
-(2, 'PUIS221', '1342232', 2, 50, 2, 1500, '', '2019-04-13 09:24:11');
+(1, 'PUIS401', '0754511', 2, 40, 10, 3600, '', '2019-06-07 10:53:42');
 
 -- --------------------------------------------------------
 
@@ -529,59 +582,52 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `userID`, `email`, `password`, `access`, `flogin`, `userstatus`, `onlinestatus`, `doe`) VALUES
-(1, 'USER-000001', 'godwinabeaku@gmail.com', 'password1.', 'manager', '2', '', 0, '2019-02-16 03:06:05'),
+(1, 'USER-000001', 'godwinabeaku@gmail.com', 'password1.', 'manager', '2', '', 1, '2019-02-16 03:06:05'),
 (8, 'LEC-000001', 'michael@gmail.com', 'password', 'lecturer', '2', '', 0, '2019-03-03 20:03:35'),
 (10, 'LEC-000002', 'michael@ymail.com', '12161041', 'lecturer', '1', '', 0, '2019-03-03 20:03:41'),
 (11, 'LEC-000003', 'sheela@gmail.com', '7468043', 'dean', '1', '', 0, '2019-03-03 20:03:43'),
 (12, 'LEC-000004', 'okai@gmail.com', '1057416', 'lecturer', '1', '', 0, '2019-03-03 21:03:16'),
 (13, 'LEC-000005', 'phil@gmail.com', '5763819', 'lecturer', '1', '', 0, '2019-03-03 21:03:19'),
-(14, 'LEC-000006', 'fred@gmail.com', '4950421', 'lecturer', '1', '', 0, '2019-03-03 21:03:21'),
 (15, 'PUC/190001', 'felix@gmail.com', 'password', 'student', '2', '', 0, '2019-03-03 21:03:59'),
-(16, 'PUC/190002', 'enoch@gmail.com', 'password1.', 'student', '2', '', 0, '2019-03-03 22:03:02'),
+(16, 'PUC/190002', 'enoch@gmail.com', 'password1.', 'student', '2', '', 1, '2019-03-03 22:03:02'),
 (18, 'PUC/190003', 'peace@gmail.com', 'peace', 'student', '2', '', 0, '2019-03-10 10:03:58'),
 (19, 'LEC-000008', 'john@gmail.com', '4759913', 'lecturer', '1', '', 0, '2019-03-20 18:03:13'),
 (20, 'LEC-000009', 'segbefia@gmail.com', 'password', 'hod', '2', '', 0, '2019-03-20 18:03:14'),
 (21, 'LEC-000004', 'charlse@gmail.com', 'password', 'hod', '2', '', 0, '2019-03-21 13:03:32'),
-(22, 'LEC-000005', 'godwinabeaku2@ymail.com', 'password1.', 'lecturer', '2', '', 0, '2019-05-01 14:00:28'),
-(25, 'LEC-000006', 'khasperh@gmail.com', 'sena', 'lecturer', '2', '', 0, '2019-05-03 01:18:13');
+(24, 'PUC/160222', 'ftakyi@gmail.com', 'takyi', 'student', '2', '', 0, '2019-06-03 00:00:00'),
+(25, 'PUC/150332', 'bills@gmail.com', 'bills2', 'student', '2', '', 0, '2019-06-03 00:00:00'),
+(26, 'LEC-000005', 'savior@gmail.com', 'password', 'lecturer', '2', '', 0, '2019-06-07 09:57:47'),
+(27, 'LEC-000006', 'fred@gmail.com', '7061959', 'lecturer', '1', '', 0, '2019-06-07 09:59:46'),
+(28, '1911199', 'meandyou@us.com', 'smallboy', 'student', '2', '', 0, '2019-06-08 00:00:00');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `assignment`
+-- Indexes for table `audit`
 --
-ALTER TABLE `assignment`
-  ADD PRIMARY KEY (`asID`);
-
---
--- Indexes for table `assignment_answers`
---
-ALTER TABLE `assignment_answers`
+ALTER TABLE `audit`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `cdocument`
 --
 ALTER TABLE `cdocument`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `lecID` (`lecID`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `cmanagement`
 --
 ALTER TABLE `cmanagement`
   ADD PRIMARY KEY (`assignID`),
-  ADD KEY `cID` (`cID`),
-  ADD KEY `lecID` (`lecID`);
+  ADD KEY `cID` (`cID`);
 
 --
 -- Indexes for table `cmedia`
 --
 ALTER TABLE `cmedia`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `lecID` (`lecID`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `courses`
@@ -607,15 +653,13 @@ ALTER TABLE `faculty`
 -- Indexes for table `generalreport`
 --
 ALTER TABLE `generalreport`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `testID` (`testID`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `lecture`
 --
 ALTER TABLE `lecture`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cID` (`cID`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `lecturer`
@@ -635,36 +679,31 @@ ALTER TABLE `messages`
 -- Indexes for table `message_reply`
 --
 ALTER TABLE `message_reply`
-  ADD PRIMARY KEY (`rid`),
-  ADD KEY `mid` (`mid`);
+  ADD PRIMARY KEY (`rid`);
 
 --
 -- Indexes for table `objans`
 --
 ALTER TABLE `objans`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `qid` (`qid`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `objtest`
 --
 ALTER TABLE `objtest`
-  ADD PRIMARY KEY (`qid`),
-  ADD KEY `testID` (`testID`);
+  ADD PRIMARY KEY (`qid`);
 
 --
 -- Indexes for table `outline`
 --
 ALTER TABLE `outline`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `lecID` (`lecID`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `reqreading`
 --
 ALTER TABLE `reqreading`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `lecID` (`lecID`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `student`
@@ -678,8 +717,7 @@ ALTER TABLE `student`
 -- Indexes for table `test`
 --
 ALTER TABLE `test`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cID` (`cID`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
@@ -694,46 +732,40 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `assignment`
+-- AUTO_INCREMENT for table `audit`
 --
-ALTER TABLE `assignment`
-  MODIFY `asID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `assignment_answers`
---
-ALTER TABLE `assignment_answers`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `audit`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- AUTO_INCREMENT for table `cdocument`
 --
 ALTER TABLE `cdocument`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `cmanagement`
 --
 ALTER TABLE `cmanagement`
-  MODIFY `assignID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `assignID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `cmedia`
 --
 ALTER TABLE `cmedia`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `generalreport`
 --
 ALTER TABLE `generalreport`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `lecture`
 --
 ALTER TABLE `lecture`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `messages`
@@ -745,84 +777,43 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `message_reply`
 --
 ALTER TABLE `message_reply`
-  MODIFY `rid` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `rid` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `objans`
 --
 ALTER TABLE `objans`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `objtest`
 --
 ALTER TABLE `objtest`
-  MODIFY `qid` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `qid` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `outline`
 --
 ALTER TABLE `outline`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `reqreading`
 --
 ALTER TABLE `reqreading`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `test`
 --
 ALTER TABLE `test`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `cmanagement`
---
-ALTER TABLE `cmanagement`
-  ADD CONSTRAINT `cmanagement_ibfk_1` FOREIGN KEY (`cID`) REFERENCES `courses` (`cID`);
-
---
--- Constraints for table `courses`
---
-ALTER TABLE `courses`
-  ADD CONSTRAINT `courses_ibfk_1` FOREIGN KEY (`depID`) REFERENCES `department` (`depID`);
-
---
--- Constraints for table `department`
---
-ALTER TABLE `department`
-  ADD CONSTRAINT `department_ibfk_1` FOREIGN KEY (`facID`) REFERENCES `faculty` (`facID`);
-
---
--- Constraints for table `lecturer`
---
-ALTER TABLE `lecturer`
-  ADD CONSTRAINT `lecturer_ibfk_1` FOREIGN KEY (`depID`) REFERENCES `department` (`depID`);
-
---
--- Constraints for table `objans`
---
-ALTER TABLE `objans`
-  ADD CONSTRAINT `objans_ibfk_1` FOREIGN KEY (`qid`) REFERENCES `objtest` (`qid`);
-
---
--- Constraints for table `student`
---
-ALTER TABLE `student`
-  ADD CONSTRAINT `student_ibfk_1` FOREIGN KEY (`depID`) REFERENCES `department` (`depID`),
-  ADD CONSTRAINT `student_ibfk_2` FOREIGN KEY (`studentID`) REFERENCES `users` (`userID`);
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

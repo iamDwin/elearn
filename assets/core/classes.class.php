@@ -209,7 +209,7 @@
     }
 
     public function find_by_depID($depID){
-      $result=query("SELECT * FROM courses WHERE depID='$depID' ");
+      $result=query("SELECT * FROM courses WHERE depID='$depID' ORDER BY semester ");
       return $result;
     }
 

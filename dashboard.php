@@ -7,13 +7,6 @@ include 'layout/header.php';
 <?php if($access == 'manager'){ ?>
 <div class="my-3 my-md-5">
     <div class="container">
-<!--
-        <div class="page-header">
-          <h1 class="page-title">
-            IT Manager Dashboard
-          </h1>
-        </div>
--->
         <div class="row">
           <div class="col-lg-3 col-md-6">
               <a href="./mfaculty" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
@@ -268,11 +261,11 @@ include 'layout/header.php';
               </a>
           </div>
           <div class="col-lg-3 col-md-6">
-              <a href="" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
+              <a href="./hgeneral-report" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
                 <div class="card">
                   <div class="card-body text-center">
                     <div class="h5"><i class="fe fe-file-text"></i> REPORTS</div>
-                    <div class="display-4 font-weight-bold mb-4">.</div>
+                    <div class="display-4 font-weight-bold mb-4"><i class="fe fe-file-text"></i></div>
                   </div>
                 </div>
               </a>
@@ -339,16 +332,6 @@ if($getcourse){
                 </div>
               </a>
             </div>
-            <div class="col-lg-3 col-md-6">
-              <a href="ltests" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);" class="disabled">
-                <div class="card">
-                  <div class="card-body text-center">
-                    <div class="h5"><i class="fe fe-file"></i> TESTS</div>
-                    <div class="display-4 font-weight-bold mb-4">0</div>
-                  </div>
-                </div>
-              </a>
-            </div>
           <div class="col-lg-3 col-md-6">
               <a href="./inbox" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
                 <div class="card">
@@ -359,6 +342,16 @@ if($getcourse){
                 </div>
               </a>
           </div>
+            <div class="col-lg-3 col-md-6">
+              <a href="ltests" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);" class="disabled">
+                <div class="card">
+                  <div class="card-body text-center">
+                    <div class="h5"><i class="fe fe-file"></i> ACTIVE TESTS</div>
+                    <div class="display-4 font-weight-bold mb-4">0</div>
+                  </div>
+                </div>
+              </a>
+            </div>
         </div>
     </div>
 </div>
@@ -380,6 +373,14 @@ if($getcourse){
     $numcourses = count($getcourse);
     foreach($getcourse as $allcourserow){}
 }
+
+//get active assignment...
+    $getassign = count(select("SELECT * FROM assignment WHERE level='".$userDet['level']."' AND status='active'"));
+    if($getassign > 0){
+        $getnumassign = $getassign;
+    }else{
+        $getnumassign = 0;
+    }
 ?>
 <div class="my-3 my-md-5">
     <div class="container">
@@ -417,11 +418,11 @@ if($getcourse){
               </a>
             </div>
             <div class="col-lg-3 col-md-6">
-              <a href="" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
+              <a href="./sassignment" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
                 <div class="card">
                   <div class="card-body text-center">
-                    <div class="h5"><i class="fe fe-file"></i> TESTS</div>
-                    <div class="display-4 font-weight-bold mb-4">0</div>
+                    <div class="h5"><i class="fe fe-file-text"></i> ASSIGNMENT</div>
+                    <div class="display-4 font-weight-bold mb-4"><?php echo $getnumassign; ?></div>
                   </div>
                 </div>
               </a>
@@ -430,7 +431,7 @@ if($getcourse){
               <a href="./student-report" style="text-decoration:none; color:rgba(5, 5, 5, 0.62);">
                 <div class="card">
                   <div class="card-body text-center">
-                    <div class="h5"><i class="fe fe-file-text"></i> REPORTS</div>
+                    <div class="h5"><i class="fe fe-folder"></i> REPORTS</div>
                     <div class="display-4 font-weight-bold mb-4"><i class="fe fe-file-text"></i></div>
                   </div>
                 </div>

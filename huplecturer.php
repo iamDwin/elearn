@@ -69,7 +69,7 @@ if(isset($_POST['reglect'])){
                               <div class="form-group">
                                 <div class="input-icon">
                                     <span class="input-icon-addon"><i class="fe fe-user"></i><span class="form-required">*</span></span>
-                                <input type="text" name="firstName" class="form-control" value="<?php echo $lecDet['firstName'];?>" required >
+                                <input type="text" name="firstName" class="form-control" value="<?php echo $lecDet['firstName'];?>" required readonly >
                                 </div>
                               </div>
                           </div>
@@ -79,7 +79,7 @@ if(isset($_POST['reglect'])){
                           <div class="form-group">
                         <div class="input-icon">
                             <span class="input-icon-addon"><i class="fe fe-user"></i><span class="form-required">*</span></span>
-                            <input type="text" name="lastName" class="form-control" value="<?php echo $lecDet['lastName'];?>" required >
+                            <input type="text" name="lastName" class="form-control" value="<?php echo $lecDet['lastName'];?>" required readonly >
                         </div>
                       </div>
                           </div>
@@ -87,7 +87,7 @@ if(isset($_POST['reglect'])){
                               <div class="form-group">
                                 <div class="input-icon">
                                     <span class="input-icon-addon"><i class="fe fe-user"></i></span>
-                                    <input type="text" name="otherName" class="form-control" value="<?php echo $lecDet['otherName'];?>">
+                                    <input type="text" name="otherName" class="form-control" value="<?php echo $lecDet['otherName'];?>" readonly>
                                 </div>
                               </div>
                           </div>
@@ -104,7 +104,7 @@ if(isset($_POST['reglect'])){
                               <div class="form-group">
                                   <label class="form-label"><i class="fe fe-phone"></i> Active Phone<span class="form-required">*</span></label>
                                 <div class="input-icon">
-                                <input type="tel" name="phone" class="form-control" value="<?php echo $lecDet['phone'];?>" placeholder="Active Phone" required>
+                                <input type="tel" name="phone" class="form-control" value="<?php echo $lecDet['phone'];?>" placeholder="Active Phone" required readonly>
                                 </div>
                               </div>
 
@@ -161,9 +161,11 @@ if(isset($_POST['reglect'])){
                                 </a>
                             </div>
                             <div class="col-md-8">
-                            <button type="submit" name="reglect" class="btn btn-info btn-block" <?php if(!$allfac){ echo 'disabled';}?> >
+<!--
+                            <button type="submit" name="reglect" class="btn btn-info btn-block" <?php // if(!$allfac){ echo 'disabled';}?> disabled >
                               UPDATE DETAILS <i class="fe fe-refresh-cw"></i>
                             </button>
+-->
                             </div>
                         </div>
                     </div>

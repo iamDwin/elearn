@@ -17,6 +17,8 @@ if(isset($_POST['signIn'])){
                 echo "<script>alert('PASSWORD NEEDS TO BE CHANGED ON FIRST LOGIN.');window.location.href='changepassword?c=$password';</script>";
             }elseif($flogin == 3){
 
+            }elseif($signrow['onlinestatus'] == 1){
+                $error = "SIMULTANEOUS SESSION REACHED.";
             }else{
 
             if($signrow['userstatus'] == 'testactive'){
@@ -51,6 +53,9 @@ if(isset($_POST['signIn'])){
 $success = "<script>document.write('ACTIVE TEST AVAILABLE, REDIRECTING NOW...');window.location.href='take-test?tid=".$activerow['testID']."';</script>";
 
                         }else{
+                                                //insert into audit table..
+
+                    $audit = insert("INSERT INTO audit(userID,action) VALUES('".$signrow['userID']."','LOGIN')");
                             $success = "<script>document.write('Sign In Successful.');</script>";
                                 echo "<script>window.location.href='dashboard';</script>";
                         }
@@ -59,6 +64,9 @@ $success = "<script>document.write('ACTIVE TEST AVAILABLE, REDIRECTING NOW...');
 
                     //set online status
                     $updateonline = update("UPDATE users SET onlinestatus='1' WHERE userID='".$signrow['userID']."'");
+                    //insert into audit table..
+//                    $datetime = date("Y-m-d, h:m:i a");
+                    $audit = insert("INSERT INTO audit(userID,action) VALUES('".$signrow['userID']."','LOGIN')");
                     if($updateonline){
                     $success = "<script>document.write('Sign In Successful.');</script>";
                         echo "<script>window.location.href='dashboard';</script>";
@@ -69,7 +77,9 @@ $success = "<script>document.write('ACTIVE TEST AVAILABLE, REDIRECTING NOW...');
                 }else{
                     //set online status
                     $updateonline = update("UPDATE users SET onlinestatus='1' WHERE userID='".$signrow['userID']."'");
-                    if($updateonline){
+                    //insert into audit table..
+                    $audit = insert("INSERT INTO audit(userID,action) VALUES('".$signrow['userID']."','LOGIN')");
+                    if($updateonline && $audit){
                     $success = "<script>document.write('Sign In Successful.');</script>";
                         echo "<script>window.location.href='dashboard';</script>";
                     }
@@ -80,7 +90,7 @@ $success = "<script>document.write('ACTIVE TEST AVAILABLE, REDIRECTING NOW...');
         }
         }
     }else{
-        $error = "<script>document.write('Wrong Email And Password.');</script>";
+        $error = "<script>document.write('WRONG EMAIL AND PASSWORD.');</script>";
     }
 }
 ?>

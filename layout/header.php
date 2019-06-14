@@ -188,6 +188,9 @@ if($msg <= 0){
                   <li class="nav-item">
                     <a href="./mstudents" class="nav-link <?php if($active == 'students'){ echo 'active';}?>"><i class="fe fe-users"></i> Students</a>
                   </li>
+                  <li class="nav-item">
+                    <a href="./mreports" class="nav-link <?php if($active == 'mreports'){ echo 'active';}?>"><i class="fe fe-folder"></i> Report</a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -234,7 +237,7 @@ if($msg <= 0){
 -->
                   <li class="nav-item dropdown">
                     <a href="javascript:void(0)" class="nav-link  <?php if($active == 'hreports'){ echo 'active';}?>" data-toggle="dropdown">
-                        <i class="fe fe-file-text"></i> Reports</a>
+                        <i class="fe fe-folder"></i> Reports</a>
                     <div class="dropdown-menu dropdown-menu-arrow">
                       <a href="./hgeneral-report" class="dropdown-item ">GENERAL REPORTS</a>
                       <a href="./hlecturer-report" class="dropdown-item ">LECTURER REPORTS</a>
@@ -282,9 +285,11 @@ if($msg <= 0){
                             <i class="fe fe-mail"></i> Messages <?php if(!empty($msgs)){ echo "- ".$msgs; }?>
                         </a>
                   </li>
+<!--
                   <li class="nav-item">
-                    <a href="./lreports" class="nav-link <?php if($active == 'lreports'){ echo 'active';}?>"><i class="fe fe-file-text"></i> Reports</a>
+                    <a href="./lreports" class="nav-link <?php // if($active == 'lreports'){ echo 'active';}?>"><i class="fe fe-folder"></i> Reports</a>
                   </li>
+-->
                 </ul>
               </div>
             </div>
@@ -337,7 +342,7 @@ if($msg <= 0){
                         </a>
                   </li>
                   <li class="nav-item">
-                    <a href="./student-report" class="nav-link <?php if($active == 'sreports'){ echo 'active';}?>"><i class="fe fe-file-text"></i> Reports</a>
+                    <a href="./student-report" class="nav-link <?php if($active == 'sreports'){ echo 'active';}?>"><i class="fe fe-folder"></i> Reports</a>
                   </li>
 
                 </ul>

@@ -9,6 +9,16 @@ if(isset($_GET['tid'])){
 }
 $_SESSION['current_page']=$_SERVER['REQUEST_URI'];
 
+
+//FORMULAR TO CALCULATE FOR PASSED AND FAILED PERCENTAGES...
+//get total student who partook..
+$numtestresult = count(select("SELECT * FROM generalreport WHERE testID='$tid'"));
+$numofpassed = count(select("SELECT * FROM generalreport WHERE testID='$tid' AND teststatus='PASS'"));
+$numoffailed = count(select("SELECT * FROM generalreport WHERE testID='$tid' AND teststatus='FAILED'"));
+
+$passpercent = ($numofpassed/$numtestresult) * 100 ;
+$failedpercent = ($numoffailed/$numtestresult) * 100 ;
+
 ?>
 
 <div class="my-3 my-md-5">
@@ -17,7 +27,7 @@ $_SESSION['current_page']=$_SERVER['REQUEST_URI'];
         <h1 class="page-title">TEST <?php echo $tid;?> - GENERAL REPORT</h1>
         </div>
         <div class="row">
-              <div class="col-sm-12">
+              <div class="col-sm-8">
             <?php if($success){ ?>
                   <div class="alert alert-icon alert-success" role="alert">
                       <button type="button" class="close" data-dismiss="alert"></button>
@@ -36,8 +46,8 @@ $_SESSION['current_page']=$_SERVER['REQUEST_URI'];
                         <tr>
                           <th><i class="fe fe-hash"></i> STUDENT ID</th>
                           <th class="text"><i class="fe fe-user"></i> NAME</th>
-                          <th class="text"><i class="fe fe-check-square"></i> PASS MARK</th>
-                          <th class="text"><i class="fe fe-check"></i> SCORE</th>
+<!--                          <th class="text"><i class="fe fe-check-square"></i> PASS MARK</th>-->
+<!--                          <th class="text"><i class="fe fe-check"></i> SCORE</th>-->
                           <th class="text"><i class="fe fe-check"></i> STATUS</th>
                           <th class="text-center"><i class="fa fa-cog"></i> ACTION</th>
                         </tr>
@@ -53,8 +63,8 @@ $_SESSION['current_page']=$_SERVER['REQUEST_URI'];
                           <tr>
                             <td> <?php echo $reportrow['studentID'];?></td>
                             <td> <?php echo $studentrow['firstName']." ".$studentrow['otherName']." ".$studentrow['lastName'];?></td>
-                            <td> <?php echo $testrow['passMark']; ?></td>
-                            <td> <?php echo $reportrow['totalScore']; ?></td>
+<!--                            <td> <?php // echo $testrow['passMark']; ?></td>-->
+<!--                            <td> <?php // echo $reportrow['totalScore']; ?></td>-->
                             <td> <?php if($reportrow['teststatus'] == 'PASS'){?>
                                 <span class="tag tag-green"> PASS</span>
                                 <?php } if($reportrow['teststatus'] == 'FAILED'){?>
@@ -78,6 +88,53 @@ $_SESSION['current_page']=$_SERVER['REQUEST_URI'];
                     </table>
                   </div>
                 </div>
+              </div>
+
+
+            <div class="col-lg-6 col-xl-4">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title"> SCORES CHART</h3>
+                  </div>
+                  <div class="card-body">
+                    <div id="chart-donut" style="height: 16rem"></div>
+                  </div>
+                </div>
+                <script>
+                  require(['c3', 'jquery'], function(c3, $) {
+                  	$(document).ready(function(){
+                  		var chart = c3.generate({
+                  			bindto: '#chart-donut', // id of chart wrapper
+                  			data: {
+                  				columns: [
+                  				    // each columns data
+                  					['data1', <?php echo $passpercent; ?>],
+                  					['data2', <?php echo $failedpercent;?>]
+                  				],
+                  				type: 'donut', // default type of chart
+                  				colors: {
+                  					'data1': tabler.colors["green"],
+                  					'data2': tabler.colors["red"]
+                  				},
+                  				names: {
+                  				    // name of each serie
+                  					'data1': 'Passed',
+                  					'data2': 'Failed'
+                  				}
+                  			},
+                  			axis: {
+                  			},
+                  			legend: {
+                                  show: true, //hide legend
+                  			},
+                  			padding: {
+                  				bottom: 0,
+                  				top: 0
+                  			},
+                  		});
+                  	});
+                  });
+                </script>
               </div>
         </div>
     </div>

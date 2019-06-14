@@ -107,7 +107,7 @@ if(isset($_POST['requpload'])){
     $allowed = array('application','doc','docx','ppt','pptx','pdf');
 
     if(in_array($file_ext, $allowed)){
-        if($file_error===0){
+        if($file_error === 0){
             if($file_size <= 4097152){
              $content = $file_name;
                 $file_destination = $DOC_UPLOAD.$file_name;
@@ -447,10 +447,10 @@ if(isset($_POST['createLec'])){
                                   </div>
 
                                 <div class="col-md-6">
-                                    <div class="table">
-                                        <table class="table table-stripped">
+<!--                                    <div class="table">-->
+                                        <table class="table table-bordered">
                                             <thead>
-                                                <th>Lecture Num</th>
+                                                <th>Lecture </th>
                                                 <th>Lecture Title</th>
                                                 <th class="text-center"> Action</th>
                                             </thead>
@@ -462,7 +462,7 @@ if(isset($_POST['createLec'])){
 
                                                 ?>
                                                 <tr>
-                                                    <td>Lecture <?php echo $lecrow['lecNum'];?></td>
+                                                    <td> <?php echo $lecrow['lecNum'];?></td>
                                                     <td><?php echo $lecrow['lecTitle']; ?></td>
                                                     <td><a href="manage-lec?cid=<?php echo $lecrow['cID']; ?>&lid=<?php echo $lecrow['lecNum'];?>" class="btn btn-primary btn-sm btn-block">Manage <i class="fe fe-file-text"></i></a></td>
                                                 </tr>
@@ -474,7 +474,7 @@ if(isset($_POST['createLec'])){
                                             </tbody>
 
                                         </table>
-                                    </div>
+<!--                                    </div>-->
                                   </div>
 
                               </div>

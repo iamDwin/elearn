@@ -59,24 +59,13 @@ if(isset($_POST['updateTest'])){
     $questionMark = trim(htmlentities($_POST['questionMark']));
     $duration = trim(htmlentities($_POST['duration']));
 
-    //check if test ID exixts....
-    $TIDexist = select("SELECT * FROM test WHERE testID='$testID'");
-    if($TIDexist){
-        $testID = $testID + 1;
-        $saveTest = insert("INSERT INTO test(cID,testID,lecture,passMark,duration,doe) VALUES('$cid','$testID','$lecture','$passMark','$duration','$dateToday')");
-        if($saveTest){
-            $success = "<script>document.write('TEST CREATED..!');window.location.href='".$_SESSION['current_page']."';</script>";
-        }else{
-            $error = "<script>document.write('TEST CREATION FAILED,TRY AGAIN.!');</script>";
-        }
+    $updateTest = update("UPDATE test SET passMark='$passMark', questionMark='$questionMark', duration='$duration' WHERE testID='$testID'");
+    if($updateTest){
+        $success = "<script>document.write('TEST UPDATED..!');window.location.href='".$_SESSION['current_page']."';</script>";
     }else{
-        $saveTest = insert("INSERT INTO test(cID,testID,lecture,passMark,questionMark,duration,doe) VALUES('$cid','$testID','$lecture','$passMark','$questionMark','$duration','$dateToday')");
-        if($saveTest){
-            $success = "<script>document.write('TEST CREATED..!');window.location.href='".$_SESSION['current_page']."';</script>";
-        }else{
-            $error = "<script>document.write('TEST CREATION FAILED,TRY AGAIN.!');</script>";
-        }
+        $error = "<script>document.write('TEST UPDATE FAILED,TRY AGAIN.!');</script>";
     }
+
 }
 ?>
 <div class="my-3 my-md-5">
@@ -228,8 +217,8 @@ if(isset($_POST['updateTest'])){
 
                               <div class="row">
                                 <div class="col-md-12">
-                                    <div class="table">
-                                        <table class="table table-stripped">
+<!--                                    <div class="table">-->
+                                        <table class="table table-bordered">
                                             <thead>
                                                 <th><i class="fe fe-hash"></i> ID</th>
                                                 <th><i class="fe fe-file-text"></i> Questions</th>
@@ -260,7 +249,7 @@ if(isset($_POST['updateTest'])){
                                             </tbody>
 
                                         </table>
-                                    </div>
+<!--                                    </div>-->
                                   </div>
 
                               </div>
@@ -286,12 +275,12 @@ if(isset($_POST['updateTest'])){
                         <select name="lecture" class="form-control" required>
                             <option></option>
                             <?php
-                            $allLecs = select("SELECT * FROM lecture WHERE cID='$cid'");
-                            if($allLecs){
-                                foreach($allLecs as $lecsRow){
+//                            $allLecs = select("SELECT * FROM lecture WHERE cID='$cid'");
+//                            if($allLecs){
+//                                foreach($allLecs as $lecsRow){
                             ?>
-                            <option value="<?php echo $lecsRow['lecNum'];?>"> Lecture <?php echo $lecsRow['lecNum']." - ".$lecsRow['lecTitle'];?></option>
-                            <?php }}?>
+                            <option value="<?php //echo $lecsRow['lecNum'];?>"> Lecture <?php //echo $lecsRow['lecNum']." - ".$lecsRow['lecTitle'];?></option>
+                            <?php// }}?>
                         </select>
                     </div>
 -->
@@ -310,9 +299,27 @@ if(isset($_POST['updateTest'])){
                           </div>
                       </div>
 
+<!--
                     <div class="form-group">
                       <label class="form-label"><i class="fe fe-clock"></i> Duration In Seconds</label>
-                      <input type="number" min="1" name="duration" class="form-control" value="<?php echo $testdetrow['duration'];?>"  placeholder="Test Duration..."/>
+                      <input type="number" min="1" name="duration" class="form-control" value="<?php // echo $testdetrow['duration'];?>"  placeholder="Test Duration..."/>
+                    </div>
+-->
+
+                     <div class="form-group">
+                      <label class="form-label"><i class="fe fe-clock"></i> Test Duration</label>
+                        <select class="form-control" name="duration" required>
+                            <option value="<?php echo $testdetrow['duration'];?>" ><?php echo $testdetrow['duration'];?></option>
+                            <option value="30"> 30 Seconds</option>
+                            <option value="45"> 45 Seconds</option>
+                            <option value="60"> 1 munite</option>
+                            <option value="300"> 5 munites</option>
+                            <option value="600"> 10 munites</option>
+                            <option value="1200"> 20 munites</option>
+                            <option value="1800"> 30 munites</option>
+                            <option value="2700"> 45 munites</option>
+                            <option value="3600"> 1 hour</option>
+                        </select>
                     </div>
                     <div class="form-footer">
                         <div class="row">

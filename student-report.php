@@ -74,7 +74,7 @@ $_SESSION['current_page']=$_SERVER['REQUEST_URI'];
                             <td class="text-center"><a href="./detailed-report?tid=<?php echo $tstrow['testID']."&sid=".$reportrow['studentID']; ?>" class="btn btn-info"> Individual Report</a></td>
                           </tr>
                           <?php }}else{ ?>
-                          <tr><td colspan="6"> NO REPORTS FOR THIS TEST YET.</td></tr>
+                          <tr><td colspan="6"> NO TEST REPORTS YET.</td></tr>
                           <?php }?>
                       </tbody>
                         <tfoot style="border-top:1px solid #eee;">

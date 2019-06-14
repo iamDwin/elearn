@@ -249,15 +249,19 @@ if(isset($_POST['updateLec'])){
                         </table>
                     </div>
 
-
+                          <?php
+                             //get lecture media...
+                        $lecmedia = select("SELECT * FROM cmedia WHERE cID='$cid' AND lecture='".$lecrow['lecNum']."'");
+                        if($lecmedia){
+                          ?>
                         <div class="col-md-12">
                 <table class="table table-bordered">
                     <thead>
                         <th colspan="2" style="font-weight:bold;"> Lecture Media</th>
                     </thead>
                             <?php
-                            //get lecture media...
-                        $lecmedia = select("SELECT * FROM cmedia WHERE cID='$cid' AND lecture='".$lecrow['lecNum']."'");
+//                            //get lecture media...
+//                        $lecmedia = select("SELECT * FROM cmedia WHERE cID='$cid' AND lecture='".$lecrow['lecNum']."'");
                         if($lecmedia){
                             foreach($lecmedia as $lmediarow){
                                 $mediaye = $lmediarow['mediatype'];
@@ -290,7 +294,7 @@ if(isset($_POST['updateLec'])){
                         <?php }?>
                         </table>
                         </div>
-
+                          <?php } ?>
 
                       </div>
                   </div>

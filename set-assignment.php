@@ -45,7 +45,7 @@ if(isset($_POST['createAssignment'])){
 
         if($type == 'text'){
             $question = trim(htmlspecialchars($_POST['question']));
-            $saveTest = insert("INSERT INTO assignment(cID,lecNum,type,question,overallMark,passMark,dueDate,doe) VALUES('$cid','$lecture','$type','$question','$overallMark','$passMark','$dueDate','$dateToday')");
+        $saveTest = insert("INSERT INTO assignment(level,semester,cID,lecNum,type,question,overallMark,passMark,dueDate,doe) VALUES('".$cnmrow['level']."','".$cnmrow['semester']."','$cid','$lecture','$type','$question','$overallMark','$passMark','$dueDate','$dateToday')");
             if($saveTest){
                 $success = "<script>document.write('ASSIGNMENT CREATED..!');window.location.href='".$_SESSION['current_page']."';</script>";
             }else{
@@ -75,7 +75,7 @@ if(isset($_POST['createAssignment'])){
                         if(move_uploaded_file($file_tmp,$file_destination)){
 
 
-            $saveTest = insert("INSERT INTO assignment(cID,lecNum,type,question,overallMark,passMark,dueDate,doe) VALUES('$cid','$lecture','$type','$file_destination','$overallMark','$passMark','$dueDate','$dateToday')");
+            $saveTest = insert("INSERT INTO assignment(level,semester,cID,lecNum,type,question,overallMark,passMark,dueDate,doe) VALUES('".$cnmrow['level']."','".$cnmrow['semester']."','$cid','$lecture','$type','$file_destination','$overallMark','$passMark','$dueDate','$dateToday')");
 
             if($saveTest){
     $success = "<script>document.write('ASSIGNMENT FILE UPLOAD.');window.location.href='".$_SESSION['current_page']."'</script>";
@@ -230,7 +230,7 @@ if(isset($_POST['createAssignment'])){
                           <td class="text-center"> <?php echo $testRow['lecNum'];?> </td>
                           <td class="text-center"> <?php echo $testRow['passMark'];?> </td>
                           <td class="text-center">
-                <a href="./set-test-questions?aid=<?php echo $testRow['asID'];?>" class="btn btn-info btn-sm text-white <?php if($testRow['status'] == 'active'){ echo 'disabled';} ?> "><i class="fe fe-file-text"></i> Manage </a>
+                <a href="./manage-assignment?aid=<?php echo $testRow['asID'];?>" class="btn btn-info btn-sm text-white <?php if($testRow['status'] == 'active'){ echo 'disabled';} ?> "><i class="fe fe-file-text"></i> Manage </a>
                               ||
                               <?php
                               if($testRow['status'] == ''){
@@ -242,7 +242,7 @@ if(isset($_POST['createAssignment'])){
             <a onclick="return confirm('CONFIRM DEACTIVATION.');" href="./deactivate-assignment?aid=<?php echo $testRow['asID'];?>&cid=<?php echo $testRow['cID'];?>" class="btn btn-danger btn-sm text-white"><i class="fe fe-x-square"></i> Deactivate</a>
                               <?php } ?>
                               ||
-                <a href="./test-report?aid=<?php echo $testRow['asID'];?>" class="btn btn-primary btn-sm text-white <?php if($testRow['status'] == 'active'){ echo 'disabled';} ?> "><i class="fe fe-folder"></i> Report </a>
+                <a href="./assignment-report?aid=<?php echo $testRow['asID'];?>" class="btn btn-primary btn-sm text-white <?php if($testRow['status'] == 'active'){ echo 'disabled';} ?> "><i class="fe fe-folder"></i> Report </a>
                           </td>
                         </tr>
                           <?php }}else{?>

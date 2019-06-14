@@ -57,16 +57,16 @@ function start_countdown()
 <div class="my-3 my-md-5">
     <div class="container">
          <div class="page-header">
-          <h1 class="page-title">
-           <?php echo $courserow['courseName'];?> TEST <?php echo $tid;?> Lecture <?php echo $lecturerow['lecNum']." - ".$lecturerow['lecTitle']; ?>
-          </h1>
+          <h5 class="page-title" style="font-size:120%;">
+           <?php echo strtoupper($courserow['courseName']);?> TEST <?php echo $tid;?>
+          </h5>
         </div>
         <div class="row">
 <!--            <div class="col-md-2"></div>-->
             <div class="col-sm-12">
             <div class="card">
                 <div class="card-header" style="width:100%;">
-                    <h5 class="card-title text-center text-danger"  id="countdown"> </h5>
+                    <h5 class="card-title text-center text-danger" style="font-size:85%;"  id="countdown"> </h5>
                 </div>
                   <form class="form" method="post" enctype="multipart/form-data" onsubmit="return confirm('SUBMIT ANSWERS ?');" >
                 <div class="card-body">
@@ -75,7 +75,7 @@ function start_countdown()
                           $counters ++;
                       ?>
                      <div class="form-group">
-                        <div class="form-label"><?php echo $counters;?>. <?php echo $questionsrow['question'];?></div>
+                        <div class="form-label"><?php echo "Q".$counters;?>. <?php echo $questionsrow['question'];?></div>
                         <div class="custom-controls-stacked">
 
                             <div class="row">

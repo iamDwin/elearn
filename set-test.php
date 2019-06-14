@@ -91,8 +91,19 @@ if(isset($_POST['createTest'])){
                       </div>
 
                     <div class="form-group">
-                      <label class="form-label"><i class="fe fe-clock"></i> Duration In Seconds</label>
-                      <input type="number" min="1" name="duration" class="form-control" placeholder="Test Duration..." required />
+                      <label class="form-label"><i class="fe fe-clock"></i> Test Duration</label>
+                        <select class="form-control" name="duration" required>
+                            <option></option>
+                            <option value="30"> 30 Seconds</option>
+                            <option value="45"> 45 Seconds</option>
+                            <option value="60"> 1 munite</option>
+                            <option value="300"> 5 munites</option>
+                            <option value="600"> 10 munites</option>
+                            <option value="1200"> 20 munites</option>
+                            <option value="1800"> 30 munites</option>
+                            <option value="2700"> 45 munites</option>
+                            <option value="3600"> 1 hour</option>
+                        </select>
                     </div>
                     <div class="form-footer">
                         <div class="row">

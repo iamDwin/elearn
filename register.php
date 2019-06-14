@@ -16,10 +16,7 @@ if(isset($_POST['crtaccount'])){
     $phone = trim(htmlspecialchars($_POST['phone']));
     $school = trim(htmlspecialchars($_POST['school']));
     $level = trim(htmlspecialchars($_POST['level']));
-//    $faculty = trim(htmlspecialchars($_POST['faculty']));
     $depID = trim(htmlspecialchars($_POST['depID']));
-//    $password = trim(htmlspecialchars($_POST['password']));
-//    $cpassword = trim(htmlspecialchars($_POST['cpassword']));
     $fullname = $firstName." ".$otherName." ".$lastName;
     $position = trim(htmlspecialchars('student'));
     $password = rand(8,122).rand(500,680).date('i');
@@ -228,10 +225,12 @@ if(isset($_POST['crtaccount'])){
                         <div class="col-md-4">
                           <div class="form-group">
                               <label class="form-label">.</label>
+<!--
                             <label class="custom-control custom-checkbox">
                               <input type="checkbox" class="custom-control-input" />
                               <span class="custom-control-label">Agree to the <a href="#">terms and policy</a></span>
                             </label>
+-->
                           </div>
                         </div>
                         <div class="col-md-4">
