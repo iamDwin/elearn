@@ -4,10 +4,14 @@ include 'layout/header.php';
 
 if(isset($_GET['aid'])){
     $aid = $_GET['aid'];
+    $sid = $_GET['sid'];
+
 }
 //get assignment details...
 $assigndet = select("SELECT * FROM assignment WHERE asID='$aid'");
 foreach($assigndet as $assignrow){
+    $passMark = $assignrow['passMark'];
+    $overallMark = $assignrow['overallMark'];
     //get course details..
     $cnm = select("SELECT * FROM courses WHERE cID='".$assignrow['cID']."'");
     foreach($cnm as $cnmrow){}
@@ -24,50 +28,28 @@ $ASSIGNMENT_UPLOAD = PARENT_DIR.$cid.'/assignment/';
 
 $username = $userDet['firstName'][0].$userDet['lastName'];
 
-if(isset($_POST['updateAssign'])){
+if(isset($_POST['awardMark'])){
+    $score = trim($_POST['score']);
 
-            //file properties
-            $file_name=$_FILES['answer']['name'];
-            $file_tmp=$_FILES['answer']['tmp_name'];
-            $file_size= $_FILES['answer']['size'];
-            $file_error = $_FILES['answer']['error'];
-            //etract extension
-            $file_ext =explode('.',$file_name);
-            $file_ext = strtolower(end($file_ext));
-            $allowed = array('application','doc','docx','txt','ppt','pptx','pdf');
+    if($score > $overallMark){
+        $error = "<script>document.write('MARK HIGHER THAN OVERALL MARK');</script>";
+    }else{
 
-            if(in_array($file_ext, $allowed)){
-                if($file_error===0){
-                    if($file_size <= 4097152){
-//                        $count = count(select("SELECT * FROM assignment WHERE cID='$cid'")) + 1;
-                     $file_name_new=$cid.'_Answer'.$aid.'_'.$username.".".$file_ext;
-                        $file_destination = $ASSIGNMENT_UPLOAD.$file_name_new;
-                        //check if file has been loaded earlier and move it from temporary location into folder
-                        if(move_uploaded_file($file_tmp,$file_destination)){
-
-$saveAssign = insert("INSERT INTO assignment_answers(asID,studentID,answer) VALUES('$aid','".$userDet['studentID']."','$file_destination')");
-
-            if($saveAssign){
-    $success = "<script>document.write('ASSIGNMENT ANSWER UPLOADED.');window.location.href='".$_SESSION['current_page']."'</script>";
-            }else{
-                $error = "<script>document.write('ANSWER UPLOAD FAILED,TRY AGAIN.!');</script>";
-            }
-                        }else{
-                           $error = "<script>document.write('FILE NOT MOVED, TRY AGAIN');</script>";
-                        }
-                    }else{
-                        $error = "<script>document.write('FILE EXCEEDS MAX SIZE OF 10MB, TRY AGAIN');</script>";
-                    }
-
-                }else{
-                    $error = "<script>document.write('".$file_error."');</script>";
-                }
-            }else{
-                $error = "<script>document.write('FILE EXTENSION NOT SUPPORTED, TRY AGAIN');</script>";
+        if($score < $passMark){
+            $status = 'FAILED';
+        }else{
+            $status = 'PASSED';
         }
 
-}
+        $savescore = update("UPDATE assignment_answers SET score='$score', status='$status'  WHERE asID='$aid' AND studentID='$sid' ");
+        if($savescore){
+           $success = "<script>document.write('SCORE SAVED.');window.location.href='".$_SESSION['current_page']."'</script>";
+        }else{
+            $error = "<script>document.write('SCORE NOT SAVED, TRY AGAIN');</script>";
+        }
+    }
 
+}
 
 ?>
 <div class="my-3 my-md-5">
@@ -101,7 +83,7 @@ $saveAssign = insert("INSERT INTO assignment_answers(asID,studentID,answer) VALU
                         <div class="card">
                           <div class="card-status card-status-left bg-blue"></div>
                           <div class="card-header">
-                            <h3 class="card-title">ASSIGNMENT QUESTIONS PANEL</h3>
+                            <h3 class="card-title">ASSIGNMENT ANSWER PANEL</h3>
                           </div>
                           <div class="card-body">
 
@@ -109,41 +91,11 @@ $saveAssign = insert("INSERT INTO assignment_answers(asID,studentID,answer) VALU
                                 <div class="col-md-12">
                                     <table class="table table-bordered">
                                         <thead>
-                                            <th><i class="fe fe-file-text"></i> QUESTION </th>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            $allTest = select("SELECT * FROM assignment WHERE asID='$aid'");
-                                            if($allTest){
-                                                foreach($allTest as $qstnrow){
-                                                    $type = $qstnrow['type'];
-                                            ?>
-                                            <tr>
-                                                <?php if($type == 'file'){?>
-                                                <td><a target="_blank" href="<?php echo $qstnrow['question'];?>"> VIEW QUESTION </a></td>
-                                                <?php }?>
-
-                                                <?php if($type == 'text'){?>
-                                                <td><?php echo $qstnrow['question'];?></td>
-                                                <?php }?>
-
-                                            </tr>
-                                            <?php }}else{?>
-                                            <tr>
-                                                <td colspan="3"> No Questions Available.</td>
-                                            </tr>
-                                            <?php }?>
-                                        </tbody>
-                                    </table>
-                                  </div>
-                                <div class="col-md-12">
-                                    <table class="table table-bordered">
-                                        <thead>
                                             <th><i class="fe fe-file-text"></i> ANSWER TO ASSIGNMENT</th>
                                         </thead>
                                         <tbody>
                                             <?php
-                $allTest = select("SELECT * FROM assignment_answers WHERE asID='$aid' AND studentID='".$userDet['studentID']."'");
+                $allTest = select("SELECT * FROM assignment_answers WHERE asID='$aid' AND studentID='$sid'");
                                             if($allTest){
                                                 foreach($allTest as $qstnrow){
                                                     //$type = $qstnrow['type'];
@@ -176,22 +128,22 @@ $saveAssign = insert("INSERT INTO assignment_answers(asID,studentID,answer) VALU
                 <div class="col-md-5">
                  <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title"> SUBMIT ANSWER</h4>
+                        <h4 class="card-title"> AWARD SCORE - TOTAL MARKS <?php echo $assignrow['overallMark'];?> </h4>
                     </div>
                     <div class="card-body">
-                      <form class="form" method="post" enctype="multipart/form-data" onsubmit="return confirm('UPLOAD ANSWER ?');" >
+                      <form class="form" method="post" enctype="multipart/form-data" onsubmit="return confirm('SAVE SCORE ?');" >
                           <div class="row">
                                 <div class="col-md-12">
                                    <div class="form-group">
-                                      <label class="form-label"><i class="fe fe-upload"></i> Upload Answer</label>
-                                      <input type="file" accept="application/*" name="answer" class="form-control" placeholder="Upload Answer"/>
+                                      <label class="form-label"><i class="fe fe-check"></i> Score</label>
+                                      <input type="number" min="0" name="score" class="form-control" placeholder="Award Mark"/>
                                     </div>
                               </div>
                           </div>
                         <div class="form-footer">
                             <div class="row">
                                 <div class="col-md-12">
-                          <button type="submit" name="updateAssign" class="btn btn-primary btn-block">SUBMIT <i class="fe fe-send"></i></button>
+                          <button type="submit" name="awardMark" class="btn btn-primary btn-block">SAVE SCORE <i class="fe fe-download"></i></button>
                                 </div>
                             </div>
                         </div>

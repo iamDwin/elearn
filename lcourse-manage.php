@@ -30,7 +30,7 @@ if(isset($_POST['uploadCO'])){
     //etract extension
     $file_ext =explode('.',$file_name);
     $file_ext = strtolower(end($file_ext));
-    $allowed = array('application','doc','docx');
+    $allowed = array('application','doc','docx','ppt','pptx','pdf');
 
     if(in_array($file_ext, $allowed)){
         if($file_error===0){
@@ -228,7 +228,7 @@ if(isset($_POST['createLec'])){
         <div class="page-header">
           <h1 class="page-title">
             <a class="btn btn-primary" href="javascript:history.back()"><i class="fe fe-arrow-left mr-2"></i>Go back</a>
-           <?php echo $cnmrow['cID'];?> : <?php echo $cnmrow['courseName'];?> - COURSE CONTENT <small class="text-right"></small>
+           <?php echo $cnmrow['cID'];?> : <?php echo strtoupper($cnmrow['courseName']);?> - COURSE CONTENT <small class="text-right"></small>
           </h1>
         </div>
         <div class="row">
@@ -249,7 +249,7 @@ if(isset($_POST['createLec'])){
 
                     <!--====================  START COURSE OUTLINE PANEL =================-->
                     <div class="col-md-6">
-                        <div class="card  card-collapsed">
+                        <div class="card  card">
                           <div class="card-status card-status-left bg-blue"></div>
                           <div class="card-header">
                             <h3 class="card-title">COURSE OUTLINE PANEL</h3>
@@ -309,12 +309,12 @@ if(isset($_POST['createLec'])){
 
                     <!--====================  START REQUIRED READING PANEL =================-->
                     <div class="col-md-6">
-                        <div class="card card-collapsed">
+                        <div class="card card-collapseds">
                           <div class="card-status card-status-left bg-blue"></div>
                           <div class="card-header">
                             <h3 class="card-title">REQUIRED READING PANEL</h3>
                             <div class="card-options">
-                              <a href="#" class="card-options-collapse btn btn-primary btn-sm" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                              <a class="card-options-collapse btn btn-primary btn-sm" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
                             </div>
                           </div>
                           <div class="card-body">
@@ -386,7 +386,7 @@ if(isset($_POST['createLec'])){
                           <div class="card-header">
                             <h3 class="card-title">COURSE CONTENT PANEL</h3>
                             <div class="card-options">
-                              <a href="#" class="card-options-collapse btn btn-primary btn-sm" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                              <a class="card-options-collapse btn btn-primary btn-sm" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
                             </div>
                           </div>
                           <div class="card-body">

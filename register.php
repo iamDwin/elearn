@@ -44,17 +44,24 @@ if(isset($_POST['crtaccount'])){
                     $error = "<script>document.write('PASSWORDS DO NOT MATCH, CHECK AND TRY AGAIN.');</script>";
                 }else{
                     //passed all checks now user can be registered into the system.
-//                $registerStudent = insert("INSERT INTO student(studentID,depID,firstName,lastName,otherName,email,phone,school,level,doe) VALUES('$studentID','$department','$firstName','$lastName','$otherName','$email','$phone','$school','$level','$dateToday')");
-
             $addstudent = $student->addstudent($studentID,$depID,$firstName,$lastName,$otherName,$email,$phone,$school,$level,$dateToday);
             $adduser = $user->addUser($studentID,$email,$password,$position,$flogin,$dateToday);
 
                     if($addstudent && $adduser){
+
                 //SEND SMS TO STUDENT....
                 $tel = clean($phone);
-                $body = "Hello ".$fullname.", Your Account with student ID ".$studentID." has been created succesfully, await account verification from selected Head Of Department.";
+                $body = "Hello ".$fullname.", Your Account with student ID ".$studentID." use code ".$password." on first log in To change your password";
                 $sendsms =  sendsmsme($tel,$body);
-                        $success = "<script>document.write('ACCOUNT CREATED SUCCESSFULY, AWAITING CONFIRMATION FROM SELECTED H.O.D .');</script>";
+
+                //SEND MAIL TO LECTURER...
+//                $send_to = $email;
+//                $copy = '';
+//$body = "Hello ".$fullname.", Your Account has been created succesfully, use code ".$password." on first log in to change your password";
+//                $subj = "ELEARNING STUDENT ACCOUNT";
+//                @$SENDMAIL = send_mail($email,'',$body,$subj);
+
+                $success = "<script>document.write('ACCOUNT CREATED SUCCESSFULY,PIN ".$password.".');</script>";
                     }else{
                         $error = "<script>document.write('ACCOUNT CREATION FAILED, TRY AGAIN LATER.');</script>";
                     }
@@ -280,6 +287,7 @@ function facdep(val){
    });
 }
 </script>
+<!--
 <script>
 //$(document).ready(function() {
     // show the alert
@@ -288,5 +296,6 @@ function facdep(val){
     }, 8000);
 //});
 </script>
+-->
   </body>
 </html>

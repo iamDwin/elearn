@@ -19,6 +19,7 @@ if(isset($_POST['addStu'])){
     $position = trim(htmlspecialchars('student'));
     $password = rand(8,122).rand(500,680).date('i');
     $flogin = 1;
+    $fullname = $firstName." ".$otherName." ".$lastName;
 
     $chekPhone = $student->checkphone($phone);
     if($chekPhone){
@@ -28,8 +29,22 @@ if(isset($_POST['addStu'])){
         if($chekmail){
             $error = "<script>document.write('EMAIL ADDRESS ALREADY USED.');</script>";
         }else{
+
+                //SEND SMS TO LECTURER....
+                $tel = clean($phone);
+                $body = "Hello ".$fullname.", Your Account has been created succesfully, use code ".$password." on first log in To change your password";
+                $sendsms =  sendsmsme($tel,$body);
+
+                //SEND MAIL TO LECTURER...
+                $send_to = $email;
+                $copy = '';
+$body = "Hello ".$fullname.", Your Account has been created succesfully, use code ".$password." on first log in to change your password";
+                $subj = "ELEARNING STUDENT ACCOUNT";
+                $SENDMAIL = send_mail($email,'',$body,$subj);
+
             $addLec = $student->addstudent($studentID,$depID,$firstName,$lastName,$otherName,$email,$phone,$school,$level,$dateToday);
             $adduser = $user->addUser($studentID,$email,$password,$position,$flogin,$dateToday);
+
             if($addLec && $adduser){
                 $success = "<script>document.write('STUDENT REGISTRATION SUCCESSFULL.');window.location.href='mstudents';</script>";
             }else{

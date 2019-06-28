@@ -27,14 +27,14 @@ if(isset($_POST['createTest'])){
     $TIDexist = select("SELECT * FROM test WHERE testID='$testID'");
     if($TIDexist){
         $testID = $testID + 1;
-        $saveTest = insert("INSERT INTO test(cID,testID,lecture,passMark,duration,doe) VALUES('$cid','$testID','$lecture','$passMark','$duration','$dateToday')");
+        $saveTest = insert("INSERT INTO test(level,semester,cID,testID,lecture,passMark,questionMark,duration,doe) VALUES('".$cnmrow['level']."','".$cnmrow['semester']."','$cid','$testID','$lecture','$passMark','$duration','$dateToday')");
         if($saveTest){
             $success = "<script>document.write('TEST CREATED..!');window.location.href='".$_SESSION['current_page']."';</script>";
         }else{
             $error = "<script>document.write('TEST CREATION FAILED,TRY AGAIN.!');</script>";
         }
     }else{
-        $saveTest = insert("INSERT INTO test(cID,testID,lecture,passMark,questionMark,duration,doe) VALUES('$cid','$testID','$lecture','$passMark','$questionMark','$duration','$dateToday')");
+        $saveTest = insert("INSERT INTO test(level,semester,cID,testID,lecture,passMark,questionMark,duration,doe) VALUES('".$cnmrow['level']."','".$cnmrow['semester']."','$cid','$testID','$lecture','$passMark','$questionMark','$duration','$dateToday')");
         if($saveTest){
             $success = "<script>document.write('TEST CREATED..!');window.location.href='".$_SESSION['current_page']."';</script>";
         }else{

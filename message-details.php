@@ -2,41 +2,41 @@
 $active = 'message';
 include 'layout/header.php';
 
-if(isset($_GET['mid'])){
-    $mid = $_GET['mid'];
-}
-$_SESSION['current_page']=$_SERVER['REQUEST_URI'];
-
-//get message details..
-$mesage = select("SELECT * FROM messages WHERE mid='$mid'");
-if(count($mesage) > 0){
-    foreach($mesage as $msgrow){}
-    //update message to read...
-    $update = update("UPDATE messages SET status='read' WHERE mid='$mid'");
-    //get sender..
-    $lecsearch = select("SELECT * FROM lecturer WHERE lecID='".$msgrow['sender']."'");
-    if(count($lecsearch) > 0){
-        foreach($lecsearch as $lecfrow){
-            if($msgrow['sender'] == $userDet['userID']){
-                 $sender = "You";
-            }else{
-                $sender = $lecfrow['firstName']." ".$lecfrow['lastName'];
-            }
-
-        }
-    }else{
-        $stusearch = select("SELECT * FROM student WHERE studentID='".$msgrow['sender']."'");
-        if(count($stusearch) > 0){
-            foreach($stusearch as $stufrow){
-                 if($msgrow['sender'] == $userDet['userID']){
-                 $sender = "You";
-                }else{
-                    $sender = $stufrow['firstName']." ".$stufrow['lastName'];
-                }
-            }
-        }
-    }
-}
+//if(isset($_GET['mid'])){
+//    $mid = $_GET['mid'];
+//}
+//$_SESSION['current_page']=$_SERVER['REQUEST_URI'];
+//
+////get message details..
+//$mesage = select("SELECT * FROM messages WHERE mid='$mid'");
+//if(count($mesage) > 0){
+//    foreach($mesage as $msgrow){}
+//    //update message to read...
+//    $update = update("UPDATE messages SET status='read' WHERE mid='$mid'");
+//    //get sender..
+//    $lecsearch = select("SELECT * FROM lecturer WHERE lecID='".$msgrow['sender']."'");
+//    if(count($lecsearch) > 0){
+//        foreach($lecsearch as $lecfrow){
+//            if($msgrow['sender'] == $userDet['userID']){
+//                 $sender = "You";
+//            }else{
+//                $sender = $lecfrow['firstName']." ".$lecfrow['lastName'];
+//            }
+//
+//        }
+//    }else{
+//        $stusearch = select("SELECT * FROM student WHERE studentID='".$msgrow['sender']."'");
+//        if(count($stusearch) > 0){
+//            foreach($stusearch as $stufrow){
+//                 if($msgrow['sender'] == $userDet['userID']){
+//                 $sender = "You";
+//                }else{
+//                    $sender = $stufrow['firstName']." ".$stufrow['lastName'];
+//                }
+//            }
+//        }
+//    }
+//}
 
 
 if(isset($_POST['sendreply'])){

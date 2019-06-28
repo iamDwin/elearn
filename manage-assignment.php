@@ -17,7 +17,7 @@ foreach($assigndet as $assignrow){
 
 if(isset($_POST['updateAssign'])){
     $overallMark = trim(htmlentities($_POST['overallMark']));
-    $passMark = trim(htmlentities($_POST['passMark']));
+    $passMark = trim(htmlentities($_POST['passmark']));
     $dueDate = trim(htmlentities($_POST['dueDate']));
 
     $updateAss = update("UPDATE assignment SET passMark='$passMark', overallMark='$overallMark', dueDate='$dueDate' WHERE asID='$aid'");

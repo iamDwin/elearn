@@ -29,6 +29,45 @@ $access = $_SESSION['access'];
 $success = '';
 $error = '';
 
+
+if(isset($_GET['mid'])){
+    $mid = $_GET['mid'];
+    $_SESSION['current_page']=$_SERVER['REQUEST_URI'];
+
+//get message details..
+$mesage = select("SELECT * FROM messages WHERE mid='$mid'");
+if(count($mesage) > 0){
+    foreach($mesage as $msgrow){}
+    //update message to read...
+    $update = update("UPDATE messages SET status='read' WHERE mid='$mid'");
+    //get sender..
+    $lecsearch = select("SELECT * FROM lecturer WHERE lecID='".$msgrow['sender']."'");
+    if(count($lecsearch) > 0){
+        foreach($lecsearch as $lecfrow){
+            if($msgrow['sender'] == $userDet['userID']){
+                 $sender = "You";
+            }else{
+                $sender = $lecfrow['firstName']." ".$lecfrow['lastName'];
+            }
+
+        }
+    }else{
+        $stusearch = select("SELECT * FROM student WHERE studentID='".$msgrow['sender']."'");
+        if(count($stusearch) > 0){
+            foreach($stusearch as $stufrow){
+                 if($msgrow['sender'] == $userDet['userID']){
+                 $sender = "You";
+                }else{
+                    $sender = $stufrow['firstName']." ".$stufrow['lastName'];
+                }
+            }
+        }
+    }
+}
+}
+
+
+
 //COUNT NUMBER OF UNREAD MESSAGES..
 $msg = count(select("SELECT * FROM messages WHERE recipient='".$_SESSION['userID']."' AND status='unread'"));
 if($msg <= 0){
@@ -108,7 +147,7 @@ if($msg <= 0){
           <div class="container">
             <div class="d-flex">
               <a class="header-brand" href="<?php if(@$_SESSION['testactive'] == 'active'){ echo "";}else{ echo "./dashboard";}?>">
-                <img src="./favicon.ico" class="header-brand-img" alt="tabler logo">
+<!--                <img src="./favicon.ico" class="header-brand-img" alt="tabler logo">-->
                 <span style="font-weight:bold; font-size:100%; color:#2d89ef;"> eLearning</span>
               </a>
               <div class="d-flex order-lg-2 ml-auto">
@@ -122,9 +161,11 @@ if($msg <= 0){
                   </a>
                   <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                       <?php if($access !== 'manager'){ ?>
-                    <a class="dropdown-item" href="./profile"  style="<?php if(@$_SESSION['testactive'] == 'active'){ echo "display:none;";}?>">
+<!--
+                    <a class="dropdown-item" href="./profile"  style="<?php // if(@$_SESSION['testactive'] == 'active'){ echo "display:none;";}?>">
                       <i class="dropdown-icon fe fe-user"></i> Profile
                     </a>
+-->
                       <?php }?>
                       <?php if($access != 'manager' && $access != 'hod' ){ ?>
                     <a class="dropdown-item" href="./inbox" style="<?php if(@$_SESSION['testactive'] == 'active'){ echo "display:none;";}?>">
@@ -141,9 +182,11 @@ if($msg <= 0){
                     </a>
 -->
                       <?php if($access == 'manager'){ ?>
+<!--
                     <a class="dropdown-item" href="#">
                       <i class="dropdown-icon fe fe-database"></i> Back Up
                     </a>
+-->
                       <?php }?>
                     <a class="dropdown-item" href="./logout">
                       <i class="dropdown-icon fe fe-log-out"></i> Sign out
@@ -299,6 +342,9 @@ if($msg <= 0){
 
 <?php } if($access == 'student'){ ?>
 
+
+
+
           <!-- ================================== START STUDENT NAVBAR ==============================================  -->
         <div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
           <div class="container">
@@ -350,6 +396,9 @@ if($msg <= 0){
             </div>
           </div>
         </div>
+
+        <div id="testactive"></div>
+
           <!-- ===================================== END STUDENT NAVBAR ===========================================   -->
 
 <?php }?>

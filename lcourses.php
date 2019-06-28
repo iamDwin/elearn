@@ -45,7 +45,7 @@ if($getcourse){
         }
 ?>
 
-<a href="./lcourse-manage?cid=<?php echo $cnmrow['cID'];?>">
+<a href="lcourse-manage?cid=<?php echo $cnmrow['cID'];?>">
   <div class="col-sm-6 col-lg-3">
     <div class="card p-3">
       <div class="d-flex align-items-center">

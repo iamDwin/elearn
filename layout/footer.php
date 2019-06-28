@@ -40,6 +40,21 @@
         </div>
       </div>
 -->
+<?php if($access == 'student'){ ?>
+<script>
+    function dis(){
+        xmlhttp=new XMLHttpRequest();
+        xmlhttp.open("GET","load/testactive.php?lecID=<?php echo $studentrow['level'];?>",false);
+        xmlhttp.send(null);
+        document.getElementById("testactive").innerHTML=xmlhttp.responseText;
+    }
+        dis();
+
+        setInterval(function(){
+            dis();
+        },1000);
+</script>
+<?php }?>
       <footer class="footer">
         <div class="container">
           <div class="row align-items-center flex-row-reverse">

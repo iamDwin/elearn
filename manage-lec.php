@@ -50,7 +50,7 @@ if(isset($_POST['updateLec'])){
                     }
 
                     if($type == 'video'){
-                        $allowed = array('video','mpeg','mp4');
+                        $allowed = array('video','mpeg','mp4','WEBM','webm');
                     }
 
                     if($type == 'audio'){
@@ -116,7 +116,7 @@ if(isset($_POST['updateLec'])){
         <div class="page-header">
           <h1 class="page-title">
             <a class="btn btn-primary" href="javascript:history.back()"><i class="fe fe-arrow-left mr-2"></i>Go back</a>
-              <?php echo $cnmrow['cID'];?> : <?php echo $cnmrow['courseName'];?> - Lecture <?php echo $lecNum; ?> <small class="text-right"></small>
+              <?php echo $cnmrow['cID'];?> : <?php echo strtoupper($cnmrow['courseName']);?> - Lecture <?php echo $lecNum; ?> <small class="text-right"></small>
           </h1>
         </div>
         <div class="row">

@@ -38,7 +38,7 @@ if(isset($_POST['signIn'])){
                 foreach($student as $studentrow){}
 
                 //GET ACTIVES TESTS....
-                $active = select("SELECT * FROM test WHERE status='active'");
+                $active = select("SELECT * FROM test WHERE status='active' AND level='".$studentrow['level']."'");
                 if($active){
                     foreach($active as $activerow){
                         $activeCID = $activerow['cID'];
@@ -133,7 +133,9 @@ $success = "<script>document.write('ACTIVE TEST AVAILABLE, REDIRECTING NOW...');
           <div class="row">
             <div class="col col-login mx-auto">
               <div class="text-center mb-6">
-                  <span style="font-weight:bolder; font-size:160%; color:#2d89ef;"><img src="./favicon.ico" class="h-6" alt="">  E-LEARNING </span>
+                  <span style="font-weight:bolder; font-size:160%; color:#2d89ef;">
+<!--                      <img src="./favicon.ico" class="h-6" alt="">  -->
+                      E-LEARNING </span>
                   <span style="font-weight:bolder; font-size:160%;"> SYSTEM</span>
               </div>
               <form class="card form" method="post">
