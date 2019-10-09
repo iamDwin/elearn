@@ -39,6 +39,8 @@ if(isset($_POST['uploadCO'])){
                 $file_destination = $DOC_UPLOAD.$file_name_new;
                 //check if file has been loaded earlier and move it from temporary location into folder
                 if(move_uploaded_file($file_tmp,$file_destination)){
+
+
         //check for existing outline...
         $getoutline = select("SELECT * FROM outline WHERE cID='$cid'");
         if(count($getoutline) >= 1){
@@ -50,6 +52,9 @@ if(isset($_POST['uploadCO'])){
     if($saveoutline){
         $success = "<script>document.write('FILE UPLOAD SUCCESSFULL.');window.location.href='".$_SESSION['current_page']."'</script>";
     }
+
+
+
                 }else{
                    $error = "<script>document.write('FILE NOT MOVED, TRY AGAIN');</script>";
                 }

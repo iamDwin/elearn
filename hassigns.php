@@ -5,7 +5,7 @@ include 'layout/header.php';
 if(isset($_POST['addAssign'])){
     //COUNT NUMBER OD COURSE AND LEC...
     $numcid = count($_POST['cID']);
-    $numlecid = count($_POST['cID']);
+    $numlecid = count($_POST['lecID']);
 
     if($numcid > 0 && $numlecid > 0){
         for($c = 0, $l = 0; $c < $numcid, $l < $numcid; $c++, $l++){
