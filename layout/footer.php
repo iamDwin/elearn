@@ -77,34 +77,17 @@
       </footer>
 </div>
 <!-- jQuery 3 -->
-<!--<script src="./bower_components/jquery/dist/jquery.min.js"></script>-->
-<!-- Bootstrap 3.3.7 -->
-<!--<script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>-->
-<!-- DataTables -->
-<!--<script src="./bower_components/datatables.net/js/jquery.dataTables.min.js"></script>-->
-<!--<script src="./bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>-->
+<!--
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+-->
 <script>
-//$(document).ready(function() {
-    // show the alert
     setTimeout(function() {
         $(".alert").alert('close');
     }, 8000);
-//});
+
+  //  $('#example').DataTable();
 </script>
-<!--
-<script>
-  $(function () {
-    $('#example1').DataTable()
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
-  })
-</script>
--->
   </body>
 </html>

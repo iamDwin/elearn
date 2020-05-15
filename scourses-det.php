@@ -75,17 +75,47 @@ if(isset($_POST['sendMessage'])){
           <h1 class="page-title"><i class="fe fe-hash"></i> <?php echo $crow['cID'];?> : <?php echo strtoupper($crow['courseName']);?></h1>
         </div>
         <div class="row">
+            <div class="col-md-6 col-xl-4">
+                <div class="card p-3">
+                  <div class="d-flex align-items-center">
+                      <div id="leconlimne"></div>
+                    <div>
+                <h4 class="m-0"> Lecturer : <?php echo $lectdetrow['lastName']." ".$lectdetrow['firstName']." ".$lectdetrow['otherName'];?></h4>
+                    </div>
+                  </div>
+                </div>
 
+            <div class="card">
+                <div class="card-body">
+                  <form class="form" method="post" enctype="multipart/form-data" onsubmit="return confirm('SEND MESSAGE ?');" >
+                    <div class="form-group">
+                      <input type="text" name="heading" class="form-control" placeholder="Heading..."/>
+                    </div>
+                    <div class="form-group">
+                      <textarea class="form-control" placeholder="Message..." name="message" rows="3"></textarea>
+                    </div>
+                    <div class="form-footer">
+                        <div class="row">
+                            <div class="col-md-12">
+                      <button type="submit" name="sendMessage" class="btn btn-primary btn-block">SEND MESSAGE <i class="fe fe-send"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              </div>
 
             <div class="col-md-6 col-xl-8">
-                <!--===================== START REQUIRED READING ==============================-->
-                <div class="card card-collapseds" style="margin-top:5px;">
+        <!--===================== START REQUIRED READING ==============================-->
+                <div class="card card-collapseds">
                     <div class="card-status bg-blue"></div>
                   <div class="card-header">
                     <h3 class="card-title"> COURSE OUTLINE & REQUIRED READINGS </h3>
                     <div class="card-options">
-                      <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
-                      <a href="#" class="card-options-fullscreen" data-toggle="card-fullscreen"><i class="fe fe-maximize"></i></a>
+<!--                <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>-->
+<!--                <a href="#" class="card-options-fullscreen" data-toggle="card-fullscreen"><i class="fe fe-maximize"></i></a>-->
                     </div>
                   </div>
 
@@ -161,7 +191,7 @@ if(isset($_POST['sendMessage'])){
                 if($allLec){
                     foreach($allLec as $lecrow){
                 ?>
-                <div class="card card-collapsed" style="margin-top:5px;">
+                <div class="card card-collapseds" style="margin-top:5px;">
                     <div class="card-status bg-blue"></div>
                   <div class="card-header">
                 <h3 class="card-title"> Lecture <?php echo $lecrow['lecNum']; ?> - <?php echo $lecrow['lecTitle']; ?>.</h3>
@@ -203,11 +233,13 @@ if(isset($_POST['sendMessage'])){
                             <?php }?>
                         <?php }}else{?>
 
+<!--
                         <div class="card">
                           <div class="card-body" style="padding:5px;">
                               <h6> NO MEDIA FOR THIS LECTURE.</h6>
                           </div>
                         </div>
+-->
                             <?php }?>
                       </div>
 
@@ -235,7 +267,7 @@ if(isset($_POST['sendMessage'])){
                   </div>
                 </div>
                 <?php }}else{?>
-                 <div class="card card-collapsed" style="margin-top:5px;">
+                 <div class="card card-collapseds" style="margin-top:5px;">
                     <div class="card-status bg-red"></div>
                   <div class="card-header">
                     <h3 class="card-title">NO LECTURE MATERIALS UPLOADED FOR THIS COURSE</h3>
@@ -245,43 +277,10 @@ if(isset($_POST['sendMessage'])){
                 <!--===================== END COURSE CONTENT ==============================-->
 
               </div>
-
-
-              <div class="col-md-6 col-xl-4">
-                <div class="card p-3">
-                  <div class="d-flex align-items-center">
-                      <div id="leconlimne"></div>
-                    <div>
-                <h4 class="m-0"> Lecturer : <?php echo $lectdetrow['lastName']." ".$lectdetrow['firstName']." ".$lectdetrow['otherName'];?></h4>
-                    </div>
-                  </div>
-                </div>
-
-            <div class="card">
-                <div class="card-body">
-                  <form class="form" method="post" enctype="multipart/form-data" onsubmit="return confirm('SEND MESSAGE ?');" >
-                    <div class="form-group">
-                      <input type="text" name="heading" class="form-control" placeholder="Heading..."/>
-                    </div>
-                    <div class="form-group">
-                      <textarea class="form-control" placeholder="Message..." name="message" rows="3"></textarea>
-                    </div>
-                    <div class="form-footer">
-                        <div class="row">
-                            <div class="col-md-12">
-                      <button type="submit" name="sendMessage" class="btn btn-primary btn-block">SEND MESSAGE <i class="fe fe-send"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-
-              </div>
-              </div>
         </div>
     </div>
 </div>
+<!--</div>-->
 <script>
     function dis(){
         xmlhttp=new XMLHttpRequest();

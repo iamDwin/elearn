@@ -9,7 +9,7 @@ if(isset($_GET['test'])){
     if($updateonline){
         session_unset();
         session_destroy();
-        echo "<script>window.location='index';</script>";
+        echo "<script>window.location='index2';</script>";
     }
 }else{
     //set offline status
@@ -18,7 +18,7 @@ if(isset($_GET['test'])){
     if($updateonline){
         session_unset();
         session_destroy();
-        echo "<script>window.location='index';</script>";
+        echo "<script>window.location='index2';</script>";
     }
 }
 

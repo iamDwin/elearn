@@ -71,9 +71,10 @@ if(isset($_POST['addFac'])){
                       <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> <?php echo $error;?>
                     </div>
                 <?php } ?>
-                <div class="card">
-                  <div class="table-responsive">
-                    <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+                <div class="ddcard">
+                  <div class="table-responsive" style="border:1px solid #eee; padding:8px;">
+                    <table id="example" class="table table-hover table-outline table-vcenter text-nowrap card-table">
+<!--                      <table id="example" class="table table-striped table-bordered" style="width:100%">-->
                       <thead>
                         <tr>
                           <th><i class="fe fe-hash"></i> ID</th>
@@ -103,7 +104,7 @@ if(isset($_POST['addFac'])){
                               <a href="./updfaculty?fid=<?php echo $facRow['facID'];?>" class="btn btn-info btn-sm text-white"><i class="fe fe-file-text"></i> Details</a>
 <!--
                               ||
-                              <a onclick="return confirm('CONFIRM DELETE');" href="./delfaculty?fid=<?php echo $facRow['facID'];?>" class="btn btn-danger btn-sm text-white disabled"><i class="fe fe-trash"></i> Trash</a>
+                              <a onclick="return confirm('CONFIRM DELETE');" href="./delfaculty?fid=<?php// echo $facRow['facID'];?>" class="btn btn-danger btn-sm text-white disabled"><i class="fe fe-trash"></i> Trash</a>
 -->
                           </td>
                         </tr>
@@ -116,5 +117,4 @@ if(isset($_POST['addFac'])){
         </div>
     </div>
 </div>
-
 <?php include 'layout/footer.php'; ?>

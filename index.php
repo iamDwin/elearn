@@ -34,7 +34,7 @@ if(isset($_POST['signIn'])){
                 if($_SESSION['access'] == 'student'){
 
                 //get student details..
-                $student = select("SELECT * FROM student WHERE email='".$_SESSION['email']."' ");
+                $student = select("select * from student WHERE email='".$_SESSION['email']."' ");
                 foreach($student as $studentrow){}
 
                 //GET ACTIVES TESTS....
@@ -133,7 +133,7 @@ $success = "<script>document.write('ACTIVE TEST AVAILABLE, REDIRECTING NOW...');
           <div class="row">
             <div class="col col-login mx-auto">
               <div class="text-center mb-6">
-                  <span style="font-weight:bolder; font-size:160%; color:#2d89ef;">
+                  <span style="font-weight:bolder; font-size:160%; color:#17c700;">
 <!--                      <img src="./favicon.ico" class="h-6" alt="">  -->
                       E-LEARNING </span>
                   <span style="font-weight:bolder; font-size:160%;"> SYSTEM</span>
@@ -164,7 +164,7 @@ $success = "<script>document.write('ACTIVE TEST AVAILABLE, REDIRECTING NOW...');
                     <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
                   </div>
                   <div class="form-footer">
-                    <button type="submit" name="signIn" class="btn btn-primary btn-block">SIGN IN <i class="fe fe-chevrons-right"></i></button>
+                    <button type="submit" name="signIn" class="btn btn-success btn-block">SIGN IN <i class="fe fe-log-in"></i></button>
                   </div>
                 </div>
               </form>

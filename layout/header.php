@@ -1,8 +1,17 @@
 <?php
 include ('assets/core/connection.php');
-if(!$_SESSION['email'] && !$_SESSION['password'] && !$_SESSION['access']){
-    echo "<script>window.location.href='index'</script>";
-}else{
+if(isset($_SESSION['userID'])){
+  $result = select("select * from user_token where userID='".$_SESSION['userID']."' ");
+
+  if(count($result) > 0) {
+      foreach($result as $row){
+          $token = $row['token'];
+      }
+
+   if($_SESSION['token'] != $token){
+    session_destroy();
+    echo "<script>window.location.href='index2'</script>";
+   }else{
 
     if($_SESSION['access'] == 'manager'){
             $getuser = select("SELECT * FROM users WHERE email='".$_SESSION['email']."'");
@@ -16,6 +25,13 @@ if(!$_SESSION['email'] && !$_SESSION['password'] && !$_SESSION['access']){
     }
 
 }
+  }
+}else{
+    session_destroy();
+    echo "<script>window.location.href='index2'</script>";
+}
+
+
 
 $dateToday = date("Y-m-d H:i:s");
 $faculty = new Faculty();
@@ -95,7 +111,7 @@ if($msg <= 0){
     <!-- Generated: 2018-04-16 09:29:05 +0200 -->
     <title> eLearning</title>
     <link rel="stylesheet" href="./assets/css/font-awesome2.css">
-        <!--   Core JS Files   -->
+    <!--   Core JS Files   -->
     <script src="./assets/js/require.min.js"></script>
     <script>
       requirejs.config({
@@ -105,7 +121,6 @@ if($msg <= 0){
     <!-- Dashboard Core -->
     <link href="./assets/css/dashboard.css" rel="stylesheet" />
     <script src="./assets/js/dashboard.js"></script>
-
     <!-- c3.js Charts Plugin -->
     <link href="./assets/plugins/charts-c3/plugin.css" rel="stylesheet" />
     <script src="./assets/plugins/charts-c3/plugin.js"></script>
@@ -114,9 +129,8 @@ if($msg <= 0){
     <script src="./assets/plugins/maps-google/plugin.js"></script>
     <!-- Input Mask Plugin -->
     <script src="./assets/plugins/input-mask/plugin.js"></script>
-    <script src="./assets/js/jquery.min.js"></script>
   <!-- DataTables -->
-<!--  <link rel="stylesheet" href="./bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">-->
+<!--<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">-->
 <style>
     .text-white{
         color: white;
@@ -152,11 +166,11 @@ if($msg <= 0){
               </a>
               <div class="d-flex order-lg-2 ml-auto">
                 <div class="dropdown">
-                  <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
+                  <a href="javascript:void(0)" class="nav-link pr-0 leading-none" data-toggle="dropdown">
                     <span class="avatar"><i class="fe fe-user"></i></span>
                     <span class="ml-2 d-none d-lg-block">
                       <span class="text-default"><?php echo $userDet['userID'];?></span>
-                      <small class="text-muted d-block mt-1 capital"><?php echo $userDet['access'];?></small>
+                      <small class="text-muted d-block mt-1 capital"><?php echo $userDet['firstName'];?></small>
                     </span>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
@@ -168,13 +182,12 @@ if($msg <= 0){
 -->
                       <?php }?>
                       <?php if($access != 'manager' && $access != 'hod' ){ ?>
-                    <a class="dropdown-item" href="./inbox" style="<?php if(@$_SESSION['testactive'] == 'active'){ echo "display:none;";}?>">
-                      <span class="float-right"><span class="badge badge-primary"><?php echo $msgs;?></span></span>
-                      <i class="dropdown-icon fe fe-mail"></i> Inbox
-                    </a>
-                      <?php }?>
-                       <?php if($access !== 'manager'){ ?>
-                    <div class="dropdown-divider" style="<?php if(@$_SESSION['testactive'] == 'active'){ echo "display:none;";}?>"></div>
+                        <a class="dropdown-item" href="./inbox" style="<?php if(@$_SESSION['testactive'] == 'active'){ echo "display:none;";}?>">
+                                <span class="float-right">
+                                  <span class="badge badge-primary"><?php echo $msgs;?></span>
+                                </span>
+                                <i class="dropdown-icon fe fe-mail"></i> INBOX
+                        </a>
                       <?php }?>
 <!--
                     <a class="dropdown-item" href="#">
@@ -189,7 +202,7 @@ if($msg <= 0){
 -->
                       <?php }?>
                     <a class="dropdown-item" href="./logout">
-                      <i class="dropdown-icon fe fe-log-out"></i> Sign out
+                      <i class="dropdown-icon fe fe-log-out"></i> SIGN OUT
                     </a>
                   </div>
                 </div>
@@ -201,9 +214,9 @@ if($msg <= 0){
           </div>
         </div>
 
-<?php if($access == 'manager'){ ?>
-          <!-- ================================== START IT MANAGER NAVBAR ==============================================  -->
-        <div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
+          <?php if($access == 'manager'){ ?>
+    <!-- ================================== START IT MANAGER NAVBAR ==============================================  -->
+            <div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
           <div class="container">
             <div class="row align-items-center">
               <div class="col-lg-3 ml-auto">
@@ -234,15 +247,23 @@ if($msg <= 0){
                   <li class="nav-item">
                     <a href="./mreports" class="nav-link <?php if($active == 'mreports'){ echo 'active';}?>"><i class="fe fe-folder"></i> Report</a>
                   </li>
+                  <li class="nav-item">
+                    <a  href="./logout" class="nav-link pull-right"><i class="dropdown-icon fe fe-log-out"></i> Sign out</a>
+                  </li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
-          <!-- ===================================== END IT MANAGER NAVBAR =====================================   -->
+    <!-- ===================================== END IT MANAGER NAVBAR =====================================   -->
 
-<?php } if($access == 'hod'){ ?>
-          <!-- ================================== START HOD NAVBAR ==============================================  -->
+
+
+
+
+
+          <?php } if($access == 'hod'){ ?>
+    <!-- ================================== START HOD NAVBAR ==============================================  -->
         <div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
           <div class="container">
             <div class="row align-items-center">
@@ -287,18 +308,24 @@ if($msg <= 0){
                       <a href="./hstudent-report" class="dropdown-item ">STUDENTS REPORTS</a>
                     </div>
                   </li>
+
+                 <li class="nav-item">
+                    <a  href="./logout" class="nav-link pull-right"><i class="dropdown-icon fe fe-log-out"></i> Sign out</a>
+                  </li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
-          <!-- ===================================== END HOD NAVBAR =================================================   -->
+    <!-- ===================================== END HOD NAVBAR =================================================   -->
 
 
-          <!-- ================================== START LECTURER NAVBAR ==============================================  -->
-<?php } if($access == 'lecturer'){ ?>
 
-        <div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
+
+    <!-- ================================== START LECTURER NAVBAR ==============================================  -->
+          <?php } if($access == 'lecturer'){ ?>
+
+            <div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
           <div class="container">
             <div class="row align-items-center">
               <div class="col-lg-3 ml-auto">
@@ -328,6 +355,10 @@ if($msg <= 0){
                             <i class="fe fe-mail"></i> Messages <?php if(!empty($msgs)){ echo "- ".$msgs; }?>
                         </a>
                   </li>
+
+                <li class="nav-item">
+                    <a  href="./logout" class="nav-link pull-right"><i class="dropdown-icon fe fe-log-out"></i> Sign out</a>
+                  </li>
 <!--
                   <li class="nav-item">
                     <a href="./lreports" class="nav-link <?php // if($active == 'lreports'){ echo 'active';}?>"><i class="fe fe-folder"></i> Reports</a>
@@ -338,14 +369,12 @@ if($msg <= 0){
             </div>
           </div>
         </div>
-          <!-- ===================================== END LECTURER NAVBAR ===========================================   -->
-
-<?php } if($access == 'student'){ ?>
+    <!-- ===================================== END LECTURER NAVBAR ===========================================   -->
 
 
 
-
-          <!-- ================================== START STUDENT NAVBAR ==============================================  -->
+          <?php } if($access == 'student'){ ?>
+    <!-- ================================== START STUDENT NAVBAR ==============================================  -->
         <div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
           <div class="container">
             <div class="row align-items-center"  style="<?php if(@$_SESSION['testactive'] == 'active'){ echo "display:none;";}?>">
@@ -387,10 +416,15 @@ if($msg <= 0){
                             <i class="fe fe-mail"></i> Messages <?php if(!empty($msgs)){ echo "- ".$msgs; }?>
                         </a>
                   </li>
+
                   <li class="nav-item">
-                    <a href="./student-report" class="nav-link <?php if($active == 'sreports'){ echo 'active';}?>"><i class="fe fe-folder"></i> Reports</a>
+                    <a href="./student-report" class="nav-link <?php if($active == 'sreports'){ echo 'active';}?>">
+                        <i class="fe fe-folder"></i> Reports</a>
                   </li>
 
+                    <li class="nav-item">
+                        <a  href="./logout" class="nav-link pull-right"><i class="dropdown-icon fe fe-log-out"></i> Sign out</a>
+                    </li>
                 </ul>
               </div>
             </div>
@@ -398,11 +432,13 @@ if($msg <= 0){
         </div>
 
         <div id="testactive"></div>
+    <!-- ===================================== END STUDENT NAVBAR ===========================================   -->
+          <?php }?>
 
-          <!-- ===================================== END STUDENT NAVBAR ===========================================   -->
 
-<?php }?>
-          <!-- ==============================================================================================================   -->
+
+
+    <!-- ==============================================================================================================   -->
 <!--
         <div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
           <div class="container">

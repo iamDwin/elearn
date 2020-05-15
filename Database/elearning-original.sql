@@ -228,6 +228,15 @@ create table `assignment_answers`(
     `doe` timestamp
 )engine = InnoDB;
 
+/*
+    ADDED 14TH APRIL 2020 11:22 AM
+*/
+CREATE TABLE `user_token` (
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `userID` varchar(80) NOT NULL,
+  `token` varchar(80) NOT NULL,
+  `timemodified` timestamp NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 
 

@@ -18,7 +18,7 @@ if(isset($_POST['changepass'])){
         if($password === $cpassword){
             $updateuser = update("UPDATE users SET password='$password',flogin='2' WHERE email='$email'");
             if($updateuser){
-                $success = "<script>alert('PASSWORD CHANGED, LOGIN NOW.!');window.location.href='./index';</script>";
+                $success = "<script>alert('PASSWORD CHANGED, LOGIN NOW.!');window.location.href='./index2';</script>";
             }else{
                 $error = "<script>document.write('PASSWORDS CHANGE FAILED, TRY AGAIN');</script>";
             }

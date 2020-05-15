@@ -112,7 +112,8 @@ if(isset($_POST['crtaccount'])){
             <div class="col col-longin mx-auto">
 
               <div class="text-center mb-6">
-                  <span style="font-weight:bolder; font-size:160%; color:#2d89ef;"><img src="./favicon.ico" class="h-6" alt="">  E-LEARNING </span>
+<!--                  <span style="font-weight:bolder; font-size:160%; color:#2d89ef;"> E-LEARNING </span>-->
+                  <span style="font-weight:bolder; font-size:160%; color:#17c700;"> E-LEARNING </span>
                   <span style="font-weight:bolder; font-size:160%;"> SYSTEM</span>
               </div>
                  <?php if($error){ ?>
@@ -243,7 +244,7 @@ if(isset($_POST['crtaccount'])){
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">.</label>
-                                <button type="submit" name="crtaccount" class="btn btn-primary btn-block">Create Account <i class="fe fe-user-check"></i> </button>
+                                <button type="submit" name="crtaccount" class="btn btn-success btn-block">Create Account <i class="fe fe-user-check"></i> </button>
                               </div>
                         </div>
                     </div>
@@ -269,7 +270,7 @@ if(isset($_POST['crtaccount'])){
                 </div>
               </form>
 
-              <div class="text-center text-muted">
+              <div class="text-center text-success text-muted">
                 Already have account? <a href="./index">Sign in</a>
               </div>
             </div>
@@ -287,15 +288,10 @@ function facdep(val){
    });
 }
 </script>
-<!--
 <script>
-//$(document).ready(function() {
-    // show the alert
     setTimeout(function() {
         $(".alert").alert('close');
     }, 8000);
-//});
 </script>
--->
   </body>
 </html>

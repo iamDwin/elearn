@@ -92,7 +92,7 @@ function make_dir($cid){
     }
 }
 
-
+//generate time to go for courses and assigments....
 function timeago($date){
     $timestamp = strtotime($date);
 
@@ -114,6 +114,21 @@ function timeago($date){
         }
 
     }
+}
+
+//Generate token...
+function getToken($length){
+ $token = "";
+ $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+ $codeAlphabet.= "abcdefghijklmnopqrstuvwxyz";
+ $codeAlphabet.= "0123456789";
+ $max = strlen($codeAlphabet); // edited
+
+ for ($i=0; $i < $length; $i++) {
+  $token .= $codeAlphabet[random_int(0, $max-1)];
+ }
+
+ return $token;
 }
 
 ?>
